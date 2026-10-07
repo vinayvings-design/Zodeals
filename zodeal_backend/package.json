@@ -1,0 +1,53 @@
+{
+  "name": "zodeals",
+  "version": "1.0.0",
+  "description": "This is project to help vendor to market their product coupon code and product link.",
+  "type": "module",
+  "main": "ZoDeals.Server.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/ZoDeals.Server.js",
+    "dev": "tsx watch ZoDeals.Server.ts"
+  },
+  "author": "simanchala",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.3.0",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.14.2",
+    "multer": "^1.4.5-lts.2",
+    "node-cache": "^5.1.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.10.1",
+    "qrcode": "^1.5.4",
+    "razorpay": "^2.9.6",
+    "sib-api-v3-sdk": "^8.5.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.9.36",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.18",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/mongoose": "^5.11.96",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.15.17",
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^6.4.17",
+    "@types/qrcode": "^1.5.5",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^3.12.7",
+    "typescript": "^5.8.3"
+  }
+}

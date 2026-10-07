@@ -1,0 +1,142 @@
+/* ─── Inter font fallback ─────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  background-color: #F5F7FA;
+}
+
+/* ─── Sidebar ─────────────────────────────────── */
+.sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #0F1B35 0%, #0d1a30 100%);
+  color: #fff;
+  transition: width 0.25s ease;
+  overflow: hidden;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  min-height: 70px;
+}
+
+.sidebar-logo { width: 40px; height: 40px; margin-right: 8px; }
+.sidebar-title { font-size: 17px; font-weight: 800; color: #fff; text-align: center; font-family: 'Inter', sans-serif; }
+
+/* ─── Header ─────────────────────────────────── */
+.header {
+  background: #fff !important;
+  color: #0F1B35;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #E8ECF4;
+  box-shadow: 0 1px 0 #E8ECF4, 0 2px 12px rgba(15,27,53,0.05);
+}
+
+/* ─── Menu ─────────────────────────────────── */
+.custom-menu {
+  background: transparent !important;
+  border-right: none !important;
+  padding: 8px 10px;
+}
+
+.custom-menu .ant-menu-item {
+  color: rgba(255,255,255,0.65) !important;
+  background: transparent !important;
+  transition: all 0.2s ease;
+  border-radius: 10px !important;
+  margin: 3px 0 !important;
+  padding: 0 12px !important;
+  line-height: 38px !important;
+  height: 42px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  position: relative;
+}
+
+.custom-menu .ant-menu-item:hover {
+  background: rgba(255,255,255,0.07) !important;
+  color: #fff !important;
+}
+
+.custom-menu .ant-menu-item-selected {
+  background: rgba(255,107,53,0.15) !important;
+  color: #FF6B35 !important;
+  font-weight: 700 !important;
+}
+
+/* Orange left accent bar for selected item */
+.custom-menu .ant-menu-item-selected::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 6px; bottom: 6px;
+  width: 3px;
+  background: #FF6B35;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-menu .ant-menu-item a {
+  text-decoration: none;
+  color: inherit !important;
+  font-family: 'Inter', sans-serif;
+}
+
+.custom-menu .ant-menu-item-selected a {
+  color: #FF6B35 !important;
+  font-weight: 700;
+}
+
+/* ─── Icons in menu ─────────────────────────── */
+.custom-menu .ant-menu-item .anticon {
+  font-size: 16px !important;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+.custom-menu .ant-menu-item:hover .anticon,
+.custom-menu .ant-menu-item-selected .anticon {
+  opacity: 1;
+}
+
+/* ─── Sider trigger ─────────────────────────── */
+.ant-layout-sider-trigger {
+  background: rgba(255,255,255,0.06) !important;
+  border: none !important;
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+  transition: background 0.2s !important;
+}
+.ant-layout-sider-trigger:hover {
+  background: rgba(255,107,53,0.15) !important;
+}
+.ant-layout-sider-trigger > .anticon { color: rgba(255,255,255,0.6) !important; }
+.ant-layout-sider-collapsed .ant-layout-sider-trigger { border-radius: 0 !important; }
+
+/* ─── Content area ─────────────────────────── */
+.content {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(15,27,53,0.04), 0 4px 12px rgba(15,27,53,0.06);
+}
+
+/* ─── Drawer close ─────────────────────────── */
+.ant-drawer-close { color: rgba(255,255,255,0.6) !important; }
+
+/* ─── Responsive ─────────────────────────── */
+@media (max-width: 768px) {
+  .custom-menu .ant-menu-item a {
+    display: flex;
+    justify-content: center;
+  }
+  .sidebar-title { display: none; }
+}
