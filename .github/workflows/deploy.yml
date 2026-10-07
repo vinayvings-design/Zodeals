@@ -1,0 +1,93 @@
+name: Deploy to VPS on Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Hostinger VPS (smart incremental)
+        run: |
+          ssh -o StrictHostKeyChecking=no root@82.29.165.84 << 'EOF'
+          set -e
+
+          cd /var/www/zoDeals/
+
+          echo "Capturing current commit"
+          OLD_COMMIT=$(git rev-parse HEAD)
+
+          echo "Pulling latest code"
+          git pull origin main
+
+          NEW_COMMIT=$(git rev-parse HEAD)
+
+          echo "Checking changed files between $OLD_COMMIT and $NEW_COMMIT"
+          CHANGED_FILES=$(git diff --name-only $OLD_COMMIT $NEW_COMMIT)
+
+          echo "$CHANGED_FILES"
+
+          # -------- ADMIN FRONTEND --------
+          if echo "$CHANGED_FILES" | grep -q "^zodeals_admin/"; then
+            echo "Building admin frontend"
+            cd zodeals_admin
+            npm ci
+            npm run build
+            cd ..
+          else
+            echo "Skipping admin frontend (no changes)"
+          fi
+
+          # -------- USER FRONTEND --------
+          if echo "$CHANGED_FILES" | grep -q "^zodeals_userfrontend/"; then
+            echo "Building user frontend"
+            cd zodeals_userfrontend
+            npm ci
+            npm run build
+            cd ..
+          else
+            echo "Skipping user frontend (no changes)"
+          fi
+
+          # -------- VENDOR FRONTEND --------
+          if echo "$CHANGED_FILES" | grep -q "^zodeals_vendor/"; then
+            echo "Building vendor frontend"
+            cd zodeals_vendor
+            npm ci
+            npm run build
+            cd ..
+          else
+            echo "Skipping vendor frontend (no changes)"
+          fi
+
+          # -------- BACKEND --------
+          if echo "$CHANGED_FILES" | grep -q "^zodeal_backend/"; then
+            echo "Building & reloading backend"
+            cd zodeal_backend
+            npm ci
+            npm run build
+            pm2 reload zodeals-backend --update-env
+            pm2 save
+            cd ..
+          else
+            echo "Skipping backend (no changes)"
+          fi
+
+          echo "Incremental deployment completed"
+          EOF
