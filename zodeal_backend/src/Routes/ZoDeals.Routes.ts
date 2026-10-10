@@ -26,6 +26,13 @@ import {
 } from "../Controllers/Category.Controller.js";
 import { dynamicUpload, createStorage } from "../Middleware/Upload.js";
 import {
+  deleteBannerController,
+  getActiveBannersController,
+  getAllBannersController,
+  saveBannerController,
+  updateBannerController,
+} from "../Controllers/Banner.Controller.js";
+import {
   getNotificationCountController,
   getNotificationsByUserIdController,
   sendNotificationController,
@@ -139,6 +146,22 @@ router.patch(
 );
 router.delete("/admin/category/:id", adminAuth, deleteCategoryController);
 router.get("/category", getCategoryController);
+//hero banners
+router.get("/banners", getActiveBannersController);
+router.get("/admin/banners", adminAuth, getAllBannersController);
+router.post(
+  "/admin/banner",
+  adminAuth,
+  dynamicUpload("image", "BannerImages", false),
+  saveBannerController
+);
+router.patch(
+  "/admin/banner/:id",
+  adminAuth,
+  dynamicUpload("image", "BannerImages", false),
+  updateBannerController
+);
+router.delete("/admin/banner/:id", adminAuth, deleteBannerController);
 router.post(
   "/admin/notification",
   adminAuth,
