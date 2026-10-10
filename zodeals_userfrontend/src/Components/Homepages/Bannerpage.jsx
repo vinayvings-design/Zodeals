@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {
   BadgePercent, ChevronRight, ChevronLeft, CircleCheck,
   Sparkles, Star, Shirt, Zap,
 } from 'lucide-react';
+import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { hosturl } from '../libs/Constant';
 import heroShopping  from '../../assets/images/deals-hero-shopping.png';
 import bgFashion      from '../../assets/images/bg_womens_fashion.jpg';
 import bgElectronics  from '../../assets/images/bg_electronics.jpg';
@@ -130,6 +132,59 @@ const SLIDES = [
   },
 ];
 
+/* ─── Admin-managed banners ────────────────────────────────── */
+// Admin banners reuse the look of the three built-in slides, chosen by colour theme.
+const THEME_BASE = { orange: SLIDES[0], purple: SLIDES[1], blue: SLIDES[2] };
+
+// Only in-site paths and http(s) links are ever followed.
+const isSafeLink = (link) => {
+  if (typeof link !== 'string' || !link) return false;
+  if (link.startsWith('/') && !link.startsWith('//')) return true;
+  return /^https?:\/\//i.test(link);
+};
+
+const buildHeadline = (headline, accentText) => {
+  const idx = accentText ? headline.indexOf(accentText) : -1;
+  if (idx === -1) return headline;
+  return (
+    <>
+      {headline.slice(0, idx)}
+      <span className="hero-accent">{accentText}</span>
+      {headline.slice(idx + accentText.length)}
+    </>
+  );
+};
+
+const buildSlideFromBanner = (b) => {
+  const base = THEME_BASE[b.theme] || SLIDES[0];
+  return {
+    id: b._id,
+    badge: b.badge || '',
+    badgeBg: base.badgeBg,
+    badgeIcon: base.badgeIcon,
+    headline: buildHeadline(b.headline, b.accentText),
+    alt: b.headline,
+    accentColor: base.accentColor,
+    accentGrad: base.accentGrad,
+    subtitle: b.subtitle || '',
+    ctaPrimary: b.primaryLabel && isSafeLink(b.primaryLink) ? { label: b.primaryLabel, path: b.primaryLink } : null,
+    ctaSecondary: b.secondaryLabel && isSafeLink(b.secondaryLink) ? { label: b.secondaryLabel, path: b.secondaryLink } : null,
+    ctaPrimaryGrad: base.ctaPrimaryGrad,
+    ctaPrimaryGradHover: base.ctaPrimaryGradHover,
+    ctaPrimaryShadow: base.ctaPrimaryShadow,
+    ctaSecondaryBorder: base.ctaSecondaryBorder,
+    badges: [],
+    bg: base.bg,
+    dotGrid: base.dotGrid,
+    blob: base.blob,
+    heroImg: `${hosturl}${b.image}`,
+    isBgImg: true,
+    isRemoteImg: true,
+    floatCard1: null,
+    floatCard2: null,
+  };
+};
+
 /* ─── Custom arrow buttons ─────────────────────────────────── */
 const ArrowBtn = ({ onClick, direction }) => (
   <Box
@@ -159,7 +214,12 @@ const ArrowBtn = ({ onClick, direction }) => (
 );
 
 /* ─── Single slide ─────────────────────────────────────────── */
-const HeroSlide = ({ slide, navigate }) => (
+const HeroSlide = ({ slide, navigate }) => {
+  const go = (path) => {
+    if (path.startsWith('/')) navigate(path);
+    else window.open(path, '_blank', 'noopener,noreferrer');
+  };
+  return (
   <Box sx={{
     position: 'relative', overflow: 'hidden',
     background: slide.bg,
@@ -190,6 +250,7 @@ const HeroSlide = ({ slide, navigate }) => (
         {/* LEFT */}
         <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
           {/* Badge */}
+          {slide.badge && (
           <Box sx={{
             display: 'inline-flex', alignItems: 'center', gap: 0.8,
             bgcolor: slide.badgeBg, color: '#fff',
@@ -201,6 +262,7 @@ const HeroSlide = ({ slide, navigate }) => (
               {slide.badge}
             </Typography>
           </Box>
+          )}
 
           {/* Headline */}
           <Typography component="h1" sx={{
@@ -222,6 +284,7 @@ const HeroSlide = ({ slide, navigate }) => (
           </Typography>
 
           {/* Subtitle */}
+          {slide.subtitle && (
           <Typography sx={{
             color: '#4A5568', fontSize: { xs: 14, md: 16 },
             maxWidth: 500, mx: { xs: 'auto', md: 0 },
@@ -230,15 +293,18 @@ const HeroSlide = ({ slide, navigate }) => (
           }}>
             {slide.subtitle}
           </Typography>
+          )}
 
           {/* CTAs */}
+          {(slide.ctaPrimary || slide.ctaSecondary) && (
           <Box sx={{
             display: 'flex', gap: 1.5,
             justifyContent: { xs: 'center', md: 'flex-start' },
             flexWrap: 'wrap', mb: 3.5,
           }}>
+            {slide.ctaPrimary && (
             <Button
-              onClick={() => navigate(slide.ctaPrimary.path)}
+              onClick={() => go(slide.ctaPrimary.path)}
               sx={{
                 background: slide.ctaPrimaryGrad,
                 color: '#fff', fontWeight: 800, fontSize: 14,
@@ -256,8 +322,10 @@ const HeroSlide = ({ slide, navigate }) => (
             >
               {slide.ctaPrimary.label} <ChevronRight size={16} style={{ marginLeft: 2 }} />
             </Button>
+            )}
+            {slide.ctaSecondary && (
             <Button
-              onClick={() => navigate(slide.ctaSecondary.path)}
+              onClick={() => go(slide.ctaSecondary.path)}
               sx={{
                 color: slide.ctaSecondaryBorder,
                 border: `2px solid ${slide.ctaSecondaryBorder}`,
@@ -275,9 +343,12 @@ const HeroSlide = ({ slide, navigate }) => (
             >
               {slide.ctaSecondary.label}
             </Button>
+            )}
           </Box>
+          )}
 
           {/* Trust badges */}
+          {slide.badges.length > 0 && (
           <Box sx={{
             display: 'flex',
             justifyContent: { xs: 'center', md: 'flex-start' },
@@ -292,6 +363,7 @@ const HeroSlide = ({ slide, navigate }) => (
               </Box>
             ))}
           </Box>
+          )}
         </Box>
 
         {/* RIGHT: image */}
@@ -302,7 +374,8 @@ const HeroSlide = ({ slide, navigate }) => (
           <Box
             component="img"
             src={slide.heroImg}
-            alt={slide.badge}
+            alt={slide.alt || slide.badge || ''}
+            crossOrigin={slide.isRemoteImg ? 'anonymous' : undefined}
             sx={slide.isBgImg ? {
               position: 'absolute',
               width: '110%', maxWidth: 580,
@@ -322,6 +395,7 @@ const HeroSlide = ({ slide, navigate }) => (
           />
 
           {/* Float card 1 — bottom right */}
+          {slide.floatCard1 && (
           <Box sx={{
             position: 'absolute', right: 24, bottom: 20,
             bgcolor: '#fff', borderRadius: '14px',
@@ -343,7 +417,10 @@ const HeroSlide = ({ slide, navigate }) => (
             </Box>
           </Box>
 
+          )}
+
           {/* Float card 2 — top left */}
+          {slide.floatCard2 && (
           <Box sx={{
             position: 'absolute', left: 20, top: 30,
             bgcolor: '#fff', borderRadius: '14px',
@@ -364,6 +441,7 @@ const HeroSlide = ({ slide, navigate }) => (
               </Typography>
             </Box>
           </Box>
+          )}
         </Box>
       </Box>
 
@@ -391,20 +469,37 @@ const HeroSlide = ({ slide, navigate }) => (
       </Box>
     </Container>
   </Box>
-);
+  );
+};
 
 /* ─── Main component ───────────────────────────────────────── */
 const BannerPage = () => {
   const navigate = useNavigate();
   const sliderRef = useRef(null);
+  // null while loading; then admin banners, or the built-in slides as fallback.
+  const [slides, setSlides] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    axios.get(`${hosturl}/banners`, { timeout: 6000 })
+      .then((res) => {
+        const list = Array.isArray(res.data?.result) ? res.data.result : [];
+        const built = list.filter((b) => b && b.image && b.headline).map(buildSlideFromBanner);
+        if (!cancelled) setSlides(built.length > 0 ? built : SLIDES);
+      })
+      .catch(() => { if (!cancelled) setSlides(SLIDES); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const multiple = (slides?.length || 0) > 1;
 
   const settings = {
-    dots: true,
-    infinite: true,
+    dots: multiple,
+    infinite: multiple,
     speed: 700,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: multiple,
     autoplaySpeed: 5000,
     pauseOnHover: true,
     arrows: false,          // we render custom arrows
@@ -423,17 +518,22 @@ const BannerPage = () => {
     ),
   };
 
+  // Reserve the hero's space while banners load so the page doesn't jump or flash old slides.
+  if (slides === null) {
+    return <Box sx={{ minHeight: { xs: 480, md: 560 }, background: SLIDES[0].bg }} />;
+  }
+
   return (
     <Box sx={{ position: 'relative', '& .slick-dots li button:before': { display: 'none' } }}>
       <Slider ref={sliderRef} {...settings}>
-        {SLIDES.map(slide => (
+        {slides.map(slide => (
           <HeroSlide key={slide.id} slide={slide} navigate={navigate} />
         ))}
       </Slider>
 
       {/* Custom nav arrows */}
-      <ArrowBtn direction="prev" onClick={() => sliderRef.current?.slickPrev()} />
-      <ArrowBtn direction="next" onClick={() => sliderRef.current?.slickNext()} />
+      {multiple && <ArrowBtn direction="prev" onClick={() => sliderRef.current?.slickPrev()} />}
+      {multiple && <ArrowBtn direction="next" onClick={() => sliderRef.current?.slickNext()} />}
     </Box>
   );
 };
