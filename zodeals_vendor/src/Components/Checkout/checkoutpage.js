@@ -12,7 +12,7 @@ import {
   Image,
   Steps,
   Tag,
-  Alert, Form, TextArea,
+  Alert, Form,
   Select,
   InputNumber,
   Input,
