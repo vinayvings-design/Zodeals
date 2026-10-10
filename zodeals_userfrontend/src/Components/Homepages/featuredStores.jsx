@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, CircularProgress } from '@mui/material';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Tag } from 'lucide-react';
 import axios from 'axios';
 import { hosturl } from '../libs/Constant';
 import { useNavigate } from 'react-router-dom';
@@ -21,14 +21,96 @@ const DUMMY_STORES = [
 // ── Store Logo Box (for dummy) ──
 const DummyLogo = ({ store }) => (
   <Box sx={{
-    width: 40, height: 40, borderRadius: '10px',
+    width: 64, height: 64, borderRadius: '14px',
     background: store.bg, border: `1.5px solid ${store.color}22`,
     display: 'flex', alignItems: 'center', justifyContent: 'center',
-    flexShrink: 0, fontSize: store.emoji.length > 2 ? 9 : 18,
+    fontSize: store.emoji.length > 2 ? 14 : 32,
     fontWeight: 900, color: store.color, fontFamily: 'Inter, sans-serif',
     letterSpacing: '-0.5px',
   }}>
     {store.emoji}
+  </Box>
+);
+
+// ── Store Card (same card style as Top Deals) ──
+const StoreCard = ({ store, count, isDummy, onClick }) => (
+  <Box
+    role="link"
+    tabIndex={0}
+    aria-label={`${store.name} deals`}
+    onClick={onClick}
+    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }}
+    sx={{
+      borderRadius: '16px',
+      border: '1.5px solid #E8ECF4',
+      backgroundColor: '#fff',
+      overflow: 'hidden',
+      display: 'flex', flexDirection: 'column',
+      cursor: 'pointer',
+      transition: 'all 0.22s ease',
+      boxShadow: '0 1px 4px rgba(15,27,53,0.05)',
+      '&:hover': {
+        boxShadow: '0 10px 32px rgba(15,27,53,0.10)',
+        transform: 'translateY(-4px)',
+        borderColor: 'rgba(255,107,53,0.35)',
+      },
+      '&:focus-visible': { outline: '2px solid #FF6B35', outlineOffset: 2 },
+    }}
+  >
+    {/* Logo area */}
+    <Box sx={{
+      backgroundColor: isDummy ? (store.bg || '#FAFBFD') : '#FAFBFD',
+      p: 2.5,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      minHeight: 110,
+      borderBottom: '1px solid #F0F2F7',
+    }}>
+      {isDummy ? (
+        <DummyLogo store={store} />
+      ) : (
+        <img
+          crossOrigin="anonymous"
+          src={`${hosturl}${store.logo}`}
+          alt={store.name}
+          style={{ height: 46, maxWidth: 100, objectFit: 'contain', display: 'block' }}
+        />
+      )}
+    </Box>
+
+    {/* Content */}
+    <Box sx={{ px: 1.5, pt: 1.2, pb: 0.5, flex: 1 }}>
+      <Typography sx={{
+        fontWeight: 700, fontSize: 12.5, fontFamily: 'Inter, sans-serif',
+        color: '#111827', lineHeight: 1.35,
+        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+        letterSpacing: '-0.005em',
+      }}>
+        {store.name}
+      </Typography>
+      <Box display="flex" alignItems="center" gap={0.5} mt={0.6}>
+        <Tag size={11} color="#D1D5DB" />
+        <Typography fontSize={11} color="#9CA3AF" fontFamily="Inter, sans-serif">
+          {count != null ? `${count} ${count === 1 ? 'deal' : 'deals'}` : 'Deals available'}
+        </Typography>
+      </Box>
+    </Box>
+
+    {/* CTA */}
+    <Box sx={{
+      mx: 1.2, mb: 1.2, borderRadius: '10px',
+      background: 'linear-gradient(135deg, #FF6B35, #e55a26)',
+      py: 1, textAlign: 'center',
+      transition: 'all 0.2s',
+      boxShadow: '0 3px 10px rgba(255,107,53,0.25)',
+      '[role="link"]:hover > &': {
+        background: 'linear-gradient(135deg, #e55a26, #c94a1e)',
+        boxShadow: '0 6px 16px rgba(255,107,53,0.35)',
+      },
+    }}>
+      <Typography sx={{ color: '#fff', fontWeight: 800, fontSize: 12, fontFamily: 'Inter, sans-serif', letterSpacing: 0.3 }}>
+        View Deals →
+      </Typography>
+    </Box>
   </Box>
 );
 
@@ -80,10 +162,10 @@ const FeaturedStores = () => {
   const displayStores = useDummy ? DUMMY_STORES : storeLogos;
 
   return (
-    <Box sx={{ backgroundColor: '#fff', py: 4, borderBottom: '1px solid #F0F2F7' }}>
+    <Box sx={{ backgroundColor: '#F5F7FA', pt: 5, pb: 0 }}>
       <Container>
         {/* Heading row */}
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2.5}>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
@@ -122,69 +204,23 @@ const FeaturedStores = () => {
           </Box>
         ) : (
           <Box sx={{
-            display: 'flex', gap: 1.5,
-            overflowX: 'auto', pb: 0.5,
-            '&::-webkit-scrollbar': { display: 'none' }, scrollbarWidth: 'none',
+            display: 'grid',
+            gridTemplateColumns: { xs: 'repeat(2,1fr)', sm: 'repeat(3,1fr)', md: 'repeat(5,1fr)' },
+            gap: 2,
           }}>
-            {displayStores.slice(0, 30).map((store, idx) => {
-              const count = useDummy ? store.dealCount : dealCounts[store._id];
-              return (
-                <Box
-                  key={store._id || idx}
-                  onClick={() => !useDummy && navigate('/single-store-page', {
-                    state: { storeId: store._id, storelogo: store.logo, name: store.name, description: store.description },
-                  })}
-                  sx={{
-                    flexShrink: 0,
-                    display: 'flex', alignItems: 'center', gap: 1.4,
-                    px: 2, py: 1.5,
-                    minWidth: 160, maxWidth: 200,
-                    borderRadius: '12px',
-                    border: '1.5px solid #EBEBEB',
-                    backgroundColor: '#fff',
-                    cursor: 'pointer',
-                    boxShadow: '0 1px 4px rgba(15,27,53,0.04)',
-                    transition: 'all 0.22s ease',
-                    '&:hover': {
-                      borderColor: '#FF6B35',
-                      boxShadow: '0 6px 18px rgba(255,107,53,0.14)',
-                      transform: 'translateY(-2px)',
-                    },
-                  }}
-                >
-                  {/* Logo */}
-                  {useDummy ? (
-                    <DummyLogo store={store} />
-                  ) : (
-                    <Box sx={{ width: 40, height: 40, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      <img
-                        crossOrigin="anonymous"
-                        src={`${hosturl}${store.logo}`}
-                        alt={store.name}
-                        style={{ maxWidth: 40, maxHeight: 36, objectFit: 'contain', display: 'block' }}
-                      />
-                    </Box>
-                  )}
-
-                  {/* Name + deal count */}
-                  <Box sx={{ minWidth: 0 }}>
-                    <Typography sx={{
-                      fontWeight: 700, fontSize: 13, color: '#111827',
-                      fontFamily: 'Inter, sans-serif',
-                      whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: 1.3,
-                    }}>
-                      {store.name}
-                    </Typography>
-                    <Typography sx={{
-                      fontSize: 12, color: '#FF6B35',
-                      fontFamily: 'Inter, sans-serif', fontWeight: 600, mt: 0.25, lineHeight: 1.2,
-                    }}>
-                      {count != null ? `${count} Deals` : 'View Deals'}
-                    </Typography>
-                  </Box>
-                </Box>
-              );
-            })}
+            {displayStores.slice(0, 10).map((store, idx) => (
+              <StoreCard
+                key={store._id || idx}
+                store={store}
+                isDummy={useDummy}
+                count={useDummy ? store.dealCount : dealCounts[store._id]}
+                onClick={() => useDummy
+                  ? navigate('/stores')
+                  : navigate('/single-store-page', {
+                      state: { storeId: store._id, storelogo: store.logo, name: store.name, description: store.description },
+                    })}
+              />
+            ))}
           </Box>
         )}
       </Container>
