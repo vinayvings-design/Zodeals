@@ -6,7 +6,7 @@ import {
   ShopOutlined,
   CheckCircleOutlined,
 } from '@ant-design/icons';
-import { hosturl, localhosturl } from '../libs/Constant';
+import { hosturl } from '../libs/Constant';
 const { Title } = Typography;
 
 const DashboardStats = () => {

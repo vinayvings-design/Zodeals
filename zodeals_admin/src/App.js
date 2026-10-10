@@ -9,6 +9,7 @@ import CouponDealForm from './Components/AddCoupens/AddCoupens';
 import UserTable from './Components/Users/Userspage';
 import PaymentHistory from './Components/Payements/PaymentPage';
 import CategoryPage from './Components/Categories/Categoriespage';
+import BannersPage from './Components/Banners/BannersPage';
 import NotificationsMessage from './Components/Notifications/Notificationpage';
 import CouponPriceManagement from './Components/CoupenPrice/CoupenPrice';
 import TestimonialTable from './Components/Testimonials/Testimonial';
@@ -28,6 +29,7 @@ const App = () => {
                <Route path='/userpage' element={<UserTable/>}/>
                <Route path='/payments' element={<PaymentHistory/>}/>
                <Route path='categorypage' element={<CategoryPage/>}/>
+               <Route path='/bannerpage' element={<BannersPage/>}/>
                <Route path='/notifications' element={<NotificationsMessage/>}/>
                {/* <Route path='/coupen/price' element={<CouponPriceManagement/>}/> */}
                 <Route path='/testimonial' element={<TestimonialTable/>}/>
