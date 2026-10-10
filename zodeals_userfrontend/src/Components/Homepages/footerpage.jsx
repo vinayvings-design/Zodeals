@@ -180,7 +180,7 @@ export default function Footer() {
 
               <Box display="flex" flexDirection="column" gap={1} mt={2.5}>
                 <Button
-                  href="https://partner.zodeals.in"
+                  href="https://zodealsvendor.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="contained"
@@ -229,7 +229,7 @@ export default function Footer() {
             </Typography>
             <Typography fontSize={12} color="#4B5563" fontFamily="Inter, sans-serif"
               sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              Built with <Heart size={12} color="#FF6B35" fill="#FF6B35" /> by Aptapace
+              Built with <Heart size={12} color="#FF6B35" fill="#FF6B35" /> by Vinay Kulkarni
             </Typography>
           </Box>
         </Container>
