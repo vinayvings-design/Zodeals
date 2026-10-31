@@ -194,7 +194,7 @@ export default function Header({ showTabs = true }) {
       }}>
         {/* Logo */}
         <Box onClick={() => navigate('/')} sx={{ cursor: 'pointer', flexShrink: 0 }}>
-          <img src={Logo} alt="ZoDeals" height={isMobile ? 30 : 38} style={{ objectFit: 'contain', display: 'block' }} />
+          <img src={Logo} alt="ZoDeals" height={isMobile ? 38 : 50} style={{ objectFit: 'contain', display: 'block' }} />
         </Box>
 
         {/* Search — desktop */}
