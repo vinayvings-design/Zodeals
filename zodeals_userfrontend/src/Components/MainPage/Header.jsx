@@ -231,7 +231,7 @@ export default function Header({ showTabs = true }) {
               display: 'flex', alignItems: 'center', gap: 0.7,
               px: 2, py: 1, borderRadius: 50,
               background: 'linear-gradient(135deg, #D8A830, #B8891F)',
-              color: '#102850', fontFamily: 'Inter, sans-serif',
+              color: '#fff', fontFamily: 'Inter, sans-serif',
               fontWeight: 700, fontSize: 12.5,
               boxShadow: '0 2px 8px rgba(216,168,48,0.35)',
               transition: 'all 0.2s',
