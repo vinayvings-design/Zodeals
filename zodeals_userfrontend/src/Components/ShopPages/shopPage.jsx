@@ -52,7 +52,7 @@ const ShopPage = () => {
           <Box
             sx={{
               display: 'flex', alignItems: 'center', gap: 0.3,
-              color: '#FF6B35', fontSize: 13, fontWeight: 700,
+              color: '#D8A830', fontSize: 13, fontWeight: 700,
               fontFamily: 'Nunito Sans, sans-serif', cursor: 'pointer',
             }}
           >
@@ -62,7 +62,7 @@ const ShopPage = () => {
 
         {loading ? (
           <Box textAlign="center" mt={6}>
-            <CircularProgress sx={{ color: '#FF6B35' }} />
+            <CircularProgress sx={{ color: '#D8A830' }} />
           </Box>
         ) : storeLogos.length === 0 ? (
           <Box textAlign="center" py={4}>
@@ -94,8 +94,8 @@ const ShopPage = () => {
                     transition: 'all 0.25s ease',
                     boxShadow: '0 1px 6px rgba(0,0,0,0.06)',
                     '&:hover': {
-                      borderColor: '#FF6B35',
-                      boxShadow: '0 6px 20px rgba(255,107,53,0.15)',
+                      borderColor: '#D8A830',
+                      boxShadow: '0 6px 20px rgba(216,168,48,0.15)',
                       transform: 'translateY(-3px)',
                     },
                   }}

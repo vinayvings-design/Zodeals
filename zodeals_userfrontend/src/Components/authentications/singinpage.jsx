@@ -27,8 +27,8 @@ const Field = ({ label, icon: Icon, children }) => (
       transition: 'all 0.22s',
       '&:focus-within': {
         backgroundColor: '#fff',
-        borderColor: '#FF6B35',
-        boxShadow: '0 0 0 3px rgba(255,107,53,0.1)',
+        borderColor: '#D8A830',
+        boxShadow: '0 0 0 3px rgba(216,168,48,0.1)',
       },
     }}>
       {Icon && <Icon size={15} color="#9CA3AF" />}
@@ -84,13 +84,13 @@ const LoginForm = () => {
           <Box sx={{
             position: 'absolute', top: -100, right: -100,
             width: 400, height: 400, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(216,168,48,0.12) 0%, transparent 70%)',
             pointerEvents: 'none',
           }} />
           <Box sx={{
             position: 'absolute', bottom: -60, left: -60,
             width: 280, height: 280, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(216,168,48,0.08) 0%, transparent 70%)',
             pointerEvents: 'none',
           }} />
 
@@ -120,8 +120,8 @@ const LoginForm = () => {
             }}>
               Save More.<br />
               <Box component="span" sx={{
-                color: '#FF6B35',
-                borderBottom: '3px solid #FF6B35', pb: 0.3,
+                color: '#D8A830',
+                borderBottom: '3px solid #D8A830', pb: 0.3,
               }}>
                 Shop Smart.
               </Box>
@@ -191,7 +191,7 @@ const LoginForm = () => {
               <Typography
                 onClick={() => setOpenForgotModal(true)}
                 sx={{
-                  fontSize: 13, color: '#FF6B35', cursor: 'pointer',
+                  fontSize: 13, color: '#D8A830', cursor: 'pointer',
                   fontWeight: 700, fontFamily: 'Inter, sans-serif',
                   display: 'inline',
                   '&:hover': { textDecoration: 'underline' },
@@ -207,14 +207,14 @@ const LoginForm = () => {
                 height: 50, fontFamily: 'Inter, sans-serif',
                 fontWeight: 800, fontSize: 15, textTransform: 'none',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+                background: 'linear-gradient(135deg, #D8A830, #B8891F)',
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #e55a26, #c62a35)',
+                  background: 'linear-gradient(135deg, #B8891F, #98701A)',
                   transform: 'translateY(-1px)',
-                  boxShadow: '0 8px 24px rgba(255,107,53,0.4)',
+                  boxShadow: '0 8px 24px rgba(216,168,48,0.4)',
                 },
                 transition: 'all 0.25s ease',
-                boxShadow: '0 4px 16px rgba(255,107,53,0.3)',
+                boxShadow: '0 4px 16px rgba(216,168,48,0.3)',
               }}
             >
               Login to ZoDeals
@@ -234,7 +234,7 @@ const LoginForm = () => {
 
             <Typography variant="body2" textAlign="center" fontFamily="Inter, sans-serif" color="#6B7280">
               Don't have an account?{" "}
-              <Link to="/signup" style={{ color: '#FF6B35', fontWeight: 800, textDecoration: 'none' }}>
+              <Link to="/signup" style={{ color: '#D8A830', fontWeight: 800, textDecoration: 'none' }}>
                 Sign up free
               </Link>
             </Typography>
@@ -281,17 +281,17 @@ const ForgotPasswordModal = ({ open, handleClose }) => {
     display: 'flex', alignItems: 'center', gap: 1,
     border: '1.5px solid #E8ECF4', borderRadius: '12px',
     px: 1.6, py: 1, mb: 2, backgroundColor: '#FAFBFD',
-    '&:focus-within': { borderColor: '#FF6B35', boxShadow: '0 0 0 3px rgba(255,107,53,0.1)' },
+    '&:focus-within': { borderColor: '#D8A830', boxShadow: '0 0 0 3px rgba(216,168,48,0.1)' },
   };
 
   const btnSx = {
-    background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+    background: 'linear-gradient(135deg, #D8A830, #B8891F)',
     color: '#fff', textTransform: 'none',
     fontFamily: 'Inter, sans-serif', fontWeight: 800,
     py: 1.3, borderRadius: '12px',
     '&:hover': {
-      background: 'linear-gradient(135deg, #e55a26, #c62a35)',
-      boxShadow: '0 6px 20px rgba(255,107,53,0.35)',
+      background: 'linear-gradient(135deg, #B8891F, #98701A)',
+      boxShadow: '0 6px 20px rgba(216,168,48,0.35)',
     },
     transition: 'all 0.22s',
   };

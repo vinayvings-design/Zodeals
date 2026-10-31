@@ -72,18 +72,18 @@ body {
 }
 
 .custom-menu .ant-menu-item-selected {
-  background: rgba(255,107,53,0.15) !important;
-  color: #FF6B35 !important;
+  background: rgba(236,200,106,0.15) !important;
+  color: #ECC86A !important;
   font-weight: 700 !important;
 }
 
-/* Orange left accent bar for selected item */
+/* Accent bar for selected item */
 .custom-menu .ant-menu-item-selected::before {
   content: '';
   position: absolute;
   left: 0; top: 6px; bottom: 6px;
   width: 3px;
-  background: #FF6B35;
+  background: #ECC86A;
   border-radius: 0 3px 3px 0;
 }
 
@@ -94,7 +94,7 @@ body {
 }
 
 .custom-menu .ant-menu-item-selected a {
-  color: #FF6B35 !important;
+  color: #ECC86A !important;
   font-weight: 700;
 }
 
@@ -117,7 +117,7 @@ body {
   transition: background 0.2s !important;
 }
 .ant-layout-sider-trigger:hover {
-  background: rgba(255,107,53,0.15) !important;
+  background: rgba(236,200,106,0.15) !important;
 }
 .ant-layout-sider-trigger > .anticon { color: rgba(255,255,255,0.6) !important; }
 .ant-layout-sider-collapsed .ant-layout-sider-trigger { border-radius: 0 !important; }

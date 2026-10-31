@@ -52,9 +52,9 @@ const StoreCard = ({ store, count, isDummy, onClick }) => (
       '&:hover': {
         boxShadow: '0 10px 32px rgba(15,27,53,0.10)',
         transform: 'translateY(-4px)',
-        borderColor: 'rgba(255,107,53,0.35)',
+        borderColor: 'rgba(216,168,48,0.35)',
       },
-      '&:focus-visible': { outline: '2px solid #FF6B35', outlineOffset: 2 },
+      '&:focus-visible': { outline: '2px solid #D8A830', outlineOffset: 2 },
     }}
   >
     {/* Logo area */}
@@ -98,13 +98,13 @@ const StoreCard = ({ store, count, isDummy, onClick }) => (
     {/* CTA */}
     <Box sx={{
       mx: 1.2, mb: 1.2, borderRadius: '10px',
-      background: 'linear-gradient(135deg, #FF6B35, #e55a26)',
+      background: 'linear-gradient(135deg, #D8A830, #B8891F)',
       py: 1, textAlign: 'center',
       transition: 'all 0.2s',
-      boxShadow: '0 3px 10px rgba(255,107,53,0.25)',
+      boxShadow: '0 3px 10px rgba(216,168,48,0.25)',
       '[role="link"]:hover > &': {
-        background: 'linear-gradient(135deg, #e55a26, #c94a1e)',
-        boxShadow: '0 6px 16px rgba(255,107,53,0.35)',
+        background: 'linear-gradient(135deg, #B8891F, #98701A)',
+        boxShadow: '0 6px 16px rgba(216,168,48,0.35)',
       },
     }}>
       <Typography sx={{ color: '#fff', fontWeight: 800, fontSize: 12, fontFamily: 'Inter, sans-serif', letterSpacing: 0.3 }}>
@@ -169,9 +169,9 @@ const FeaturedStores = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
-              background: 'linear-gradient(135deg, #FF6B35, #FF4500)',
+              background: 'linear-gradient(135deg, #D8A830, #B8891F)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 20, boxShadow: '0 4px 14px rgba(255,107,53,0.35)',
+              fontSize: 20, boxShadow: '0 4px 14px rgba(216,168,48,0.35)',
             }}>
               🏪
             </Box>
@@ -187,11 +187,11 @@ const FeaturedStores = () => {
             onClick={() => navigate('/stores')}
             sx={{
               display: 'flex', alignItems: 'center', gap: 0.3,
-              color: '#FF6B35', fontSize: 13, fontWeight: 700,
+              color: '#D8A830', fontSize: 13, fontWeight: 700,
               fontFamily: 'Inter, sans-serif', cursor: 'pointer',
               borderRadius: '8px', px: 1.2, py: 0.5,
               transition: 'all 0.2s',
-              '&:hover': { backgroundColor: '#FFF0EA' },
+              '&:hover': { backgroundColor: '#FBF4E0' },
             }}
           >
             All Stores <ChevronRight size={14} />
@@ -200,7 +200,7 @@ const FeaturedStores = () => {
 
         {loading ? (
           <Box textAlign="center" py={3}>
-            <CircularProgress sx={{ color: '#FF6B35' }} size={24} />
+            <CircularProgress sx={{ color: '#D8A830' }} size={24} />
           </Box>
         ) : (
           <Box sx={{

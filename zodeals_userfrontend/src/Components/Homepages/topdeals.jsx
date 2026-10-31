@@ -49,7 +49,7 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist, isDummy }) => {
       '&:hover': {
         boxShadow: '0 10px 32px rgba(15,27,53,0.10)',
         transform: 'translateY(-4px)',
-        borderColor: 'rgba(255,107,53,0.35)',
+        borderColor: 'rgba(216,168,48,0.35)',
       },
     }}>
       {/* Image area */}
@@ -64,11 +64,11 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist, isDummy }) => {
         {/* Discount badge */}
         <Box sx={{
           position: 'absolute', top: 10, left: 10,
-          background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+          background: 'linear-gradient(135deg, #D8A830, #B8891F)',
           color: '#fff', borderRadius: '8px', px: 1, py: 0.4,
           fontSize: 10.5, fontWeight: 800, fontFamily: 'Inter, sans-serif',
           display: 'flex', alignItems: 'center', gap: 0.4,
-          boxShadow: '0 2px 8px rgba(255,107,53,0.3)', letterSpacing: 0.2,
+          boxShadow: '0 2px 8px rgba(216,168,48,0.3)', letterSpacing: 0.2,
         }}>
           <Flame size={10} color="#fff" /> {pct}
         </Box>
@@ -126,14 +126,14 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist, isDummy }) => {
         onClick={() => onDealClick(deal)}
         sx={{
           mx: 1.2, mb: 1.2, borderRadius: '10px',
-          background: 'linear-gradient(135deg, #FF6B35, #e55a26)',
+          background: 'linear-gradient(135deg, #D8A830, #B8891F)',
           py: 1, textAlign: 'center', cursor: 'pointer',
           transition: 'all 0.2s',
-          boxShadow: '0 3px 10px rgba(255,107,53,0.25)',
+          boxShadow: '0 3px 10px rgba(216,168,48,0.25)',
           '&:hover': {
-            background: 'linear-gradient(135deg, #e55a26, #c94a1e)',
+            background: 'linear-gradient(135deg, #B8891F, #98701A)',
             transform: 'translateY(-1px)',
-            boxShadow: '0 6px 16px rgba(255,107,53,0.35)',
+            boxShadow: '0 6px 16px rgba(216,168,48,0.35)',
           },
         }}
       >
@@ -214,9 +214,9 @@ const TopDeals = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
-              background: 'linear-gradient(135deg, #FF6B35, #FF4500)',
+              background: 'linear-gradient(135deg, #D8A830, #B8891F)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 20, boxShadow: '0 4px 14px rgba(255,107,53,0.35)',
+              fontSize: 20, boxShadow: '0 4px 14px rgba(216,168,48,0.35)',
             }}>⚡</Box>
             <Typography sx={{ fontWeight: 800, fontSize: 20, fontFamily: 'Inter, sans-serif', color: '#111827', letterSpacing: '-0.01em' }}>
               Top Deals
@@ -226,10 +226,10 @@ const TopDeals = () => {
             onClick={() => window.location.href = '/alldeals'}
             sx={{
               display: 'flex', alignItems: 'center', gap: 0.4,
-              color: '#FF6B35', fontSize: 13, fontWeight: 700,
+              color: '#D8A830', fontSize: 13, fontWeight: 700,
               fontFamily: 'Inter, sans-serif', cursor: 'pointer',
               borderRadius: '8px', px: 1.2, py: 0.5,
-              '&:hover': { backgroundColor: '#FFF0EA' }, transition: 'background 0.2s',
+              '&:hover': { backgroundColor: '#FBF4E0' }, transition: 'background 0.2s',
             }}
           >
             View All <ChevronRight size={15} />
@@ -238,7 +238,7 @@ const TopDeals = () => {
 
         {loading ? (
           <Box display="flex" justifyContent="center" mt={3}>
-            <CircularProgress sx={{ color: '#FF6B35' }} />
+            <CircularProgress sx={{ color: '#D8A830' }} />
           </Box>
         ) : (
           <Box sx={{

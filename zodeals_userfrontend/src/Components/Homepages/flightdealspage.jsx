@@ -376,10 +376,10 @@
             onClick={() => window.location.href = '/categories'}
             sx={{
               display: 'flex', alignItems: 'center', gap: 0.4,
-              color: '#FF6B35', fontSize: 13, fontWeight: 700,
+              color: '#D8A830', fontSize: 13, fontWeight: 700,
               fontFamily: 'Inter, sans-serif', cursor: 'pointer',
               borderRadius: '8px', px: 1.2, py: 0.5,
-              '&:hover': { backgroundColor: '#FFF0EA' }, transition: 'background 0.2s',
+              '&:hover': { backgroundColor: '#FBF4E0' }, transition: 'background 0.2s',
             }}
           >
             See all ›

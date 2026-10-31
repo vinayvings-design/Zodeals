@@ -33,7 +33,7 @@ const CouponCard = ({ coupon, wishlist, toggleWishlist, handleOpenDialog, setOpe
 
   const stripBg = isCode
     ? 'linear-gradient(160deg, #6D28D9, #4C1D95)'
-    : 'linear-gradient(160deg, #FF6B35, #e55a26)';
+    : 'linear-gradient(160deg, #D8A830, #B8891F)';
 
   return (
     <Box
@@ -48,7 +48,7 @@ const CouponCard = ({ coupon, wishlist, toggleWishlist, handleOpenDialog, setOpe
         '&:hover': {
           boxShadow: '0 8px 28px rgba(15,27,53,0.10)',
           transform: 'translateY(-2px)',
-          borderColor: isCode ? 'rgba(109,40,217,0.25)' : 'rgba(255,107,53,0.25)',
+          borderColor: isCode ? 'rgba(109,40,217,0.25)' : 'rgba(216,168,48,0.25)',
         },
       }}
     >
@@ -107,8 +107,8 @@ const CouponCard = ({ coupon, wishlist, toggleWishlist, handleOpenDialog, setOpe
               size="small"
               sx={{
                 height: 18, fontSize: 9, fontWeight: 800,
-                backgroundColor: isCode ? '#EDE9FE' : '#FFF0EA',
-                color: isCode ? '#7C3AED' : '#FF6B35',
+                backgroundColor: isCode ? '#EDE9FE' : '#FBF4E0',
+                color: isCode ? '#7C3AED' : '#D8A830',
                 fontFamily: 'Inter, sans-serif',
                 border: `1px solid ${isCode ? '#C4B5FD' : '#FDCFB8'}`,
                 borderRadius: '6px',
@@ -201,14 +201,14 @@ const CouponCard = ({ coupon, wishlist, toggleWishlist, handleOpenDialog, setOpe
         }} />
         <Box sx={{
           width: 36, height: 36, borderRadius: '10px',
-          backgroundColor: isCode ? '#EDE9FE' : '#FFF0EA',
+          backgroundColor: isCode ? '#EDE9FE' : '#FBF4E0',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
-          <Scissors size={16} color={isCode ? '#7C3AED' : '#FF6B35'} style={{ transform: 'rotate(-90deg)' }} />
+          <Scissors size={16} color={isCode ? '#7C3AED' : '#D8A830'} style={{ transform: 'rotate(-90deg)' }} />
         </Box>
         <Typography
           sx={{
-            color: isCode ? '#7C3AED' : '#FF6B35',
+            color: isCode ? '#7C3AED' : '#D8A830',
             fontWeight: 800, fontSize: 10.5,
             fontFamily: 'Inter, sans-serif',
             textAlign: 'center', letterSpacing: 0.5,
@@ -309,10 +309,10 @@ export default function CouponsSection() {
             onClick={() => window.location.href = '/categories'}
             sx={{
               display: 'flex', alignItems: 'center', gap: 0.4,
-              color: '#FF6B35', fontSize: 13, fontWeight: 700,
+              color: '#D8A830', fontSize: 13, fontWeight: 700,
               fontFamily: 'Inter, sans-serif', cursor: 'pointer',
               borderRadius: '8px', px: 1.2, py: 0.5,
-              '&:hover': { backgroundColor: '#FFF0EA' }, transition: 'background 0.2s',
+              '&:hover': { backgroundColor: '#FBF4E0' }, transition: 'background 0.2s',
             }}
           >
             See All <ChevronRight size={15} />
@@ -321,7 +321,7 @@ export default function CouponsSection() {
 
         {loading ? (
           <Box display="flex" justifyContent="center" mt={4}>
-            <CircularProgress sx={{ color: '#FF6B35' }} />
+            <CircularProgress sx={{ color: '#D8A830' }} />
           </Box>
         ) : error ? (
           <Typography color="error" fontSize={13} fontFamily="Inter, sans-serif">{error}</Typography>

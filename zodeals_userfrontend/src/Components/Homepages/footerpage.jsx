@@ -7,7 +7,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import { Link as RouterLink } from "react-router-dom";
 import { Mail, Phone, MapPin, Heart } from "lucide-react";
 import logo from "../../assets/images/zodealsLogo.png";
-import Addreview from "./Addreview";
 import { hosturl } from "../libs/Constant";
 import axios from "axios";
 
@@ -22,8 +21,6 @@ const footerLinks = {
   ],
 };
 
-const slugify = (t) => t.toLowerCase().replace(/\s+/g, "-");
-
 const ColHeading = ({ children }) => (
   <Box mb={2.5}>
     <Typography sx={{
@@ -32,7 +29,7 @@ const ColHeading = ({ children }) => (
     }}>
       {children}
     </Typography>
-    <Box sx={{ width: 30, height: 3, borderRadius: 2, backgroundColor: "#FF6B35" }} />
+    <Box sx={{ width: 30, height: 3, borderRadius: 2, backgroundColor: "#D8A830" }} />
   </Box>
 );
 
@@ -44,7 +41,7 @@ const FooterLink = ({ to, children, state }) => (
         color: "#9CA3AF", fontSize: 13,
         fontFamily: "Inter, sans-serif", fontWeight: 400,
         textDecoration: "none", transition: "color 0.18s",
-        "&:hover": { color: "#FF6B35" },
+        "&:hover": { color: "#D8A830" },
       }}
     >
       {children}
@@ -53,13 +50,9 @@ const FooterLink = ({ to, children, state }) => (
 );
 
 export default function Footer() {
-  const [categories, setCategories] = useState([]);
-  const [details, setDetails]       = useState({});
+  const [details, setDetails] = useState({});
 
   useEffect(() => {
-    fetch(`${hosturl}/category`)
-      .then((r) => r.json())
-      .then((d) => { if (d.result) setCategories(d.result.slice(0, 6)); });
     axios.get(`${hosturl}/contact-us`).then((r) => setDetails(r.data.result)).catch(() => {});
   }, []);
 
@@ -73,10 +66,10 @@ export default function Footer() {
   return (
     <Box component="footer" sx={{ backgroundColor: "#0A1628", color: "#fff" }}>
       {/* Top gradient accent border */}
-      <Box sx={{ height: 3, background: "linear-gradient(90deg, #FF6B35 0%, #e63946 50%, #FF6B35 100%)" }} />
+      <Box sx={{ height: 3, background: "linear-gradient(90deg, #D8A830 0%, #B8891F 50%, #D8A830 100%)" }} />
 
       <Container maxWidth="xl" sx={{ pt: 6, pb: 5 }}>
-        {/* Single horizontal row: Brand | Top Stores | Categories | Company | Contact Us */}
+        {/* Single horizontal row: Brand | Company | Contact Us */}
         <Box sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
@@ -123,33 +116,15 @@ export default function Footer() {
                 </a>
               ))}
             </Box>
-
-            <Addreview />
           </Box>
 
           {/* 2-4. Three link columns in one row using CSS grid */}
           <Box sx={{
             flex: 1,
             display: "grid",
-            gridTemplateColumns: { xs: "repeat(2, 1fr)", sm: "repeat(3, 1fr)" },
+            gridTemplateColumns: { xs: "repeat(2, 1fr)" },
             gap: { xs: 3, md: 4 },
           }}>
-
-            {/* Categories */}
-            <Box>
-              <ColHeading>Categories</ColHeading>
-              <List disablePadding>
-                {categories.map((cat) => (
-                  <FooterLink
-                    key={cat._id}
-                    to={`/category/${slugify(cat.title)}`}
-                    state={{ id: cat._id, title: cat.title }}
-                  >
-                    {cat.title}
-                  </FooterLink>
-                ))}
-              </List>
-            </Box>
 
             {/* Company */}
             <Box>
@@ -171,7 +146,7 @@ export default function Footer() {
                 { Icon: MapPin, text: details?.location,      label: "Location" },
               ].map(({ Icon, text, label }) => text && (
                 <Box key={label} display="flex" alignItems="flex-start" gap={1} mb={1.5}>
-                  <Icon size={13} color="#FF6B35" style={{ marginTop: 3, flexShrink: 0 }} />
+                  <Icon size={13} color="#D8A830" style={{ marginTop: 3, flexShrink: 0 }} />
                   <Typography fontSize={13} color="#9CA3AF" fontFamily="Inter, sans-serif" lineHeight={1.5}>
                     {text}
                   </Typography>
@@ -186,10 +161,10 @@ export default function Footer() {
                   variant="contained"
                   size="small"
                   sx={{
-                    background: "linear-gradient(135deg, #FF6B35, #e63946)",
+                    background: "linear-gradient(135deg, #D8A830, #B8891F)",
                     color: "#fff", fontFamily: "Inter, sans-serif", fontWeight: 700, fontSize: 12,
                     textTransform: "none", borderRadius: "8px",
-                    "&:hover": { background: "linear-gradient(135deg, #e55a26, #c62a35)", transform: "translateY(-1px)" },
+                    "&:hover": { background: "linear-gradient(135deg, #B8891F, #98701A)", transform: "translateY(-1px)" },
                     transition: "all 0.22s",
                   }}
                 >
@@ -204,7 +179,7 @@ export default function Footer() {
                     color: "#9CA3AF", borderColor: "rgba(255,255,255,0.15)",
                     fontFamily: "Inter, sans-serif", fontWeight: 700, fontSize: 12,
                     textTransform: "none", borderRadius: "8px",
-                    "&:hover": { backgroundColor: "#FF6B35", borderColor: "#FF6B35", color: "#fff" },
+                    "&:hover": { backgroundColor: "#D8A830", borderColor: "#D8A830", color: "#fff" },
                     transition: "all 0.22s",
                   }}
                 >
@@ -229,7 +204,7 @@ export default function Footer() {
             </Typography>
             <Typography fontSize={12} color="#4B5563" fontFamily="Inter, sans-serif"
               sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              Built with <Heart size={12} color="#FF6B35" fill="#FF6B35" /> by Vinay Kulkarni
+              Built with <Heart size={12} color="#D8A830" fill="#D8A830" /> by Vinay Kulkarni
             </Typography>
           </Box>
         </Container>
