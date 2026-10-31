@@ -80,17 +80,21 @@ const HomepageComponent = () => {
       >
         {/* Logo */}
         <div className="sidebar-header">
-          <img
-            src={logo}
-            width={collapsed ? 36 : 148}
-            height={42}
-            alt="ZoDeals"
-            style={{
-              cursor: 'pointer', objectFit: 'contain',
-              filter: 'brightness(0) invert(1)', opacity: 0.9,
-              transition: 'width 0.25s',
-            }}
-          />
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backgroundColor: '#fff', borderRadius: 12,
+            padding: collapsed ? '4px 2px' : '4px 10px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.18)',
+            transition: 'all 0.25s',
+          }}>
+            <img
+              src={logo}
+              width={collapsed ? 36 : 140}
+              height={42}
+              alt="ZoDeals"
+              style={{ cursor: 'pointer', objectFit: 'contain', display: 'block', transition: 'width 0.25s' }}
+            />
+          </div>
         </div>
 
         <div className="menu-scroll-container">
