@@ -36,10 +36,10 @@ export default function MainPage() {
             <Fab
               onClick={openPinModal}
               sx={{
-                background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+                background: 'linear-gradient(135deg, #D8A830, #B8891F)',
                 color: '#fff',
-                '&:hover': { background: 'linear-gradient(135deg, #e55a26, #c62a35)' },
-                boxShadow: '0 4px 20px rgba(255,107,53,0.4)',
+                '&:hover': { background: 'linear-gradient(135deg, #B8891F, #98701A)' },
+                boxShadow: '0 4px 20px rgba(216,168,48,0.4)',
               }}
             >
               <MapPin size={22} />

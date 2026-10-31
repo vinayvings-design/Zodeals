@@ -31,7 +31,7 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist }) => {
       '&:hover': {
         boxShadow: '0 10px 32px rgba(15,27,53,0.10)',
         transform: 'translateY(-4px)',
-        borderColor: 'rgba(255,107,53,0.35)',
+        borderColor: 'rgba(216,168,48,0.35)',
       },
     }}>
       {/* Image area */}
@@ -46,10 +46,10 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist }) => {
         {/* Discount badge */}
         <Box sx={{
           position: 'absolute', top: 10, left: 10,
-          background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+          background: 'linear-gradient(135deg, #D8A830, #B8891F)',
           color: '#fff', borderRadius: '8px', px: 1, py: 0.4,
           fontSize: 10.5, fontWeight: 800, fontFamily: 'Inter, sans-serif',
-          boxShadow: '0 2px 8px rgba(255,107,53,0.3)',
+          boxShadow: '0 2px 8px rgba(216,168,48,0.3)',
           letterSpacing: 0.2,
         }}>
           🔥 {pct}
@@ -104,14 +104,14 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist }) => {
         onClick={() => onDealClick(deal)}
         sx={{
           mx: 1.2, mb: 1.2, borderRadius: '10px',
-          background: 'linear-gradient(135deg, #FF6B35, #e55a26)',
+          background: 'linear-gradient(135deg, #D8A830, #B8891F)',
           py: 1, textAlign: 'center',
           cursor: 'pointer',
           transition: 'all 0.2s',
-          boxShadow: '0 3px 10px rgba(255,107,53,0.25)',
+          boxShadow: '0 3px 10px rgba(216,168,48,0.25)',
           '&:hover': {
-            background: 'linear-gradient(135deg, #e55a26, #c94a1e)',
-            boxShadow: '0 6px 16px rgba(255,107,53,0.35)',
+            background: 'linear-gradient(135deg, #B8891F, #98701A)',
+            boxShadow: '0 6px 16px rgba(216,168,48,0.35)',
           },
         }}
       >
@@ -189,7 +189,7 @@ export default function LatestDeals() {
       position: 'relative',
       py: 5,
       backgroundColor: '#F8FAFC',
-      backgroundImage: `radial-gradient(ellipse at top right, rgba(255,107,53,0.06), transparent 60%), radial-gradient(ellipse at bottom left, rgba(230,57,70,0.04), transparent 60%), url(${premiumBg})`,
+      backgroundImage: `radial-gradient(ellipse at top right, rgba(216,168,48,0.06), transparent 60%), radial-gradient(ellipse at bottom left, rgba(230,57,70,0.04), transparent 60%), url(${premiumBg})`,
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
@@ -202,9 +202,9 @@ export default function LatestDeals() {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
-              background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+              background: 'linear-gradient(135deg, #D8A830, #B8891F)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 20, boxShadow: '0 4px 12px rgba(255,107,53,0.3)',
+              fontSize: 20, boxShadow: '0 4px 12px rgba(216,168,48,0.3)',
             }}>
               🕐
             </Box>
@@ -218,11 +218,11 @@ export default function LatestDeals() {
           </Box>
           <Box sx={{
             display: 'flex', alignItems: 'center', gap: 0.3,
-            color: '#FF6B35', fontSize: 13, fontWeight: 700,
+            color: '#D8A830', fontSize: 13, fontWeight: 700,
             fontFamily: 'Inter, sans-serif', cursor: 'pointer',
             borderRadius: '8px', px: 1.2, py: 0.5,
             transition: 'all 0.2s',
-            '&:hover': { backgroundColor: '#FFF0EA' },
+            '&:hover': { backgroundColor: '#FBF4E0' },
           }}>
             View All <ChevronRight size={14} />
           </Box>
@@ -230,7 +230,7 @@ export default function LatestDeals() {
 
         {loading ? (
           <Box display="flex" justifyContent="center" py={4}>
-            <CircularProgress sx={{ color: '#FF6B35' }} />
+            <CircularProgress sx={{ color: '#D8A830' }} />
           </Box>
         ) : deals.length === 0 ? (
           <Typography fontSize={13} color="#9CA3AF" fontFamily="Inter, sans-serif">
@@ -266,7 +266,7 @@ export default function LatestDeals() {
                     sx={{
                       width: i === currentPage ? 24 : 8, height: 8,
                       borderRadius: 4, cursor: 'pointer',
-                      backgroundColor: i === currentPage ? '#FF6B35' : '#E5E7EB',
+                      backgroundColor: i === currentPage ? '#D8A830' : '#E5E7EB',
                       transition: 'all 0.3s ease',
                     }}
                   />

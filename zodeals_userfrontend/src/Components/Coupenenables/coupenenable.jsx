@@ -260,7 +260,7 @@ const handleCopyCode = () => {
                 <Button
                   variant="outlined"
                   fullWidth
-                  style={{ textTransform: 'none', border: '1px solid #98272B' }}
+                  style={{ textTransform: 'none', border: '1px solid #D8A830' }}
                 >
                   View all {title} Offers
                 </Button>

@@ -48,7 +48,7 @@ const VendorPartnershipButton = () => {
           scale: [1, 1.02, 1],
           boxShadow: [
             "0 4px 15px rgba(0, 0, 0, 0.2)",
-            "0 6px 20px rgba(255, 107, 53, 0.3)",
+            "0 6px 20px rgba(216,168,48, 0.3)",
             "0 4px 15px rgba(0, 0, 0, 0.2)"
           ],
           transition: {
@@ -68,7 +68,7 @@ const VendorPartnershipButton = () => {
             right: 0,
             bottom: 0,
             borderRadius: "50px",
-            boxShadow: "0 0 20px 10px rgba(255, 107, 53, 0.5)",
+            boxShadow: "0 0 20px 10px rgba(216,168,48, 0.5)",
             opacity: 0,
             zIndex: -1,
           }}

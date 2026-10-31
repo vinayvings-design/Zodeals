@@ -28,7 +28,7 @@ export const MerchantPartnerBanner = () => (
         content: '""',
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(135deg, rgba(8,16,32,0.94) 0%, rgba(10,22,40,0.88) 55%, rgba(255,107,53,0.28) 100%)',
+        background: 'linear-gradient(135deg, rgba(8,16,32,0.94) 0%, rgba(10,22,40,0.88) 55%, rgba(216,168,48,0.55) 100%)',
         backdropFilter: 'blur(1px)',
         zIndex: 1,
       },
@@ -38,7 +38,7 @@ export const MerchantPartnerBanner = () => (
     <Box sx={{
       position: 'absolute', top: -60, right: -60,
       width: 320, height: 320, borderRadius: '50%',
-      background: 'radial-gradient(circle, rgba(255,107,53,0.25) 0%, transparent 70%)',
+      background: 'radial-gradient(circle, rgba(236,200,106,0.18) 0%, transparent 70%)',
       zIndex: 2, pointerEvents: 'none',
     }} />
 
@@ -50,11 +50,11 @@ export const MerchantPartnerBanner = () => (
           {/* Pill badge */}
           <Box sx={{
             display: 'inline-flex', alignItems: 'center', gap: 0.8,
-            bgcolor: 'rgba(255,107,53,0.18)', border: '1px solid rgba(255,107,53,0.4)',
+            bgcolor: 'rgba(236,200,106,0.15)', border: '1px solid rgba(236,200,106,0.4)',
             borderRadius: 50, px: 2, py: 0.7, mb: 2.5,
           }}>
-            <Handshake size={14} color="#FF6B35" />
-            <Typography sx={{ fontSize: 11, fontWeight: 800, color: '#FF6B35', letterSpacing: 0.8, textTransform: 'uppercase', fontFamily: 'Inter, sans-serif' }}>
+            <Handshake size={14} color="#ECC86A" />
+            <Typography sx={{ fontSize: 11, fontWeight: 800, color: '#ECC86A', letterSpacing: 0.8, textTransform: 'uppercase', fontFamily: 'Inter, sans-serif' }}>
               Merchant Partnership
             </Typography>
           </Box>
@@ -69,7 +69,7 @@ export const MerchantPartnerBanner = () => (
             }}
           >
             Grow Your Business{' '}
-            <Box component="span" sx={{ color: '#FF6B35' }}>
+            <Box component="span" sx={{ color: '#ECC86A' }}>
               with ZoDeals
             </Box>
           </Typography>
@@ -108,16 +108,16 @@ export const MerchantPartnerBanner = () => (
               rel="noopener noreferrer"
               variant="contained"
               sx={{
-                background: 'linear-gradient(135deg, #FF6B35, #e63946)',
+                background: 'linear-gradient(135deg, #D8A830, #B8891F)',
                 color: '#fff', fontWeight: 800, fontSize: 14,
                 px: 3.5, py: 1.4, borderRadius: '12px',
                 textTransform: 'none', fontFamily: 'Inter, sans-serif',
-                boxShadow: '0 6px 24px rgba(255,107,53,0.45)',
+                boxShadow: '0 6px 24px rgba(216,168,48,0.45)',
                 display: 'flex', alignItems: 'center', gap: 0.8,
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #e55a26, #c62a35)',
+                  background: 'linear-gradient(135deg, #B8891F, #98701A)',
                   transform: 'translateY(-2px)',
-                  boxShadow: '0 10px 32px rgba(255,107,53,0.55)',
+                  boxShadow: '0 10px 32px rgba(216,168,48,0.55)',
                 },
                 transition: 'all 0.25s ease',
               }}
@@ -185,12 +185,12 @@ const FavoriteDealsBanner = () => {
   const token = localStorage.getItem("token");
 
   return (
-    <Box sx={{ backgroundColor: '#FFF4EF', py: { xs: 4, md: 5 }, px: 2 }}>
+    <Box sx={{ backgroundColor: '#FBF4E0', py: { xs: 4, md: 5 }, px: 2 }}>
       <Container maxWidth="lg">
         <Box
           sx={{
             borderRadius: 3,
-            background: 'linear-gradient(135deg, #FF6B35 0%, #e63946 100%)',
+            background: 'linear-gradient(135deg, #D8A830 0%, #B8891F 100%)',
             overflow: 'hidden',
             position: 'relative',
             px: { xs: 3, md: 5 },
@@ -218,23 +218,23 @@ const FavoriteDealsBanner = () => {
 
               {!token ? (
                 <Button href="/login" variant="contained" sx={{
-                  backgroundColor: '#fff', color: '#FF6B35', fontFamily: 'Nunito Sans, sans-serif',
+                  backgroundColor: '#fff', color: '#D8A830', fontFamily: 'Nunito Sans, sans-serif',
                   fontWeight: 800, fontSize: 14, px: 3.5, py: 1.2, borderRadius: 2,
                   textTransform: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-                  '&:hover': { backgroundColor: '#FFF4EF', transform: 'translateY(-2px)' },
+                  '&:hover': { backgroundColor: '#FBF4E0', transform: 'translateY(-2px)' },
                   transition: 'all 0.25s ease', display: 'flex', alignItems: 'center', gap: 0.8,
                 }}>
                   Sign In to Save <ArrowRight size={16} />
                 </Button>
               ) : (
                 <Button href="/favorites" variant="contained" sx={{
-                  backgroundColor: '#fff', color: '#FF6B35', fontFamily: 'Nunito Sans, sans-serif',
+                  backgroundColor: '#fff', color: '#D8A830', fontFamily: 'Nunito Sans, sans-serif',
                   fontWeight: 800, fontSize: 14, px: 3.5, py: 1.2, borderRadius: 2,
                   textTransform: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-                  '&:hover': { backgroundColor: '#FFF4EF', transform: 'translateY(-2px)' },
+                  '&:hover': { backgroundColor: '#FBF4E0', transform: 'translateY(-2px)' },
                   transition: 'all 0.25s ease', display: 'flex', alignItems: 'center', gap: 0.8,
                 }}>
-                  View My Wishlist <Heart size={16} fill="#FF6B35" />
+                  View My Wishlist <Heart size={16} fill="#D8A830" />
                 </Button>
               )}
             </Grid>
