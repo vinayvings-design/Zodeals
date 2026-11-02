@@ -263,7 +263,7 @@ const StoreSettingsPage = () => {
             style={{
               fontSize: "20px",
               fontWeight: "500",
-              fontFamily: "Poppins",
+              fontFamily: 'Inter, sans-serif',
             }}
           >
             Store Settings
@@ -595,7 +595,7 @@ const StoreSettingsPage = () => {
                 width: 160,
                 backgroundColor: Colors.secondary,
                 color: "#fff",
-                fontFamily: "Poppins",
+                fontFamily: 'Inter, sans-serif',
               }}
             >
               {storeExists ? "Update Store" : "Create Store"}
@@ -609,7 +609,7 @@ const StoreSettingsPage = () => {
                   marginLeft: 16,
                   backgroundColor: Colors.primary,
                   color: "#fff",
-                  fontFamily: "Poppins",
+                  fontFamily: 'Inter, sans-serif',
                 }}
               >
                 Edit Store Info
