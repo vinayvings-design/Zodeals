@@ -1,11 +1,11 @@
 export const Colors = {
   // === ZoDeals Brand (from logo) ===
-  primary: '#D8A830',          // Logo gold — brand accent
-  primaryHover: '#B8891F',
+  primary: '#3B84ED',          // Brand blue
+  primaryHover: '#2F6FCC',
 
   // === GrabOn-style Accent Colors ===
-  orange: '#D8A830',           // Logo gold — badges, hover, buttons
-  orangeHover: '#B8891F',
+  orange: '#3B84ED',           // Brand blue — badges, hover, buttons
+  orangeHover: '#2F6FCC',
   teal: '#00A8CC',             // Secondary accent — deal buttons
   green: '#00A862',            // "X Offers" success badge
   purple: '#7C3AED',           // Fashion category
@@ -17,7 +17,7 @@ export const Colors = {
   bg: '#F7F8FC',               // Off-white page background
   bgCard: '#FFFFFF',           // White cards
   bgSection: '#F0F2F8',        // Slightly deeper section bg
-  bgOrange: '#FBF4E0',         // Light gold tint bg
+  bgOrange: '#EAF2FE',         // Light blue tint bg
 
   // === Text ===
   textPrimary: '#1A1A2E',      // Near-black headings
@@ -34,9 +34,9 @@ export const Colors = {
 
   // === Legacy aliases ===
   secondary: '#12253d',
-  accent: '#D8A830',
-  buttonColor: '#D8A830',
-  buttonHoverColor: '#B8891F',
+  accent: '#3B84ED',
+  buttonColor: '#3B84ED',
+  buttonHoverColor: '#2F6FCC',
   inputbg: '#F3F4F6',
 };
 

@@ -381,10 +381,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
             onClick={() => window.location.href = '/categories'}
             sx={{
               display: 'flex', alignItems: 'center', gap: 0.4,
-              color: '#D8A830', fontSize: 13, fontWeight: 700,
+              color: '#3B84ED', fontSize: 13, fontWeight: 700,
               fontFamily: 'Inter, sans-serif', cursor: 'pointer',
               borderRadius: '8px', px: 1.2, py: 0.5,
-              '&:hover': { backgroundColor: '#FBF4E0' }, transition: 'background 0.2s',
+              '&:hover': { backgroundColor: '#EAF2FE' }, transition: 'background 0.2s',
             }}
           >
             See all ›

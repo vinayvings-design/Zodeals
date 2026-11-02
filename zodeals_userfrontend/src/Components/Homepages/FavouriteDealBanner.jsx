@@ -28,7 +28,7 @@ export const MerchantPartnerBanner = () => (
         content: '""',
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(135deg, rgba(8,16,32,0.94) 0%, rgba(10,22,40,0.88) 55%, rgba(216,168,48,0.55) 100%)',
+        background: 'linear-gradient(135deg, rgba(8,16,32,0.94) 0%, rgba(10,22,40,0.88) 55%, rgba(59,132,237,0.55) 100%)',
         backdropFilter: 'blur(1px)',
         zIndex: 1,
       },
@@ -108,16 +108,16 @@ export const MerchantPartnerBanner = () => (
               rel="noopener noreferrer"
               variant="contained"
               sx={{
-                background: 'linear-gradient(135deg, #D8A830, #B8891F)',
+                background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
                 color: '#fff', fontWeight: 800, fontSize: 14,
                 px: 3.5, py: 1.4, borderRadius: '12px',
                 textTransform: 'none', fontFamily: 'Inter, sans-serif',
-                boxShadow: '0 6px 24px rgba(216,168,48,0.45)',
+                boxShadow: '0 6px 24px rgba(59,132,237,0.45)',
                 display: 'flex', alignItems: 'center', gap: 0.8,
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #B8891F, #98701A)',
+                  background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
                   transform: 'translateY(-2px)',
-                  boxShadow: '0 10px 32px rgba(216,168,48,0.55)',
+                  boxShadow: '0 10px 32px rgba(59,132,237,0.55)',
                 },
                 transition: 'all 0.25s ease',
               }}
@@ -185,12 +185,12 @@ const FavoriteDealsBanner = () => {
   const token = localStorage.getItem("token");
 
   return (
-    <Box sx={{ backgroundColor: '#FBF4E0', py: { xs: 4, md: 5 }, px: 2 }}>
+    <Box sx={{ backgroundColor: '#EAF2FE', py: { xs: 4, md: 5 }, px: 2 }}>
       <Container maxWidth="lg">
         <Box
           sx={{
             borderRadius: 3,
-            background: 'linear-gradient(135deg, #D8A830 0%, #B8891F 100%)',
+            background: 'linear-gradient(135deg, #3B84ED 0%, #2F6FCC 100%)',
             overflow: 'hidden',
             position: 'relative',
             px: { xs: 3, md: 5 },
@@ -218,23 +218,23 @@ const FavoriteDealsBanner = () => {
 
               {!token ? (
                 <Button href="/login" variant="contained" sx={{
-                  backgroundColor: '#fff', color: '#D8A830', fontFamily: 'Nunito Sans, sans-serif',
+                  backgroundColor: '#fff', color: '#3B84ED', fontFamily: 'Nunito Sans, sans-serif',
                   fontWeight: 800, fontSize: 14, px: 3.5, py: 1.2, borderRadius: 2,
                   textTransform: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-                  '&:hover': { backgroundColor: '#FBF4E0', transform: 'translateY(-2px)' },
+                  '&:hover': { backgroundColor: '#EAF2FE', transform: 'translateY(-2px)' },
                   transition: 'all 0.25s ease', display: 'flex', alignItems: 'center', gap: 0.8,
                 }}>
                   Sign In to Save <ArrowRight size={16} />
                 </Button>
               ) : (
                 <Button href="/favorites" variant="contained" sx={{
-                  backgroundColor: '#fff', color: '#D8A830', fontFamily: 'Nunito Sans, sans-serif',
+                  backgroundColor: '#fff', color: '#3B84ED', fontFamily: 'Nunito Sans, sans-serif',
                   fontWeight: 800, fontSize: 14, px: 3.5, py: 1.2, borderRadius: 2,
                   textTransform: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-                  '&:hover': { backgroundColor: '#FBF4E0', transform: 'translateY(-2px)' },
+                  '&:hover': { backgroundColor: '#EAF2FE', transform: 'translateY(-2px)' },
                   transition: 'all 0.25s ease', display: 'flex', alignItems: 'center', gap: 0.8,
                 }}>
-                  View My Wishlist <Heart size={16} fill="#D8A830" />
+                  View My Wishlist <Heart size={16} fill="#3B84ED" />
                 </Button>
               )}
             </Grid>

@@ -88,7 +88,7 @@ const DealsCarousel = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             <Box sx={{
               width: 46, height: 46, borderRadius: '14px',
-              background: 'linear-gradient(135deg, #D8A830, #B8891F)',
+              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 22, boxShadow: '0 0 20px rgba(236,200,106,0.45)',
               animation: 'pulse 2s infinite',
@@ -131,13 +131,13 @@ const DealsCarousel = () => {
             {[hh, mm, ss].map((unit, i) => (
               <React.Fragment key={i}>
                 <Box sx={{
-                  background: 'linear-gradient(135deg, #D8A830, #B8891F)',
+                  background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
                   color: '#fff',
                   borderRadius: '9px', px: 1.2, py: 0.4,
                   fontWeight: 900, fontSize: 16,
                   fontFamily: '"Inter", monospace, sans-serif',
                   minWidth: 34, textAlign: 'center', lineHeight: 1.3,
-                  boxShadow: '0 2px 10px rgba(216,168,48,0.5)',
+                  boxShadow: '0 2px 10px rgba(59,132,237,0.5)',
                 }}>
                   {unit}
                 </Box>
@@ -180,7 +180,7 @@ const DealsCarousel = () => {
                       <Box sx={{
                         height: 5,
                         background: isCenter
-                          ? 'linear-gradient(90deg, #D8A830, #B8891F)'
+                          ? 'linear-gradient(90deg, #3B84ED, #2F6FCC)'
                           : 'linear-gradient(90deg, #E2E8F0, #CBD5E1)',
                       }} />
 
@@ -193,8 +193,8 @@ const DealsCarousel = () => {
                             style={{ height: 32, maxWidth: 100, objectFit: 'contain' }}
                           />
                           <Box sx={{
-                            background: 'rgba(216,168,48,0.12)',
-                            color: '#D8A830',
+                            background: 'rgba(59,132,237,0.12)',
+                            color: '#3B84ED',
                             px: 1, py: 0.3, borderRadius: '6px',
                             fontSize: 10.5, fontWeight: 800, fontFamily: 'Inter, sans-serif',
                           }}>
@@ -222,13 +222,13 @@ const DealsCarousel = () => {
 
                       <Box sx={{
                         background: isCenter
-                          ? 'linear-gradient(135deg, #D8A830, #B8891F)'
+                          ? 'linear-gradient(135deg, #3B84ED, #2F6FCC)'
                           : '#F1F5F9',
                         py: 1.4, textAlign: 'center', cursor: 'pointer',
                         transition: 'all 0.25s',
-                        boxShadow: isCenter ? '0 -2px 10px rgba(216,168,48,0.3)' : 'none',
+                        boxShadow: isCenter ? '0 -2px 10px rgba(59,132,237,0.3)' : 'none',
                         '&:hover': {
-                          background: 'linear-gradient(135deg, #B8891F, #98701A)',
+                          background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
                         },
                       }}>
                         <Typography sx={{
