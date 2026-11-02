@@ -89,7 +89,7 @@ const statItems = [
 
   return (
     <div className="p-4">
-      <Title level={4} style={{ marginBottom: 20, fontFamily: 'Poppins' }}>
+      <Title level={4} style={{ marginBottom: 20, fontFamily: 'Inter, sans-serif' }}>
         Dashboard Overview
       </Title>
       <Row gutter={[24, 24]}>
@@ -102,7 +102,7 @@ const statItems = [
             >
               <Statistic
                 title={
-                  <span style={{ fontFamily: 'Poppins', fontWeight: 500 }}>
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontWeight: 500 }}>
                     {item.title}
                   </span>
                 }
@@ -111,7 +111,7 @@ const statItems = [
                 valueStyle={{
                   fontSize: 28,
                   fontWeight: 600,
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Inter, sans-serif',
                 }}
               />
             </Card>
