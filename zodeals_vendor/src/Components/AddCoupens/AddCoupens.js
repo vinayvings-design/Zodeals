@@ -80,7 +80,8 @@ const CouponDealForm = () => {
       formData.append('code', values.textType === 'Coupon' ? values.code : '');
       formData.append('link', values.storeUrl);
       formData.append('description', values.description);
-      formData.append('discountType', values.discountType);
+      // Discount Type was removed from the form, but the backend still requires it.
+      formData.append('discountType', 'Flat');
       formData.append('discountValue', values.discountValue);
       formData.append('validFrom', validFromLocal);
       formData.append('validTill', validTillLocal);
@@ -156,7 +157,6 @@ const CouponDealForm = () => {
           scrollToFirstError
           initialValues={{
             textType: 'Deal',
-            discountType: 'Flat',
           }}
         >
           <Divider orientation="left" style={{ marginTop: 0 }}>Basic Info</Divider>
@@ -191,18 +191,15 @@ const CouponDealForm = () => {
             name="description"
             rules={[{ required: true, message: 'Enter a description' }]}
           >
-            <TextArea rows={4} showCount maxLength={200} />
+            <TextArea
+              rows={4}
+              showCount
+              maxLength={200}
+              placeholder="Briefly describe the offer: what customers get, which products or services it covers, and any key condition (e.g. minimum order value)."
+            />
           </Form.Item>
 
           <Divider orientation="left">Discount Details</Divider>
-
-          <Form.Item label="Discount Type" name="discountType" rules={[{ required: true }]}>
-            <Select size="large">
-              <Option value="Flat">Flat</Option>
-              <Option value="Percentage">Percentage</Option>
-              <Option value="BOGO">Buy One Get One</Option>
-            </Select>
-          </Form.Item>
 
           <Form.Item
             label="Discount Value"
@@ -246,7 +243,11 @@ const CouponDealForm = () => {
 
           <Divider orientation="left">Legal & Media</Divider>
 
-          <Form.Item label="Terms & Conditions" name="terms">
+          <Form.Item
+            label="Terms & Conditions"
+            name="terms"
+            rules={[{ required: true, whitespace: true, message: 'Enter the terms & conditions' }]}
+          >
             <TextArea rows={4} showCount maxLength={500} />
           </Form.Item>
 
