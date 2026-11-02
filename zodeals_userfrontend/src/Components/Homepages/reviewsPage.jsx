@@ -57,9 +57,9 @@ const CustomerReviews = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
-              background: 'linear-gradient(135deg, #D8A830, #B8891F)',
+              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 20, boxShadow: '0 4px 14px rgba(216,168,48,0.35)',
+              fontSize: 20, boxShadow: '0 4px 14px rgba(59,132,237,0.35)',
             }}>⭐</Box>
             <Typography sx={{
               fontWeight: 800, fontSize: 20,
@@ -82,9 +82,9 @@ const CustomerReviews = () => {
                     sx={{
                       backgroundColor: '#fff',
                       borderRadius: 3,
-                      border: isCenter ? '2px solid #D8A830' : '1.5px solid #E8ECF4',
+                      border: isCenter ? '2px solid #3B84ED' : '1.5px solid #E8ECF4',
                       boxShadow: isCenter
-                        ? '0 8px 32px rgba(216,168,48,0.14)'
+                        ? '0 8px 32px rgba(59,132,237,0.14)'
                         : '0 1px 4px rgba(15,27,53,0.05)',
                       p: 2.5,
                       minHeight: 200,
@@ -97,7 +97,7 @@ const CustomerReviews = () => {
                   >
                     {/* Quote + review text */}
                     <Box mb={1.5}>
-                      <Quote size={22} color="#D8A830" style={{ transform: 'rotate(180deg)' }} />
+                      <Quote size={22} color="#3B84ED" style={{ transform: 'rotate(180deg)' }} />
                       <Typography
                         fontSize={13}
                         color="#4B5563"
@@ -127,7 +127,7 @@ const CustomerReviews = () => {
                         <Avatar
                           alt={item.name}
                           src={item.avatar ? `${hosturl}${item.avatar}` : ""}
-                          sx={{ width: 38, height: 38, border: '2px solid rgba(216,168,48,0.25)' }}
+                          sx={{ width: 38, height: 38, border: '2px solid rgba(59,132,237,0.25)' }}
                           imgProps={{ crossOrigin: "anonymous" }}
                         />
                         <Box>
@@ -143,7 +143,7 @@ const CustomerReviews = () => {
                         value={item.rating}
                         readOnly
                         size="small"
-                        sx={{ '& .MuiRating-iconFilled': { color: '#D8A830' } }}
+                        sx={{ '& .MuiRating-iconFilled': { color: '#3B84ED' } }}
                       />
                     </Stack>
                   </Box>
@@ -161,7 +161,7 @@ const CustomerReviews = () => {
               sx={{
                 height: 8,
                 width: currentSlide === i ? 24 : 8,
-                backgroundColor: currentSlide === i ? '#D8A830' : '#E5E7EB',
+                backgroundColor: currentSlide === i ? '#3B84ED' : '#E5E7EB',
                 borderRadius: 4,
                 transition: '0.3s',
               }}

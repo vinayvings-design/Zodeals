@@ -20,7 +20,7 @@ import { SearchContext } from './SearchContext';
 // ── Navbar — unique lucide icon per item, no repeats ──
 const NAV_ITEMS = [
   { label: 'Home',        Icon: Home,        color: '#4B5563', bg: '#F3F4F6', border: '#D1D5DB', path: '/' },
-  { label: 'Stores',      Icon: Store,        color: '#D8A830', bg: '#FBF4E0', border: '#EBD9A8', path: '/stores' },
+  { label: 'Stores',      Icon: Store,        color: '#3B84ED', bg: '#EAF2FE', border: '#BFD6F8', path: '/stores' },
   { label: 'Shopping',    Icon: ShoppingBag,  color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE', path: '/categories' },
   { label: 'Travel',      Icon: Plane,        color: '#2563EB', bg: '#EFF6FF', border: '#BFDBFE', path: '/categories' },
   { label: 'Food',        Icon: Utensils,     color: '#DC2626', bg: '#FEF2F2', border: '#FECACA', path: '/categories' },
@@ -28,7 +28,7 @@ const NAV_ITEMS = [
   { label: 'Electronics', Icon: Laptop,       color: '#0EA5E9', bg: '#F0F9FF', border: '#BAE6FD', path: '/categories' },
   { label: 'Beauty',      Icon: Sparkles,     color: '#8B5CF6', bg: '#F5F3FF', border: '#DDD6FE', path: '/categories' },
   { label: 'Mobile',      Icon: Smartphone,   color: '#10B981', bg: '#ECFDF5', border: '#A7F3D0', path: '/categories' },
-  { label: 'All Deals',   Icon: Tag,          color: '#D8A830', bg: '#FBF4E0', border: '#EBD9A8', path: '/alldeals' },
+  { label: 'All Deals',   Icon: Tag,          color: '#3B84ED', bg: '#EAF2FE', border: '#BFD6F8', path: '/alldeals' },
 ];
 
 // Styled search box — pill shape
@@ -44,8 +44,8 @@ const SearchBox = styled('div')(() => ({
   transition: 'border-color 0.22s, box-shadow 0.22s, background 0.22s',
   '&:focus-within': {
     backgroundColor: '#fff',
-    borderColor: '#D8A830',
-    boxShadow: '0 0 0 3px rgba(216,168,48,0.12)',
+    borderColor: '#3B84ED',
+    boxShadow: '0 0 0 3px rgba(59,132,237,0.12)',
   },
 }));
 
@@ -230,12 +230,12 @@ export default function Header({ showTabs = true }) {
               flexShrink: 0, whiteSpace: 'nowrap', textDecoration: 'none',
               display: 'flex', alignItems: 'center', gap: 0.7,
               px: 2, py: 1, borderRadius: 50,
-              background: 'linear-gradient(135deg, #D8A830, #B8891F)',
+              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
               color: '#fff', fontFamily: 'Inter, sans-serif',
               fontWeight: 700, fontSize: 12.5,
-              boxShadow: '0 2px 8px rgba(216,168,48,0.35)',
+              boxShadow: '0 2px 8px rgba(59,132,237,0.35)',
               transition: 'all 0.2s',
-              '&:hover': { transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(216,168,48,0.5)' },
+              '&:hover': { transform: 'translateY(-1px)', boxShadow: '0 4px 12px rgba(59,132,237,0.5)' },
             }}
           >
             <Store size={15} strokeWidth={2.2} />
@@ -251,7 +251,7 @@ export default function Header({ showTabs = true }) {
               onClick={() => setMobileSearch(p => !p)}
               sx={{
                 width: 36, height: 36,
-                backgroundColor: mobileSearch ? '#FBF4E0' : 'transparent',
+                backgroundColor: mobileSearch ? '#EAF2FE' : 'transparent',
                 borderRadius: '10px',
                 '&:hover': { backgroundColor: '#F5F7FA' },
               }}
@@ -267,10 +267,10 @@ export default function Header({ showTabs = true }) {
               display: 'flex', flexDirection: 'column', alignItems: 'center',
               gap: 0.15, cursor: 'pointer', px: { xs: 0.6, md: 1 }, py: { xs: 0.4, md: 0.6 },
               borderRadius: '10px', transition: 'all 0.2s',
-              '&:hover': { backgroundColor: '#FBF4E0' },
+              '&:hover': { backgroundColor: '#EAF2FE' },
             }}
           >
-            <Heart size={isMobile ? 20 : 19} color="#D8A830" strokeWidth={1.8} />
+            <Heart size={isMobile ? 20 : 19} color="#3B84ED" strokeWidth={1.8} />
             {!isMobile && (
               <Typography sx={{ fontSize: 10, fontWeight: 600, color: '#6B7280', fontFamily: 'Inter, sans-serif' }}>
                 Saved
@@ -314,20 +314,20 @@ export default function Header({ showTabs = true }) {
               display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.15,
               cursor: 'pointer', px: { xs: 0.7, md: 1.2 }, py: { xs: 0.4, md: 0.6 },
               borderRadius: '10px', border: '1.5px solid',
-              borderColor: token ? '#D8A830' : '#E8ECF4',
-              backgroundColor: token ? '#FBF4E0' : 'transparent',
+              borderColor: token ? '#3B84ED' : '#E8ECF4',
+              backgroundColor: token ? '#EAF2FE' : 'transparent',
               '&:hover': {
-                borderColor: '#D8A830',
-                backgroundColor: '#FBF4E0',
+                borderColor: '#3B84ED',
+                backgroundColor: '#EAF2FE',
               },
               transition: 'all 0.2s',
             }}
           >
-            <User size={17} color={token ? '#D8A830' : '#374151'} strokeWidth={token ? 2.2 : 1.8} />
+            <User size={17} color={token ? '#3B84ED' : '#374151'} strokeWidth={token ? 2.2 : 1.8} />
             {!isMobile && (
               <Typography sx={{
                 fontSize: 10, fontWeight: 700,
-                color: token ? '#D8A830' : '#374151',
+                color: token ? '#3B84ED' : '#374151',
                 fontFamily: 'Inter, sans-serif',
               }}>
                 Account
@@ -366,10 +366,10 @@ export default function Header({ showTabs = true }) {
             <MenuItem
               key="profile"
               onClick={() => { navigate('/profile'); setAnchorEl(null); }}
-              sx={{ gap: 1.5, fontSize: 13, fontFamily: 'Inter, sans-serif', py: 1.3, '&:hover': { backgroundColor: '#FBF4E0' } }}
+              sx={{ gap: 1.5, fontSize: 13, fontFamily: 'Inter, sans-serif', py: 1.3, '&:hover': { backgroundColor: '#EAF2FE' } }}
             >
-              <Box sx={{ width: 28, height: 28, borderRadius: '8px', backgroundColor: '#FBF4E0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <User size={14} color="#D8A830" />
+              <Box sx={{ width: 28, height: 28, borderRadius: '8px', backgroundColor: '#EAF2FE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <User size={14} color="#3B84ED" />
               </Box>
               <Typography fontSize={13} fontFamily="Inter, sans-serif" fontWeight={600}>Profile</Typography>
             </MenuItem>,
@@ -387,10 +387,10 @@ export default function Header({ showTabs = true }) {
           ] : (
             <MenuItem
               onClick={() => { navigate('/login'); setAnchorEl(null); }}
-              sx={{ gap: 1.5, fontSize: 13, fontFamily: 'Inter, sans-serif', py: 1.3, '&:hover': { backgroundColor: '#FBF4E0' } }}
+              sx={{ gap: 1.5, fontSize: 13, fontFamily: 'Inter, sans-serif', py: 1.3, '&:hover': { backgroundColor: '#EAF2FE' } }}
             >
-              <Box sx={{ width: 28, height: 28, borderRadius: '8px', backgroundColor: '#FBF4E0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <LogIn size={14} color="#D8A830" />
+              <Box sx={{ width: 28, height: 28, borderRadius: '8px', backgroundColor: '#EAF2FE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <LogIn size={14} color="#3B84ED" />
               </Box>
               <Typography fontSize={13} fontFamily="Inter, sans-serif" fontWeight={600}>Login / Sign up</Typography>
             </MenuItem>
@@ -480,9 +480,9 @@ export default function Header({ showTabs = true }) {
           <List dense sx={{ pt: 1, flex: 1 }}>
             {[
               { label: 'Home',       path: '/',           Icon: Home,       color: '#0F1B35' },
-              { label: 'Stores',     path: '/stores',     Icon: Store,      color: '#D8A830' },
+              { label: 'Stores',     path: '/stores',     Icon: Store,      color: '#3B84ED' },
               { label: 'Categories', path: '/categories', Icon: LayoutGrid, color: '#7C3AED' },
-              { label: 'All Deals',  path: '/alldeals',   Icon: Tag,        color: '#D8A830' },
+              { label: 'All Deals',  path: '/alldeals',   Icon: Tag,        color: '#3B84ED' },
             ].map(({ label, path, Icon, color }) => (
               <ListItem key={label} disablePadding>
                 <ListItemButton
@@ -510,10 +510,10 @@ export default function Header({ showTabs = true }) {
                 href="https://zodealsvendor.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#FBF4E0' } }}
+                sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#EAF2FE' } }}
               >
-                <Box sx={{ width: 34, height: 34, borderRadius: '9px', backgroundColor: '#FBF4E0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Store size={17} color="#D8A830" />
+                <Box sx={{ width: 34, height: 34, borderRadius: '9px', backgroundColor: '#EAF2FE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Store size={17} color="#3B84ED" />
                 </Box>
                 <ListItemText primary="Merchant Partnership" primaryTypographyProps={{ fontFamily: 'Inter, sans-serif', fontSize: 14, fontWeight: 600 }} />
                 <ChevronRight size={15} color="#D1D5DB" />
@@ -523,10 +523,10 @@ export default function Header({ showTabs = true }) {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => { navigate('/favorites'); setDrawerOpen(false); }}
-                sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#FBF4E0' } }}
+                sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#EAF2FE' } }}
               >
-                <Box sx={{ width: 34, height: 34, borderRadius: '9px', backgroundColor: '#FBF4E0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Heart size={17} color="#D8A830" />
+                <Box sx={{ width: 34, height: 34, borderRadius: '9px', backgroundColor: '#EAF2FE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Heart size={17} color="#3B84ED" />
                 </Box>
                 <ListItemText primary="Saved Deals" primaryTypographyProps={{ fontFamily: 'Inter, sans-serif', fontSize: 14, fontWeight: 600 }} />
                 <ChevronRight size={15} color="#D1D5DB" />
@@ -548,10 +548,10 @@ export default function Header({ showTabs = true }) {
               <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => { navigate('/login'); setDrawerOpen(false); }}
-                  sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#FBF4E0' } }}
+                  sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#EAF2FE' } }}
                 >
-                  <Box sx={{ width: 34, height: 34, borderRadius: '9px', backgroundColor: '#FBF4E0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <LogIn size={17} color="#D8A830" />
+                  <Box sx={{ width: 34, height: 34, borderRadius: '9px', backgroundColor: '#EAF2FE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <LogIn size={17} color="#3B84ED" />
                   </Box>
                   <ListItemText primary="Login / Sign up" primaryTypographyProps={{ fontFamily: 'Inter, sans-serif', fontSize: 14, fontWeight: 600 }} />
                 </ListItemButton>

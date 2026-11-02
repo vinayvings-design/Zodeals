@@ -29,7 +29,7 @@ const ColHeading = ({ children }) => (
     }}>
       {children}
     </Typography>
-    <Box sx={{ width: 30, height: 3, borderRadius: 2, backgroundColor: "#D8A830" }} />
+    <Box sx={{ width: 30, height: 3, borderRadius: 2, backgroundColor: "#3B84ED" }} />
   </Box>
 );
 
@@ -41,7 +41,7 @@ const FooterLink = ({ to, children, state }) => (
         color: "#9CA3AF", fontSize: 13,
         fontFamily: "Inter, sans-serif", fontWeight: 400,
         textDecoration: "none", transition: "color 0.18s",
-        "&:hover": { color: "#D8A830" },
+        "&:hover": { color: "#3B84ED" },
       }}
     >
       {children}
@@ -66,7 +66,7 @@ export default function Footer() {
   return (
     <Box component="footer" sx={{ backgroundColor: "#0A1628", color: "#fff" }}>
       {/* Top gradient accent border */}
-      <Box sx={{ height: 3, background: "linear-gradient(90deg, #D8A830 0%, #B8891F 50%, #D8A830 100%)" }} />
+      <Box sx={{ height: 3, background: "linear-gradient(90deg, #3B84ED 0%, #2F6FCC 50%, #3B84ED 100%)" }} />
 
       <Container maxWidth="xl" sx={{ pt: 6, pb: 5 }}>
         {/* Single horizontal row: Brand | Company | Contact Us */}
@@ -146,7 +146,7 @@ export default function Footer() {
                 { Icon: MapPin, text: details?.location,      label: "Location" },
               ].map(({ Icon, text, label }) => text && (
                 <Box key={label} display="flex" alignItems="flex-start" gap={1} mb={1.5}>
-                  <Icon size={13} color="#D8A830" style={{ marginTop: 3, flexShrink: 0 }} />
+                  <Icon size={13} color="#3B84ED" style={{ marginTop: 3, flexShrink: 0 }} />
                   <Typography fontSize={13} color="#9CA3AF" fontFamily="Inter, sans-serif" lineHeight={1.5}>
                     {text}
                   </Typography>
@@ -161,10 +161,10 @@ export default function Footer() {
                   variant="contained"
                   size="small"
                   sx={{
-                    background: "linear-gradient(135deg, #D8A830, #B8891F)",
+                    background: "linear-gradient(135deg, #3B84ED, #2F6FCC)",
                     color: "#fff", fontFamily: "Inter, sans-serif", fontWeight: 700, fontSize: 12,
                     textTransform: "none", borderRadius: "8px",
-                    "&:hover": { background: "linear-gradient(135deg, #B8891F, #98701A)", transform: "translateY(-1px)" },
+                    "&:hover": { background: "linear-gradient(135deg, #2F6FCC, #2559A8)", transform: "translateY(-1px)" },
                     transition: "all 0.22s",
                   }}
                 >
@@ -179,7 +179,7 @@ export default function Footer() {
                     color: "#9CA3AF", borderColor: "rgba(255,255,255,0.15)",
                     fontFamily: "Inter, sans-serif", fontWeight: 700, fontSize: 12,
                     textTransform: "none", borderRadius: "8px",
-                    "&:hover": { backgroundColor: "#D8A830", borderColor: "#D8A830", color: "#fff" },
+                    "&:hover": { backgroundColor: "#3B84ED", borderColor: "#3B84ED", color: "#fff" },
                     transition: "all 0.22s",
                   }}
                 >
@@ -204,7 +204,7 @@ export default function Footer() {
             </Typography>
             <Typography fontSize={12} color="#4B5563" fontFamily="Inter, sans-serif"
               sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              Built with <Heart size={12} color="#D8A830" fill="#D8A830" /> by Vinay Kulkarni
+              Built with <Heart size={12} color="#3B84ED" fill="#3B84ED" /> by Vinay Kulkarni
             </Typography>
           </Box>
         </Container>
