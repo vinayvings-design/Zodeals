@@ -108,14 +108,14 @@ export const MerchantPartnerBanner = () => (
               rel="noopener noreferrer"
               variant="contained"
               sx={{
-                background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+                background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
                 color: '#fff', fontWeight: 800, fontSize: 14,
                 px: 3.5, py: 1.4, borderRadius: '12px',
                 textTransform: 'none', fontFamily: 'Inter, sans-serif',
                 boxShadow: '0 6px 24px rgba(59,132,237,0.45)',
                 display: 'flex', alignItems: 'center', gap: 0.8,
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
+                  background: 'linear-gradient(135deg, #0E88C9, #4857D2)',
                   transform: 'translateY(-2px)',
                   boxShadow: '0 10px 32px rgba(59,132,237,0.55)',
                 },
@@ -190,7 +190,7 @@ const FavoriteDealsBanner = () => {
         <Box
           sx={{
             borderRadius: 3,
-            background: 'linear-gradient(135deg, #3B84ED 0%, #2F6FCC 100%)',
+            background: 'linear-gradient(135deg, #13A2EA 0%, #5A6EF1 100%)',
             overflow: 'hidden',
             position: 'relative',
             px: { xs: 3, md: 5 },

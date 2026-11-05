@@ -57,7 +57,7 @@ const CustomerReviews = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
-              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+              background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 20, boxShadow: '0 4px 14px rgba(59,132,237,0.35)',
             }}>⭐</Box>

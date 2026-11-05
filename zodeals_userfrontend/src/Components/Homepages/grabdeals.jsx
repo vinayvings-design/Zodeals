@@ -88,7 +88,7 @@ const DealsCarousel = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
             <Box sx={{
               width: 46, height: 46, borderRadius: '14px',
-              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+              background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 22, boxShadow: '0 0 20px rgba(236,200,106,0.45)',
               animation: 'pulse 2s infinite',
@@ -131,7 +131,7 @@ const DealsCarousel = () => {
             {[hh, mm, ss].map((unit, i) => (
               <React.Fragment key={i}>
                 <Box sx={{
-                  background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+                  background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
                   color: '#fff',
                   borderRadius: '9px', px: 1.2, py: 0.4,
                   fontWeight: 900, fontSize: 16,
@@ -180,7 +180,7 @@ const DealsCarousel = () => {
                       <Box sx={{
                         height: 5,
                         background: isCenter
-                          ? 'linear-gradient(90deg, #3B84ED, #2F6FCC)'
+                          ? 'linear-gradient(90deg, #13A2EA, #5A6EF1)'
                           : 'linear-gradient(90deg, #E2E8F0, #CBD5E1)',
                       }} />
 
@@ -222,13 +222,13 @@ const DealsCarousel = () => {
 
                       <Box sx={{
                         background: isCenter
-                          ? 'linear-gradient(135deg, #3B84ED, #2F6FCC)'
+                          ? 'linear-gradient(135deg, #13A2EA, #5A6EF1)'
                           : '#F1F5F9',
                         py: 1.4, textAlign: 'center', cursor: 'pointer',
                         transition: 'all 0.25s',
                         boxShadow: isCenter ? '0 -2px 10px rgba(59,132,237,0.3)' : 'none',
                         '&:hover': {
-                          background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
+                          background: 'linear-gradient(135deg, #0E88C9, #4857D2)',
                         },
                       }}>
                         <Typography sx={{

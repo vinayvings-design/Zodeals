@@ -64,7 +64,7 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist, isDummy }) => {
         {/* Discount badge */}
         <Box sx={{
           position: 'absolute', top: 10, left: 10,
-          background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+          background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
           color: '#fff', borderRadius: '8px', px: 1, py: 0.4,
           fontSize: 10.5, fontWeight: 800, fontFamily: 'Inter, sans-serif',
           display: 'flex', alignItems: 'center', gap: 0.4,
@@ -126,12 +126,12 @@ const DealCard = ({ deal, onDealClick, wishlist, toggleWishlist, isDummy }) => {
         onClick={() => onDealClick(deal)}
         sx={{
           mx: 1.2, mb: 1.2, borderRadius: '10px',
-          background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+          background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
           py: 1, textAlign: 'center', cursor: 'pointer',
           transition: 'all 0.2s',
           boxShadow: '0 3px 10px rgba(59,132,237,0.25)',
           '&:hover': {
-            background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
+            background: 'linear-gradient(135deg, #0E88C9, #4857D2)',
             transform: 'translateY(-1px)',
             boxShadow: '0 6px 16px rgba(59,132,237,0.35)',
           },
@@ -214,7 +214,7 @@ const TopDeals = () => {
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
             <Box sx={{
               width: 40, height: 40, borderRadius: '12px',
-              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+              background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 20, boxShadow: '0 4px 14px rgba(59,132,237,0.35)',
             }}>⚡</Box>

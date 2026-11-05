@@ -36,9 +36,9 @@ export default function MainPage() {
             <Fab
               onClick={openPinModal}
               sx={{
-                background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+                background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
                 color: '#fff',
-                '&:hover': { background: 'linear-gradient(135deg, #2F6FCC, #2559A8)' },
+                '&:hover': { background: 'linear-gradient(135deg, #0E88C9, #4857D2)' },
                 boxShadow: '0 4px 20px rgba(59,132,237,0.4)',
               }}
             >

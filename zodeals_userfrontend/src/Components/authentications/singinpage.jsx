@@ -207,9 +207,9 @@ const LoginForm = () => {
                 height: 50, fontFamily: 'Inter, sans-serif',
                 fontWeight: 800, fontSize: 15, textTransform: 'none',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+                background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
+                  background: 'linear-gradient(135deg, #0E88C9, #4857D2)',
                   transform: 'translateY(-1px)',
                   boxShadow: '0 8px 24px rgba(59,132,237,0.4)',
                 },
@@ -285,12 +285,12 @@ const ForgotPasswordModal = ({ open, handleClose }) => {
   };
 
   const btnSx = {
-    background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+    background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
     color: '#fff', textTransform: 'none',
     fontFamily: 'Inter, sans-serif', fontWeight: 800,
     py: 1.3, borderRadius: '12px',
     '&:hover': {
-      background: 'linear-gradient(135deg, #2F6FCC, #2559A8)',
+      background: 'linear-gradient(135deg, #0E88C9, #4857D2)',
       boxShadow: '0 6px 20px rgba(59,132,237,0.35)',
     },
     transition: 'all 0.22s',
