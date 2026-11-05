@@ -66,7 +66,7 @@ export default function Footer() {
   return (
     <Box component="footer" sx={{ backgroundColor: "#0A1628", color: "#fff" }}>
       {/* Top gradient accent border */}
-      <Box sx={{ height: 3, background: "linear-gradient(90deg, #3B84ED 0%, #2F6FCC 50%, #3B84ED 100%)" }} />
+      <Box sx={{ height: 3, background: "linear-gradient(90deg, #13A2EA 0%, #5A6EF1 50%, #13A2EA 100%)" }} />
 
       <Container maxWidth="xl" sx={{ pt: 6, pb: 5 }}>
         {/* Single horizontal row: Brand | Company | Contact Us */}
@@ -161,10 +161,10 @@ export default function Footer() {
                   variant="contained"
                   size="small"
                   sx={{
-                    background: "linear-gradient(135deg, #3B84ED, #2F6FCC)",
+                    background: "linear-gradient(135deg, #13A2EA, #5A6EF1)",
                     color: "#fff", fontFamily: "Inter, sans-serif", fontWeight: 700, fontSize: 12,
                     textTransform: "none", borderRadius: "8px",
-                    "&:hover": { background: "linear-gradient(135deg, #2F6FCC, #2559A8)", transform: "translateY(-1px)" },
+                    "&:hover": { background: "linear-gradient(135deg, #0E88C9, #4857D2)", transform: "translateY(-1px)" },
                     transition: "all 0.22s",
                   }}
                 >

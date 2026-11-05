@@ -33,7 +33,7 @@ const CouponCard = ({ coupon, wishlist, toggleWishlist, handleOpenDialog, setOpe
 
   const stripBg = isCode
     ? 'linear-gradient(160deg, #6D28D9, #4C1D95)'
-    : 'linear-gradient(160deg, #3B84ED, #2F6FCC)';
+    : 'linear-gradient(160deg, #13A2EA, #5A6EF1)';
 
   return (
     <Box

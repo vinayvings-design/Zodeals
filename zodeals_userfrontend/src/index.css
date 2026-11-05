@@ -414,7 +414,7 @@ img {
 .zd-bar-fill {
   height: 100%;
   border-radius: 99px;
-  background: linear-gradient(90deg, #3B84ED, #2F6FCC);
+  background: linear-gradient(90deg, #13A2EA, #5A6EF1);
   animation: zdBarFill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   box-shadow: 0 0 8px rgba(59,132,237, 0.5);
 }

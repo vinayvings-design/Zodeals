@@ -230,7 +230,7 @@ export default function Header({ showTabs = true }) {
               flexShrink: 0, whiteSpace: 'nowrap', textDecoration: 'none',
               display: 'flex', alignItems: 'center', gap: 0.7,
               px: 2, py: 1, borderRadius: 50,
-              background: 'linear-gradient(135deg, #3B84ED, #2F6FCC)',
+              background: 'linear-gradient(135deg, #13A2EA, #5A6EF1)',
               color: '#fff', fontFamily: 'Inter, sans-serif',
               fontWeight: 700, fontSize: 12.5,
               boxShadow: '0 2px 8px rgba(59,132,237,0.35)',
