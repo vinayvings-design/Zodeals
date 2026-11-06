@@ -602,7 +602,7 @@ const VendorCouponsAndDeals = () => {
         <TabPane
           tab={
             <span>
-              Unpaid Coupons
+              Available Coupons
               {coupons.length > 0 && <Badge count={coupons.length} style={{ marginLeft: 8 }} />}
             </span>
           }
@@ -615,10 +615,10 @@ const VendorCouponsAndDeals = () => {
               background: '#f8f9fa',
               borderRadius: '8px'
             }}>
-              <Title level={4}>No unpaid coupons found</Title>
+              <Title level={4}>No available coupons found</Title>
               <Text type="secondary">
                 {coupons.length === 0
-                  ? "You don't have any unpaid coupons yet."
+                  ? "You don't have any available coupons yet."
                   : "No coupons match your current filters."}
               </Text>
             </div>
@@ -632,7 +632,7 @@ const VendorCouponsAndDeals = () => {
         <TabPane
           tab={
             <span>
-              Paid Coupons
+              My Coupons
               {paidCoupons.length > 0 && <Badge count={paidCoupons.length} style={{ marginLeft: 8 }} />}
             </span>
           }
@@ -645,10 +645,10 @@ const VendorCouponsAndDeals = () => {
               background: '#f8f9fa',
               borderRadius: '8px'
             }}>
-              <Title level={4}>No paid coupons found</Title>
+              <Title level={4}>No coupons found</Title>
               <Text type="secondary">
                 {paidCoupons.length === 0
-                  ? "You don't have any paid coupons yet."
+                  ? "You don't have any coupons yet."
                   : "No coupons match your current filters."}
               </Text>
             </div>
