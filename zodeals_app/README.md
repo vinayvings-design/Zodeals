@@ -24,11 +24,19 @@ GitHub: Actions tab -> **Build Android app (zodeals_app)** -> Run workflow. Down
 (The APK from this workflow is for testing. It is signed with a debug key.)
 
 ## Publish on Google Play
-1. Create a Google Play developer account ($25, one time).
-2. Build a signed release bundle (.aab). Easiest: `npm i -g eas-cli`, `eas login`, `eas build -p android --profile production`.
-3. In Play Console create the app, upload the .aab, add screenshots, a privacy policy URL and the Data safety form
-   (the app collects email, name, phone and an optional profile photo).
-4. Change `android.package` in `app.json` (currently `in.zodeals.app`) BEFORE the first upload. It cannot change later.
+Targets Android API 36 (Expo SDK 58), as Google Play requires for new apps.
+
+Checklist:
+1. Play developer account ($25, one time).
+2. **Change `android.package`** in `app.json` (now `in.zodeals.app`) BEFORE the first upload. It cannot change later. Raise `android.versionCode` for every upload.
+3. Signed bundle (.aab): `npm i -g eas-cli`, `eas login`, then in `zodeals_app` run `eas build -p android --profile production`. EAS creates and stores the upload keystore. Keep it safe.
+4. Play Console -> create app -> upload the .aab (start with Internal testing).
+5. Store listing: 512x512 icon, 1024x500 feature graphic, 2-8 phone screenshots, short (80 chars) and full description.
+6. Privacy policy URL: `https://zodeals.in/privacy-policy`
+7. Account deletion: in the app (Account -> Delete account) and on the web: `https://zodeals.in/delete-account`. Enter that URL in Play Console -> App content -> Data safety. Check the wording of that page is right for you.
+8. Data safety form: collects name, email, phone, optional profile photo; data is sent to your server over HTTPS; users can request deletion.
+9. Complete App content: ads (no), target audience (18+), content rating questionnaire.
+10. New personal developer accounts must run a closed test with 12+ testers for 14 days before applying for production.
 
 ## Config
 - `src/config.js`: API URL and the vendor / partner links.

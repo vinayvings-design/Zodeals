@@ -132,8 +132,8 @@ export const CategoryTile = ({ cat, count, color, onPress, w }) => (
     <View style={[ct.icon, { backgroundColor: `${color}18` }]}>
       {cat.image ? <Image source={{ uri: imgUrl(cat.image) }} style={{ width: 30, height: 30 }} resizeMode="contain" /> : <Feather name="grid" size={22} color={color} />}
     </View>
-    <Text style={ct.name} numberOfLines={1}>{cat.title}</Text>
-    {count != null ? <Text style={ct.count}>{count} offers</Text> : null}
+    <Text style={ct.name} numberOfLines={2}>{cat.title}</Text>
+    {count != null ? <Text style={ct.count}>{count} {count === 1 ? 'offer' : 'offers'}</Text> : null}
   </TouchableOpacity>
 );
 export function CategoriesSection() {
@@ -149,7 +149,7 @@ export function CategoriesSection() {
       <SectionHeader title="Shop by Category" sub="Find offers you love" onMore={() => nav.navigate('Tabs', { screen: 'Categories' })} />
       {loading ? <Loader pad={20} /> : (
         <FlatList data={cats} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={hList} keyExtractor={(i) => i._id}
-          renderItem={({ item, index }) => <CategoryTile w={112} cat={item} count={item._count} color={CAT_COLORS[index % CAT_COLORS.length]} onPress={(c) => nav.navigate('CategoryCoupons', { id: c._id, title: c.title })} />} />
+          renderItem={({ item, index }) => <CategoryTile w={120} cat={item} count={item._count} color={CAT_COLORS[index % CAT_COLORS.length]} onPress={(c) => nav.navigate('CategoryCoupons', { id: c._id, title: c.title })} />} />
       )}
     </View>
   );
@@ -201,9 +201,9 @@ const pc = StyleSheet.create({
   ctaTxt: { color: '#fff', fontFamily: F.black, fontSize: 12 },
 });
 const ct = StyleSheet.create({
-  tile: { backgroundColor: '#fff', borderRadius: 16, borderWidth: 1.5, borderColor: C.border, padding: 12, alignItems: 'center', ...shadow },
+  tile: { backgroundColor: '#fff', borderRadius: 16, borderWidth: 1.5, borderColor: C.border, paddingVertical: 12, paddingHorizontal: 8, alignItems: 'center', ...shadow },
   icon: { width: 52, height: 52, borderRadius: 16, alignItems: 'center', justifyContent: 'center', marginBottom: 8 },
-  name: { fontFamily: F.bold, fontSize: 12.5, color: C.text },
+  name: { fontFamily: F.bold, fontSize: 12, color: C.text, textAlign: 'center', minHeight: 30, lineHeight: 15 },
   count: { fontFamily: F.reg, fontSize: 11, color: C.muted, marginTop: 2 },
 });
 const bn = StyleSheet.create({

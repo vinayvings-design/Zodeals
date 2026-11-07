@@ -28,7 +28,7 @@ export default function CouponCard({ item, onPress, width, style }) {
         <Text style={s.title} numberOfLines={2}>{item.title}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 5 }}>
           <Feather name="eye" size={11} color="#D1D5DB" />
-          <Text style={s.views}>{item.viewCount || 0} views</Text>
+          <Text style={s.views}>{item.viewCount || 0} {(item.viewCount || 0) === 1 ? 'view' : 'views'}</Text>
         </View>
       </View>
       <TouchableOpacity activeOpacity={0.85} onPress={() => onPress(item)} style={{ marginHorizontal: 10, marginBottom: 10 }}>

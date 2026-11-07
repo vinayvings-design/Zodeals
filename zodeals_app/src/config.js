@@ -2,3 +2,4 @@
 export const HOST_URL = 'https://api.zodeals.in';
 export const VENDOR_URL = 'https://zodealsvendor.vercel.app/';
 export const PARTNER_URL = 'https://partner.zodeals.in';
+export const SUPPORT_EMAIL = 'contact@zodeals.in';

@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { C, F, shadow } from '../theme';
 import { useApp } from '../context/AppContext';
 import { getProfile, updateProfile, getWishlist, getNotifications, createAgent, getContactInfo, imgUrl, errMsg } from '../api';
-import { VENDOR_URL } from '../config';
+import { VENDOR_URL, SUPPORT_EMAIL } from '../config';
 import { GradButton, OutlineButton, Loader, Empty, Field, Banner } from '../components/ui';
 import CouponGrid from '../components/CouponGrid';
 import { PAGES } from '../content/pages';
@@ -81,7 +81,10 @@ export function AccountScreen({ navigation }) {
             {info.location ? <Row icon="map-pin" label={info.location} onPress={() => {}} /> : null}
           </View>
         ) : null}
-        {isLoggedIn ? <View style={ac.group}><Row icon="log-out" label="Log out" color={C.danger} onPress={logout} /></View> : null}
+        {isLoggedIn ? <View style={ac.group}>
+          <Row icon="log-out" label="Log out" color={C.danger} onPress={logout} />
+          <Row icon="trash-2" label="Delete account" color={C.danger} onPress={() => navigation.navigate('DeleteAccount')} />
+        </View> : null}
       </ScrollView>
     </SafeAreaView>
   );
@@ -143,7 +146,7 @@ export function ProfileScreen({ navigation }) {
   const pick = async () => {
     const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!perm.granted) { setMsg({ t: 'error', m: 'Photo permission is needed to change your picture.' }); return; }
-    const r = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ImagePicker.MediaTypeOptions.Images, quality: 0.7, allowsEditing: true, aspect: [1, 1] });
+    const r = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 0.7, allowsEditing: true, aspect: [1, 1] });
     if (!r.canceled && r.assets?.[0]) setImg(r.assets[0]);
   };
   const save = async () => {
@@ -212,6 +215,33 @@ export function AgentContactScreen() {
         <GradButton title="Submit" onPress={submit} loading={busy} />
       </ScrollView>
     </KeyboardAvoidingView>
+  );
+}
+
+
+/* ---------------- Delete account (request, handled by email) ---------------- */
+export function DeleteAccountScreen() {
+  const { isLoggedIn } = useApp();
+  const [email, setEmail] = useState('');
+  useEffect(() => { if (isLoggedIn) getProfile().then((d) => setEmail(d?.email || '')).catch(() => {}); }, [isLoggedIn]);
+  const request = () => {
+    const subject = encodeURIComponent('Account deletion request');
+    const body = encodeURIComponent(`Please delete my ZoDeals account and the personal data linked to it.\n\nRegistered email: ${email}\n`);
+    Linking.openURL(`mailto:${SUPPORT_EMAIL}?subject=${subject}&body=${body}`).catch(() => Alert.alert('No email app found', `Please email ${SUPPORT_EMAIL} from your registered address with the subject "Account deletion request".`));
+  };
+  return (
+    <ScrollView style={{ backgroundColor: '#fff' }} contentContainerStyle={{ padding: 20, paddingBottom: 50 }}>
+      <View style={{ width: 56, height: 56, borderRadius: 18, backgroundColor: '#FEF2F2', alignItems: 'center', justifyContent: 'center', marginBottom: 14 }}>
+        <Feather name="trash-2" size={26} color={C.danger} />
+      </View>
+      <Text style={pp.title}>Delete your account</Text>
+      <Text style={[pp.p, { marginTop: 8 }]}>You can ask us to delete your ZoDeals account and the personal data linked to it: your name, email address, phone number, profile photo, favourites and comments.</Text>
+      <Text style={pp.h}>How it works</Text>
+      <Text style={[pp.p, { marginTop: 8 }]}>Tap the button below. It opens an email to {SUPPORT_EMAIL} with your registered email filled in. Send it, and we will check the request comes from you and then delete your account and its personal data. We may keep limited information where the law requires it.</Text>
+      <View style={{ marginTop: 22 }}>
+        <GradButton title="Request account deletion" icon="mail" onPress={request} />
+      </View>
+    </ScrollView>
   );
 }
 

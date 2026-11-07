@@ -10,7 +10,7 @@ import HomeScreen from '../screens/HomeScreen';
 import { StoresScreen, CategoriesScreen, AllDealsScreen, CategoryCouponsScreen, StoreOffersScreen, DealsOfDayScreen, SearchScreen } from '../screens/BrowseScreens';
 import CouponDetailScreen from '../screens/CouponDetailScreen';
 import { LoginScreen, SignupScreen, ForgotPasswordScreen } from '../screens/AuthScreens';
-import { AccountScreen, FavoritesScreen, NotificationsScreen, ProfileScreen, AgentContactScreen, PageScreen } from '../screens/AccountScreens';
+import { AccountScreen, FavoritesScreen, NotificationsScreen, ProfileScreen, AgentContactScreen, PageScreen, DeleteAccountScreen } from '../screens/AccountScreens';
 import { SignInPrompt, PinCodeModal } from '../components/Modals';
 import { navRef } from './ref';
 
@@ -66,6 +66,7 @@ export default function Navigation() {
         <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ title: '' }} />
         <Stack.Screen name="AgentContact" component={AgentContactScreen} options={{ title: 'Become an agent' }} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} options={{ title: 'Delete account' }} />
         <Stack.Screen name="Page" component={PageScreen} options={{ title: '' }} />
       </Stack.Navigator>
       {/* Global dialogs: sign-in prompt and pin code */}
