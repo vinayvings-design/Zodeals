@@ -23,6 +23,7 @@ import RefundPolicy from './Components/Footerpages/refundPolicy';
 import ProductPricingPolicy from './Components/Footerpages/ProductPricingPolicy';
 import { ModalProvider } from './context/ModalContext';
 import AgentContactForm from './Components/Footerpages/AgentContactForm';
+import DeleteAccount from './Components/Footerpages/DeleteAccount';
 const App = () => {
   return (
     <ModalProvider>
@@ -51,6 +52,7 @@ const App = () => {
           <Route path='/single-store-page' element={<SingleStoreAllOffers />} />
           <Route path='/all/deals/today' element={<AllDealsofDay />} />
           <Route path='/agent-contact' element={<AgentContactForm />} />
+          <Route path='/delete-account' element={<DeleteAccount />} />
         </Routes>
       </SearchProvider>
     </ModalProvider>
