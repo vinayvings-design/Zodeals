@@ -22,9 +22,9 @@ const BUILT_IN = [
 
 function Headline({ text, accent, color }) {
   const i = accent ? text.indexOf(accent) : -1;
-  if (i === -1) return <Text style={s.head}>{text}</Text>;
+  if (i === -1) return <Text style={s.head} numberOfLines={3}>{text}</Text>;
   return (
-    <Text style={s.head}>{text.slice(0, i)}<Text style={{ color }}>{accent}</Text>{text.slice(i + accent.length)}</Text>
+    <Text style={s.head} numberOfLines={3}>{text.slice(0, i)}<Text style={{ color }}>{accent}</Text>{text.slice(i + accent.length)}</Text>
   );
 }
 
@@ -32,6 +32,8 @@ export default function HeroCarousel() {
   const nav = useNavigation();
   const { width } = useWindowDimensions();
   const W = width - 32;
+  const GAP = 12;
+  const STEP = W + GAP; // distance between slides
   const [slides, setSlides] = useState(null);
   const [idx, setIdx] = useState(0);
   const list = useRef(null);
@@ -46,10 +48,10 @@ export default function HeroCarousel() {
   useEffect(() => {
     if (!slides || slides.length < 2) return undefined;
     const t = setInterval(() => {
-      setIdx((i) => { const n = (i + 1) % slides.length; list.current?.scrollToOffset({ offset: n * W, animated: true }); return n; });
+      setIdx((i) => { const n = (i + 1) % slides.length; list.current?.scrollToOffset({ offset: n * STEP, animated: true }); return n; });
     }, 4500);
     return () => clearInterval(t);
-  }, [slides, W]);
+  }, [slides, STEP]);
 
   if (!slides) return <View style={[s.slide, { width: W, marginHorizontal: 16, backgroundColor: '#E5E7EB' }]} />;
 
@@ -57,10 +59,11 @@ export default function HeroCarousel() {
     <View>
       <FlatList
         ref={list} data={slides} horizontal pagingEnabled showsHorizontalScrollIndicator={false}
-        keyExtractor={(i) => String(i.id)} snapToInterval={W} decelerationRate="fast"
+        keyExtractor={(i) => String(i.id)} snapToInterval={STEP} snapToAlignment="start" decelerationRate="fast"
+        ItemSeparatorComponent={() => <View style={{ width: GAP }} />}
         contentContainerStyle={{ paddingHorizontal: 16 }}
-        onMomentumScrollEnd={(e) => setIdx(Math.round(e.nativeEvent.contentOffset.x / W))}
-        getItemLayout={(_, i) => ({ length: W, offset: W * i, index: i })}
+        onMomentumScrollEnd={(e) => setIdx(Math.round(e.nativeEvent.contentOffset.x / STEP))}
+        getItemLayout={(_, i) => ({ length: W, offset: STEP * i, index: i })}
         renderItem={({ item }) => {
           const t = THEMES[item.theme] || THEMES.orange;
           return (
@@ -69,7 +72,7 @@ export default function HeroCarousel() {
               <View style={s.body}>
                 {item.badge ? <View style={s.badge}><Text style={s.badgeTxt}>{item.badge}</Text></View> : null}
                 <Headline text={item.headline} accent={item.accentText} color={t.accent} />
-                {item.subtitle ? <Text style={s.sub} numberOfLines={3}>{item.subtitle}</Text> : null}
+                {item.subtitle ? <Text style={s.sub} numberOfLines={2}>{item.subtitle}</Text> : null}
                 <View style={{ flexDirection: 'row', gap: 10, marginTop: 14, flexWrap: 'wrap' }}>
                   {item.primaryLabel && safe(item.primaryLink) ? (
                     <TouchableOpacity activeOpacity={0.85} onPress={() => openLink(nav, item.primaryLink)}>
@@ -93,11 +96,11 @@ export default function HeroCarousel() {
 }
 
 const s = StyleSheet.create({
-  slide: { height: 250, borderRadius: 20, overflow: 'hidden', justifyContent: 'flex-end' },
+  slide: { height: 270, borderRadius: 20, overflow: 'hidden', justifyContent: 'flex-end' },
   body: { padding: 18 },
   badge: { alignSelf: 'flex-start', backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 50, paddingHorizontal: 11, paddingVertical: 4, marginBottom: 8 },
   badgeTxt: { color: '#fff', fontFamily: F.semi, fontSize: 11 },
-  head: { color: '#fff', fontFamily: F.black, fontSize: 24, lineHeight: 30 },
+  head: { color: '#fff', fontFamily: F.black, fontSize: 22, lineHeight: 28 },
   sub: { color: 'rgba(255,255,255,0.88)', fontFamily: F.reg, fontSize: 12.5, marginTop: 6, lineHeight: 18 },
   btn: { borderRadius: 12, paddingVertical: 10, paddingHorizontal: 16 },
   btn2: { borderRadius: 12, paddingVertical: 10, paddingHorizontal: 16, borderWidth: 1.5, borderColor: 'rgba(255,255,255,0.7)' },

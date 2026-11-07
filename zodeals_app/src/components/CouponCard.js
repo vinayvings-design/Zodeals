@@ -47,7 +47,7 @@ const s = StyleSheet.create({
   badgeTxt: { color: '#fff', fontFamily: F.black, fontSize: 10.5 },
   heart: { position: 'absolute', top: 6, right: 6, zIndex: 2, backgroundColor: '#fff', borderRadius: 10, padding: 6, borderWidth: 1.5, borderColor: 'transparent', ...shadow },
   logo: { height: 46, width: 100 },
-  title: { fontFamily: F.bold, fontSize: 12.5, color: C.text, lineHeight: 17 },
+  title: { fontFamily: F.bold, fontSize: 12.5, color: C.text, lineHeight: 17, minHeight: 34 },
   views: { fontFamily: F.reg, fontSize: 11, color: C.faint },
   cta: { borderRadius: 10, paddingVertical: 9, alignItems: 'center' },
   ctaTxt: { color: '#fff', fontFamily: F.black, fontSize: 12 },

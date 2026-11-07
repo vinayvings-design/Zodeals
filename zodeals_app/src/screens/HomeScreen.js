@@ -8,7 +8,7 @@ import { C, F, GRAD } from '../theme';
 import { useApp } from '../context/AppContext';
 import { VENDOR_URL } from '../config';
 import HeroCarousel from './home/HeroCarousel';
-import { FeaturedStores, TopDeals, DealsOfDay, CategoriesSection, GrabDeals, LatestDeals, CouponsSection, MerchantBanner, FavBanner, Reviews } from './home/Sections';
+import { FeaturedStores, TopDeals, DealsOfDay, CategoriesSection, GrabDeals, LatestDeals, CouponsSection, MerchantBanner, FavBanner } from './home/Sections';
 
 export function AppHeader({ navigation, autoFocusSearch }) {
   const { pinCode, openPinModal, notifCount, isLoggedIn, refreshNotifCount } = useApp();
@@ -63,7 +63,6 @@ export default function HomeScreen({ navigation }) {
         <CouponsSection />
         <MerchantBanner />
         <FavBanner />
-        <Reviews />
       </ScrollView>
     </SafeAreaView>
   );

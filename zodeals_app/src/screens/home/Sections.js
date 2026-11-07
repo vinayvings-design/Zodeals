@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, ImageBackground, Linking, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, Linking, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,7 @@ import { C, F, GRAD, shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 import {
   getStores, getStoreDealCount, getDeals, getProducts, viewProduct, getCategories, getCategoryCoupons,
-  getLatestDeals, getHomeCoupons, getTestimonials, imgUrl,
+  getLatestDeals, getHomeCoupons, imgUrl,
 } from '../../api';
 import { PARTNER_URL } from '../../config';
 import { SectionHeader, GradButton, OutlineButton, Loader } from '../../components/ui';
@@ -26,7 +26,7 @@ function useLoad(fn, deps) {
   return [data, loading];
 }
 
-const hList = { paddingHorizontal: 16, gap: 12 };
+const hList = { paddingHorizontal: 16, gap: 12, alignItems: 'stretch' };
 
 /* ---------- Featured stores ---------- */
 export function FeaturedStores() {
@@ -51,7 +51,7 @@ export function FeaturedStores() {
 }
 
 /* ---------- generic horizontal coupon row ---------- */
-function CouponRow({ title, sub, data, loading, onMore, bg }) {
+function CouponRow({ title, sub, data, loading, onMore }) {
   const nav = useNavigation();
   if (!loading && !(data || []).length) return null;
   const body = loading ? <Loader pad={20} /> : (
@@ -59,9 +59,6 @@ function CouponRow({ title, sub, data, loading, onMore, bg }) {
       renderItem={({ item }) => <CouponCard width={158} item={item} onPress={(c) => nav.navigate('CouponDetail', { coupon: c })} />} />
   );
   const head = <SectionHeader title={title} sub={sub} onMore={onMore} />;
-  if (bg) return (
-    <ImageBackground source={bg} style={sec.wrap} imageStyle={{ opacity: 0.18 }}>{head}{body}</ImageBackground>
-  );
   return <View style={sec.wrap}>{head}{body}</View>;
 }
 
@@ -75,7 +72,7 @@ export function GrabDeals() {
   const [d, l] = useLoad(async () => { const r = await getDeals({ pinCode }); return [...r.matched, ...r.panIndia]; }, [pinCode]);
   const rest = (d || []).slice(12, 30);
   return <CouponRow title="Grab the Deals" sub="Limited-time picks" data={rest.length ? rest : (d || []).slice(0, 12).reverse()} loading={l}
-    onMore={() => nav.navigate('Tabs', { screen: 'AllDeals' })} bg={require('../../../assets/hero-shopping.jpg')} />;
+    onMore={() => nav.navigate('Tabs', { screen: 'AllDeals' })} />;
 }
 export function LatestDeals() {
   const nav = useNavigation(); const { pinCode } = useApp();
@@ -190,42 +187,13 @@ export function FavBanner() {
   );
 }
 
-/* ---------- Reviews ---------- */
-export function Reviews() {
-  const [d, l] = useLoad(getTestimonials, []);
-  if (!l && !(d || []).length) return null;
-  return (
-    <View style={sec.wrap}>
-      <SectionHeader title="What shoppers say" sub="Real reviews from ZoDeals users" />
-      {l ? <Loader pad={20} /> : (
-        <FlatList data={d} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={hList} keyExtractor={(i, ix) => i._id || String(ix)}
-          renderItem={({ item }) => (
-            <View style={rv.card}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                {item.profilePic ? <Image source={{ uri: imgUrl(item.profilePic) }} style={rv.av} /> : <View style={[rv.av, { backgroundColor: C.tint, alignItems: 'center', justifyContent: 'center' }]}><Feather name="user" size={18} color={C.primary} /></View>}
-                <View style={{ flex: 1 }}>
-                  <Text style={rv.name} numberOfLines={1}>{item.name}</Text>
-                  <Text style={rv.date}>{item.createdAt?.slice(0, 10)}</Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-                {[1, 2, 3, 4, 5].map((n) => <Feather key={n} name="star" size={14} color={n <= (item.rating || 0) ? '#FFB400' : '#E5E7EB'} style={{ marginRight: 2 }} />)}
-              </View>
-              <Text style={rv.txt} numberOfLines={5}>{item.review}</Text>
-            </View>
-          )} />
-      )}
-    </View>
-  );
-}
-
 const sec = StyleSheet.create({ wrap: { marginBottom: 26 } });
 const pc = StyleSheet.create({
   card: { backgroundColor: '#fff', borderRadius: 16, borderWidth: 1.5, borderColor: C.border, overflow: 'hidden', ...shadow, flex: 1 },
   img: { height: 118, backgroundColor: '#EEF2FF', alignItems: 'center', justifyContent: 'center', padding: 6 },
   badge: { position: 'absolute', top: 8, left: 8, zIndex: 2, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
   badgeTxt: { color: '#fff', fontFamily: F.black, fontSize: 10.5 },
-  title: { fontFamily: F.bold, fontSize: 12.5, color: C.text, lineHeight: 17 },
+  title: { fontFamily: F.bold, fontSize: 12.5, color: C.text, lineHeight: 17, minHeight: 34 },
   store: { fontFamily: F.reg, fontSize: 11, color: C.muted, marginTop: 2 },
   price: { fontFamily: F.black, fontSize: 15, color: C.navy },
   mrp: { fontFamily: F.reg, fontSize: 11.5, color: C.faint, textDecorationLine: 'line-through' },
@@ -245,11 +213,4 @@ const bn = StyleSheet.create({
   sub: { fontFamily: F.reg, fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 6, lineHeight: 19 },
   link: { paddingVertical: 9, paddingHorizontal: 6, justifyContent: 'center' },
   linkTxt: { color: '#fff', fontFamily: F.semi, fontSize: 13, textDecorationLine: 'underline' },
-});
-const rv = StyleSheet.create({
-  card: { width: 260, backgroundColor: '#fff', borderRadius: 16, padding: 14, borderWidth: 1.5, borderColor: C.border, ...shadow },
-  av: { width: 40, height: 40, borderRadius: 20 },
-  name: { fontFamily: F.bold, fontSize: 13.5, color: C.text },
-  date: { fontFamily: F.reg, fontSize: 11, color: C.faint },
-  txt: { fontFamily: F.reg, fontSize: 13, color: C.muted, lineHeight: 19 },
 });
