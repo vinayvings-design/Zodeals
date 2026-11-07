@@ -36,11 +36,6 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [otp, setOtp] = useState("");
-  const [isOtpSent, setIsOtpSent] = useState(false);
-  const [isOtpVerified, setIsOtpVerified] = useState(false);
-  const [sendingOtp, setSendingOtp] = useState(false);
-  const [verifyingOtp, setVerifyingOtp] = useState(false);
 
   const [formMessage, setFormMessage] = useState(null);
   const [messageType, setMessageType] = useState(null);
@@ -57,55 +52,6 @@ const SignUpPage = () => {
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSendOtp = async () => {
-    setSendingOtp(true);
-    try {
-      const response = await fetch(`${hosturl}/email/code`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formData.email, tag: "register", role: "user" }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        showSnackbar("OTP sent to your email", "success");
-        setIsOtpSent(true);
-      } else {
-        showSnackbar(data.displayMessage || "Failed to send OTP", "error");
-      }
-    } catch (err) {
-      showSnackbar("Network error while sending OTP", "error");
-    } finally {
-      setSendingOtp(false);
-    }
-  };
-
-  const handleVerifyOtp = async () => {
-    setVerifyingOtp(true);
-    try {
-      const response = await fetch(`${hosturl}/email/verify`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: formData.email,
-          code: Number(otp),
-          tag: "register",
-        }),
-      });
-
-      const data = await response.json();
-      if (response.ok && data.status) {
-        showSnackbar("OTP verified successfully", "success");
-        setIsOtpVerified(true);
-      } else {
-        showSnackbar(data.displayMessage || "Invalid OTP", "error");
-      }
-    } catch (err) {
-      showSnackbar("Error verifying OTP", "error");
-    } finally {
-      setVerifyingOtp(false);
-    }
   };
 
   const onSubmit = async (e) => {
@@ -204,71 +150,25 @@ const SignUpPage = () => {
                   mt: 0.5,
                 }}
               />
-              {/* Email + OTP */}
+              {/* Email */}
               <Typography variant="body2" mt={2} fontWeight="bold">
                 Email Address
               </Typography>
-              <Box display="flex" gap={1}>
-                <InputBase
-                  fullWidth
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => {
-                    handleChange(e);
-                    setIsOtpVerified(false);
-                    setIsOtpSent(false);
-                  }}
-                  disabled={isOtpSent}
-                  required
-                  sx={{
-                    border: "1px solid #ccc",
-                    borderRadius: 1,
-                    px: 1,
-                    py: 0.5,
-                    mt: 0.5,
-                  }}
-                />
-                <Button
-                  variant="outlined"
-                  onClick={handleSendOtp}
-                  disabled={!formData.email || isOtpSent}
-                  sx={{ mt: 0.5 }}
-                >
-                  {sendingOtp ? "Sending..." : "SendOTP"}
-                </Button>
-              </Box>
-
-              {/* OTP Input */}
-              {isOtpSent && !isOtpVerified && (
-                <>
-                  <Typography variant="body2" mt={2} fontWeight="bold">
-                    Enter OTP
-                  </Typography>
-                  <Box display="flex" gap={1}>
-                    <InputBase
-                      fullWidth
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                      sx={{
-                        border: "1px solid #ccc",
-                        borderRadius: 1,
-                        px: 1,
-                        py: 0.5,
-                        mt: 0.5,
-                      }}
-                    />
-                    <Button
-                      variant="outlined"
-                      onClick={handleVerifyOtp}
-                      disabled={!otp}
-                      sx={{ mt: 0.5 }}
-                    >
-                      {verifyingOtp ? "Verifying..." : "Verify"}
-                    </Button>
-                  </Box>
-                </>
-              )}
+              <InputBase
+                fullWidth
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                sx={{
+                  border: "1px solid #ccc",
+                  borderRadius: 1,
+                  px: 1,
+                  py: 0.5,
+                  mt: 0.5,
+                }}
+              />
 
               {/* Password */}
               <Typography variant="body2" mt={2} fontWeight="bold">
@@ -333,7 +233,6 @@ const SignUpPage = () => {
                 type="submit"
                 variant="contained"
                 fullWidth
-                disabled={!isOtpVerified}
                 sx={{
                   mt: 3,
                   backgroundColor: Colors.secondary,
