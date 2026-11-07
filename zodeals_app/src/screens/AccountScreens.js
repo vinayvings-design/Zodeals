@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useFocusEffect } from '@react-navigation/native';
 import { C, F, shadow } from '../theme';
 import { useApp } from '../context/AppContext';
-import { getProfile, updateProfile, getWishlist, getNotifications, createAgent, imgUrl, errMsg } from '../api';
+import { getProfile, updateProfile, getWishlist, getNotifications, createAgent, getContactInfo, imgUrl, errMsg } from '../api';
 import { VENDOR_URL } from '../config';
 import { GradButton, OutlineButton, Loader, Empty, Field, Banner } from '../components/ui';
 import CouponGrid from '../components/CouponGrid';
@@ -34,6 +34,8 @@ const Row = ({ icon, label, onPress, color = C.navy, badge }) => (
 export function AccountScreen({ navigation }) {
   const { isLoggedIn, signOut, openPinModal, pinCode, notifCount } = useApp();
   const [name, setName] = useState('');
+  const [info, setInfo] = useState({});
+  useEffect(() => { getContactInfo().then((d) => setInfo(d && !Array.isArray(d) ? d : {})).catch(() => {}); }, []);
   useFocusEffect(useCallback(() => { if (isLoggedIn) getProfile().then((p) => setName(p?.name || '')).catch(() => {}); }, [isLoggedIn]));
   const logout = () => Alert.alert('Log out', 'Are you sure you want to log out?', [{ text: 'Cancel', style: 'cancel' }, { text: 'Log out', style: 'destructive', onPress: async () => { await signOut(); } }]);
   const page = (p) => () => navigation.navigate('Page', { page: p });
@@ -72,6 +74,13 @@ export function AccountScreen({ navigation }) {
           <Row icon="rotate-ccw" label="Refund Policy" onPress={page('refund')} />
           <Row icon="dollar-sign" label="Product Pricing Policy" onPress={page('pricing')} />
         </View>
+        {(info.email || info.primaryNumber || info.location) ? (
+          <View style={ac.group}>
+            {info.email ? <Row icon="mail" label={info.email} onPress={() => Linking.openURL(`mailto:${info.email}`)} /> : null}
+            {info.primaryNumber ? <Row icon="phone" label={info.primaryNumber} onPress={() => Linking.openURL(`tel:${info.primaryNumber}`)} /> : null}
+            {info.location ? <Row icon="map-pin" label={info.location} onPress={() => {}} /> : null}
+          </View>
+        ) : null}
         {isLoggedIn ? <View style={ac.group}><Row icon="log-out" label="Log out" color={C.danger} onPress={logout} /></View> : null}
       </ScrollView>
     </SafeAreaView>

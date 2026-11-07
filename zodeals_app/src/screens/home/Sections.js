@@ -7,7 +7,7 @@ import { C, F, GRAD, shadow } from '../../theme';
 import { useApp } from '../../context/AppContext';
 import {
   getStores, getStoreDealCount, getDeals, getProducts, viewProduct, getCategories, getCategoryCoupons,
-  getLatestDeals, getHomeCoupons, getTestimonials, getContactInfo, imgUrl,
+  getLatestDeals, getHomeCoupons, getTestimonials, imgUrl,
 } from '../../api';
 import { PARTNER_URL } from '../../config';
 import { SectionHeader, GradButton, OutlineButton, Loader } from '../../components/ui';
@@ -219,32 +219,6 @@ export function Reviews() {
   );
 }
 
-/* ---------- Footer: contact info from the backend ---------- */
-export function ContactFooter() {
-  const nav = useNavigation();
-  const [d] = useLoad(getContactInfo, []);
-  const info = d && !Array.isArray(d) ? d : {};
-  const socials = [['facebook', info.facebook], ['instagram', info.instagram], ['linkedin', info.linkedIn], ['twitter', info.twitter]].filter(([, u]) => u);
-  const rows = [['mail', info.email, info.email && `mailto:${info.email}`], ['phone', info.primaryNumber, info.primaryNumber && `tel:${info.primaryNumber}`], ['map-pin', info.location, null]].filter(([, t]) => t);
-  return (
-    <View style={ft.box}>
-      <Image source={require('../../../assets/logo.png')} style={{ width: 130, height: 38 }} resizeMode="contain" />
-      <Text style={ft.tag}>Verified coupons and deals from stores near you.</Text>
-      <View style={ft.links}>
-        {[['About us', 'about'], ['FAQ', 'faq'], ['Terms', 'terms'], ['Privacy', 'privacy'], ['Refund policy', 'refund'], ['Pricing policy', 'pricing']].map(([t, p]) => (
-          <TouchableOpacity key={p} onPress={() => nav.navigate('Page', { page: p })}><Text style={ft.link}>{t}</Text></TouchableOpacity>
-        ))}
-        <TouchableOpacity onPress={() => nav.navigate('AgentContact')}><Text style={ft.link}>Become an agent</Text></TouchableOpacity>
-      </View>
-      {rows.map(([ic, t, url]) => (
-        <TouchableOpacity key={ic} disabled={!url} onPress={() => Linking.openURL(url)} style={ft.row}><Feather name={ic} size={14} color={C.primary} /><Text style={ft.rowTxt}>{t}</Text></TouchableOpacity>
-      ))}
-      {socials.length ? <View style={{ flexDirection: 'row', gap: 14, marginTop: 10 }}>{socials.map(([n, u]) => <TouchableOpacity key={n} onPress={() => Linking.openURL(u)}><Feather name={n} size={20} color={C.navy} /></TouchableOpacity>)}</View> : null}
-      <Text style={ft.copy}>© {new Date().getFullYear()} ZoDeals. All rights reserved.</Text>
-    </View>
-  );
-}
-
 const sec = StyleSheet.create({ wrap: { marginBottom: 26 } });
 const pc = StyleSheet.create({
   card: { backgroundColor: '#fff', borderRadius: 16, borderWidth: 1.5, borderColor: C.border, overflow: 'hidden', ...shadow, flex: 1 },
@@ -278,13 +252,4 @@ const rv = StyleSheet.create({
   name: { fontFamily: F.bold, fontSize: 13.5, color: C.text },
   date: { fontFamily: F.reg, fontSize: 11, color: C.faint },
   txt: { fontFamily: F.reg, fontSize: 13, color: C.muted, lineHeight: 19 },
-});
-const ft = StyleSheet.create({
-  box: { backgroundColor: '#fff', borderTopWidth: 3, borderTopColor: C.primary, padding: 20, paddingBottom: 30 },
-  tag: { fontFamily: F.reg, fontSize: 13, color: C.muted, marginVertical: 10 },
-  links: { flexDirection: 'row', flexWrap: 'wrap', gap: 16, marginBottom: 12 },
-  link: { fontFamily: F.semi, fontSize: 13, color: C.navy },
-  row: { flexDirection: 'row', gap: 8, alignItems: 'center', marginTop: 6 },
-  rowTxt: { fontFamily: F.reg, fontSize: 13, color: C.text, flex: 1 },
-  copy: { fontFamily: F.reg, fontSize: 11.5, color: C.faint, marginTop: 16 },
 });

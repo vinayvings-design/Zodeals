@@ -8,7 +8,7 @@ import { C, F, GRAD } from '../theme';
 import { useApp } from '../context/AppContext';
 import { VENDOR_URL } from '../config';
 import HeroCarousel from './home/HeroCarousel';
-import { FeaturedStores, TopDeals, DealsOfDay, CategoriesSection, GrabDeals, LatestDeals, CouponsSection, MerchantBanner, FavBanner, Reviews, ContactFooter } from './home/Sections';
+import { FeaturedStores, TopDeals, DealsOfDay, CategoriesSection, GrabDeals, LatestDeals, CouponsSection, MerchantBanner, FavBanner, Reviews } from './home/Sections';
 
 export function AppHeader({ navigation, autoFocusSearch }) {
   const { pinCode, openPinModal, notifCount, isLoggedIn, refreshNotifCount } = useApp();
@@ -52,7 +52,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }} edges={['top']}>
       <AppHeader navigation={navigation} />
-      <ScrollView key={key} style={{ backgroundColor: C.bg }} contentContainerStyle={{ paddingTop: 14 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+      <ScrollView key={key} style={{ backgroundColor: C.bg }} contentContainerStyle={{ paddingTop: 14, paddingBottom: 28 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View style={{ marginBottom: 22 }}><HeroCarousel /></View>
         <FeaturedStores />
         <TopDeals />
@@ -64,7 +64,6 @@ export default function HomeScreen({ navigation }) {
         <MerchantBanner />
         <FavBanner />
         <Reviews />
-        <ContactFooter />
       </ScrollView>
     </SafeAreaView>
   );
