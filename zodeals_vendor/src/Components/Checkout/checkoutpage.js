@@ -89,7 +89,7 @@ const CheckoutPage = () => {
       const st = selectedStates[0];
       const fetchCities = async () => {
         try {
-          const res = await axios.get(`https://api.zodeals.in/location/districts/${st}`);
+          const res = await axios.get(`https://zodeals-backend-production.up.railway.app/location/districts/${st}`);
           setAvailableCities(res.data.result || []);
         } catch (err) {
           console.error('Error fetching cities for state', st, err);

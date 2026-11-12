@@ -147,7 +147,7 @@ const StoreSettingsPage = () => {
     const fetchPincodes = async () => {
       setLoadingPincodes(true);
       try {
-        const res = await axios.get("https://api.zodeals.in/pincode");
+        const res = await axios.get("https://zodeals-backend-production.up.railway.app/pincode");
         if (res.data.status && Array.isArray(res.data.result)) {
           setPincodeOptions(res.data.result.map((pin) => pin.toString()));
         }
