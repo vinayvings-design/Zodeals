@@ -48,8 +48,9 @@ const LoginForm = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
-            const data = await response.json();
-            if (response.ok) {
+            let data = {};
+            try { data = await response.json(); } catch (e) { data = {}; }
+            if (response.ok && data.result) {
                 localStorage.setItem("token", data.result.token);
                 localStorage.setItem("role", data.result.role);
                 localStorage.setItem("is_store_created", JSON.stringify(data.result.is_store_created));
@@ -59,7 +60,8 @@ const LoginForm = () => {
                 setErrorMessage(data.displayMessage || "Invalid email or password");
             }
         } catch (error) {
-            setErrorMessage(error?.response.data?.displayMessage||"Something went wrong. Please try again.");
+            console.error("Login error:", error);
+            setErrorMessage("Cannot reach the server right now. Please check your internet connection and try again in a few minutes.");
         }
     };
 
