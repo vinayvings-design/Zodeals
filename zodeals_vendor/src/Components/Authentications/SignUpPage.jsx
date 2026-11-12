@@ -51,10 +51,10 @@ const onFinish = async (values) => {
       }, 5000);
     }
   } catch (error) {
-    if (error.response && error.response.status === 400) {
-      setFormMessage(error.response.data.displayMessage||"Invalid input. Please check your details.");
+    if (!error.response) {
+      setFormMessage("Cannot reach the server right now. Please check your internet connection and try again in a few minutes.");
     } else {
-      setFormMessage(error.response.data.displayMessage);
+      setFormMessage(error.response.data?.displayMessage || "Sign up failed. Please check your details and try again.");
     }
     setMessageType("error");
     console.error("Sign-up error:", error);
