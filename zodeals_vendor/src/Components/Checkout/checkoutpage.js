@@ -26,7 +26,6 @@ import {
   CreditCardOutlined,
   CheckCircleOutlined,
   ArrowLeftOutlined,
-  LockOutlined,
   TagOutlined,
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
