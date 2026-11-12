@@ -13,16 +13,14 @@ import {
   message,
   Select,
 } from "antd";
-import {
-  UploadOutlined,
-  EnvironmentOutlined,
-  PhoneOutlined,
-  MailOutlined,
-  UserOutlined,
-  GlobalOutlined,
-  InfoCircleOutlined,
-  CloseCircleFilled,
-} from "@ant-design/icons";
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
+import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
+import PhoneOutlined from '@ant-design/icons/PhoneOutlined';
+import MailOutlined from '@ant-design/icons/MailOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import GlobalOutlined from '@ant-design/icons/GlobalOutlined';
+import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
+import CloseCircleFilled from '@ant-design/icons/CloseCircleFilled';
 import axios from "axios";
 import Colors from "../libs/Colors";
 import { hosturl } from "../libs/Constant";

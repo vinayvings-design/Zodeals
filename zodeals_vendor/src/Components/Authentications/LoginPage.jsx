@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Card, Alert } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import EyeTwoTone from '@ant-design/icons/EyeTwoTone';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import LoginBackground from "../../assets/images/loginbackground.jpg";
 import SigninIcon from "../../assets/images/signinIcon.png";

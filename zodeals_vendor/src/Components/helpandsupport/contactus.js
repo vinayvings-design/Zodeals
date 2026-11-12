@@ -11,16 +11,14 @@ import {
   Row,
   Col
 } from 'antd';
-import {
-  MailOutlined,
-  PhoneOutlined,
-  EnvironmentOutlined,
-  FacebookOutlined,
-  InstagramOutlined,
-  TwitterOutlined,
-  LinkedinOutlined,
-  MessageOutlined
-} from '@ant-design/icons';
+import MailOutlined from '@ant-design/icons/MailOutlined';
+import PhoneOutlined from '@ant-design/icons/PhoneOutlined';
+import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
+import FacebookOutlined from '@ant-design/icons/FacebookOutlined';
+import InstagramOutlined from '@ant-design/icons/InstagramOutlined';
+import TwitterOutlined from '@ant-design/icons/TwitterOutlined';
+import LinkedinOutlined from '@ant-design/icons/LinkedinOutlined';
+import MessageOutlined from '@ant-design/icons/MessageOutlined';
 import { hosturl } from '../libs/Constant';
 import styled from 'styled-components';
 

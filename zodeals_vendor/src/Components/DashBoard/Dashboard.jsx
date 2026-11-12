@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Statistic, Typography, message } from 'antd';
-import {
-  GiftOutlined,
-  CheckCircleOutlined,
-  ClockCircleOutlined,
-  EyeOutlined,
-  SelectOutlined,
-} from '@ant-design/icons';
+import GiftOutlined from '@ant-design/icons/GiftOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
+import ClockCircleOutlined from '@ant-design/icons/ClockCircleOutlined';
+import EyeOutlined from '@ant-design/icons/EyeOutlined';
+import SelectOutlined from '@ant-design/icons/SelectOutlined';
 import { hosturl } from '../libs/Constant';
 const { Title } = Typography;
 

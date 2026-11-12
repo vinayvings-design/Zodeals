@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Card, Row, Col, message } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import EyeTwoTone from '@ant-design/icons/EyeTwoTone';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 

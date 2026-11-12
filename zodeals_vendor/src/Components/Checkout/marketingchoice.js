@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Typography, Button, Row, Col, Space } from 'antd';
-import {
-  GlobalOutlined,
-  ShopOutlined,
-  CheckCircleTwoTone
-} from '@ant-design/icons';
+import GlobalOutlined from '@ant-design/icons/GlobalOutlined';
+import ShopOutlined from '@ant-design/icons/ShopOutlined';
+import CheckCircleTwoTone from '@ant-design/icons/CheckCircleTwoTone';
 
 const { Title, Text } = Typography;
 

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import {
-  DashboardOutlined,
-  UserOutlined,
-  AppstoreOutlined,
-  WalletOutlined,
-  LogoutOutlined,
-  CustomerServiceOutlined,
-} from '@ant-design/icons';
+import DashboardOutlined from '@ant-design/icons/DashboardOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined';
+import WalletOutlined from '@ant-design/icons/WalletOutlined';
+import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
+import CustomerServiceOutlined from '@ant-design/icons/CustomerServiceOutlined';
 import './Homepagecomponent.css';
 import logo from '../assets/images/zodealsLogo.png';
 import { hosturl } from './libs/Constant';
