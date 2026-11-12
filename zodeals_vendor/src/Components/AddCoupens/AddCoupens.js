@@ -13,10 +13,8 @@ import {
   Divider,
   Alert, message, Modal
 } from 'antd';
-import {
-  UploadOutlined,
-  CheckCircleFilled
-} from '@ant-design/icons';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
+import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
 import moment from 'moment';
 import { hosturl } from '../libs/Constant';
 import axios from 'axios';

@@ -21,13 +21,11 @@ import {
 } from 'antd';
 import { message } from 'antd';
 
-import {
-  ShoppingCartOutlined,
-  CreditCardOutlined,
-  CheckCircleOutlined,
-  ArrowLeftOutlined,
-  TagOutlined,
-} from '@ant-design/icons';
+import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined';
+import CreditCardOutlined from '@ant-design/icons/CreditCardOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
+import ArrowLeftOutlined from '@ant-design/icons/ArrowLeftOutlined';
+import TagOutlined from '@ant-design/icons/TagOutlined';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 const { Title, Text } = Typography;

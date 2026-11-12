@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Spin, Alert, Tag, Image, Button, Popconfirm, message, Modal, Form, Tooltip, Input, Select, DatePicker, Upload, Row, Col, Divider, Typography, Space, Badge, Tabs, } from 'antd';
-import {
-  EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined, ClockCircleOutlined, FireOutlined,
-  TagOutlined, LinkOutlined, PercentageOutlined, CalendarOutlined, ShoppingOutlined,
-  FileTextOutlined, EyeOutlined, SearchOutlined, FilterOutlined, DollarOutlined
-} from '@ant-design/icons';
+import EditOutlined from '@ant-design/icons/EditOutlined';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
+import ClockCircleOutlined from '@ant-design/icons/ClockCircleOutlined';
+import FireOutlined from '@ant-design/icons/FireOutlined';
+import TagOutlined from '@ant-design/icons/TagOutlined';
+import LinkOutlined from '@ant-design/icons/LinkOutlined';
+import PercentageOutlined from '@ant-design/icons/PercentageOutlined';
+import CalendarOutlined from '@ant-design/icons/CalendarOutlined';
+import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined';
+import FileTextOutlined from '@ant-design/icons/FileTextOutlined';
+import EyeOutlined from '@ant-design/icons/EyeOutlined';
+import SearchOutlined from '@ant-design/icons/SearchOutlined';
+import FilterOutlined from '@ant-design/icons/FilterOutlined';
+import DollarOutlined from '@ant-design/icons/DollarOutlined';
 import axios from 'axios';
 import { hosturl } from '../libs/Constant';
 import moment from 'moment';
