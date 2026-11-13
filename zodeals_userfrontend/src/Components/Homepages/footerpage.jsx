@@ -155,7 +155,7 @@ export default function Footer() {
 
               <Box display="flex" flexDirection="column" gap={1} mt={2.5}>
                 <Button
-                  href="https://zodealsvendor.vercel.app/"
+                  href="https://vendor.zodeals.in"
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="contained"

@@ -16,7 +16,7 @@ const VendorPartnershipButton = () => {
     >
       <MotionButton
         variant="contained"
-        href="https://partner.zodeals.in"
+        href="https://vendor.zodeals.in"
         sx={{
           backgroundColor: "#fff",
           color: "#000",
