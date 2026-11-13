@@ -223,7 +223,7 @@ export default function Header({ showTabs = true }) {
         {!isMobile && (
           <Box
             component="a"
-            href="https://zodealsvendor.vercel.app/"
+            href="https://vendor.zodeals.in"
             target="_blank"
             rel="noopener noreferrer"
             sx={{
@@ -507,7 +507,7 @@ export default function Header({ showTabs = true }) {
             <ListItem disablePadding>
               <ListItemButton
                 component="a"
-                href="https://zodealsvendor.vercel.app/"
+                href="https://vendor.zodeals.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{ gap: 1.5, py: 1.2, mx: 1, borderRadius: '10px', '&:hover': { backgroundColor: '#EAF2FE' } }}

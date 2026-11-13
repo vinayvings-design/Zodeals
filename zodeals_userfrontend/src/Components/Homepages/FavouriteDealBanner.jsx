@@ -103,7 +103,7 @@ export const MerchantPartnerBanner = () => (
           {/* CTA */}
           <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
             <Button
-              href="https://partner.zodeals.in"
+              href="https://vendor.zodeals.in"
               target="_blank"
               rel="noopener noreferrer"
               variant="contained"
