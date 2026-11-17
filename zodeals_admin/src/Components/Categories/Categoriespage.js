@@ -17,6 +17,7 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import UploadOutlined from '@ant-design/icons/UploadOutlined';
 import { v4 as uuidv4 } from 'uuid';
 import { hosturl } from '../libs/Constant';
+import { DEFAULT_CATEGORIES, ICON_LIBRARY, iconUrl, iconToFile } from './categoryIcons';
 
 const { Title } = Typography;
 
@@ -27,6 +28,8 @@ const CategoryPage = () => {
   const [imageFile, setImageFile] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
+  const [selectedIcon, setSelectedIcon] = useState(null);
+  const [seeding, setSeeding] = useState(false);
 
   // Load categories on mount
   useEffect(() => {
@@ -59,13 +62,15 @@ const CategoryPage = () => {
     form.resetFields();
     setImagePreview(null);
     setImageFile(null);
+    setSelectedIcon(null);
     setEditingCategory(null);
     showModal();
   };
 
   const handleEdit = (category) => {
     form.setFieldsValue({ title: category.title });
-    setImagePreview(category.imageUrl);
+    setImagePreview(category.image ? `${hosturl}${category.image}` : null);
+    setSelectedIcon(null);
     setEditingCategory(category);
     showModal();
   };
@@ -132,6 +137,56 @@ const CategoryPage = () => {
     }
   };
 
+  const handlePickIcon = async (key, label) => {
+    try {
+      const file = await iconToFile(key, label);
+      setImageFile(file);
+      setSelectedIcon(key);
+      setImagePreview(iconUrl(key));
+      if (!form.getFieldValue('title')) form.setFieldsValue({ title: label });
+    } catch (e) {
+      message.error('Could not load that icon');
+    }
+  };
+
+  // Adds every default category that does not exist yet, each with its icon.
+  const handleAddDefaults = () => {
+    const existing = new Set(categories.map((c) => (c.title || '').trim().toLowerCase()));
+    const todo = DEFAULT_CATEGORIES.filter((d) => !existing.has(d.title.toLowerCase()));
+    if (todo.length === 0) return message.info('All default categories already exist.');
+    Modal.confirm({
+      title: `Add ${todo.length} default categories?`,
+      content: 'Each one is created with a matching icon. Categories you already have are skipped, and you can edit or delete any of them later.',
+      okText: 'Add them',
+      onOk: async () => {
+        setSeeding(true);
+        const token = localStorage.getItem('token');
+        let added = 0;
+        const failed = [];
+        for (const d of todo) {
+          try {
+            const fd = new FormData();
+            fd.append('title', d.title);
+            fd.append('image', await iconToFile(d.icon, d.icon));
+            const r = await fetch(`${hosturl}/admin/category`, {
+              method: 'POST',
+              headers: { Authorization: `Bearer ${token}` },
+              body: fd,
+            });
+            if (r.ok) added += 1;
+            else failed.push(d.title);
+          } catch (e) {
+            failed.push(d.title);
+          }
+        }
+        setSeeding(false);
+        await fetchCategories();
+        if (failed.length) message.warning(`Added ${added}. Failed: ${failed.join(', ')}`);
+        else message.success(`Added ${added} categories`);
+      },
+    });
+  };
+
   const handleImageChange = async (info) => {
     const file = info.file;
     const isImage = file.type && file.type.startsWith('image/');
@@ -140,6 +195,7 @@ const CategoryPage = () => {
     reader.onload = () => setImagePreview(reader.result);
     reader.readAsDataURL(file);
     setImageFile(file);
+    setSelectedIcon(null);
   };
 
   
@@ -149,14 +205,14 @@ const CategoryPage = () => {
         Category Management
       </Title>
 
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={handleAdd}
-        style={{ marginBottom: 24 }}
-      >
-        Add Category
-      </Button>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 24 }}>
+        <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
+          Add Category
+        </Button>
+        <Button onClick={handleAddDefaults} loading={seeding}>
+          Add default categories
+        </Button>
+      </div>
 
   <Row gutter={[16, 16]}>
   {categories.map((category) => (
@@ -213,6 +269,7 @@ const CategoryPage = () => {
           setIsModalVisible(false);
           setImagePreview(null);
           setImageFile(null);
+          setSelectedIcon(null);
         }}
         okText="Save"
         cancelText="Cancel"
@@ -227,7 +284,29 @@ const CategoryPage = () => {
             <Input placeholder="e.g. Electronics" />
           </Form.Item>
 
-          <Form.Item label="Category Image">
+          <Form.Item label="Choose an icon">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(64px, 1fr))', gap: 8, maxHeight: 220, overflowY: 'auto', padding: 4, border: '1px solid #f0f0f0', borderRadius: 8 }}>
+              {ICON_LIBRARY.map((ic) => (
+                <button
+                  type="button"
+                  key={ic.key}
+                  title={ic.label}
+                  onClick={() => handlePickIcon(ic.key, ic.label)}
+                  style={{
+                    cursor: 'pointer',
+                    background: selectedIcon === ic.key ? '#EAF2FE' : '#fff',
+                    border: selectedIcon === ic.key ? '2px solid #3B84ED' : '1px solid #eee',
+                    borderRadius: 8, padding: 6, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+                  }}
+                >
+                  <img src={iconUrl(ic.key)} alt={ic.label} style={{ width: 36, height: 36 }} />
+                  <span style={{ fontSize: 9, color: '#667', lineHeight: 1.1, textAlign: 'center' }}>{ic.label}</span>
+                </button>
+              ))}
+            </div>
+          </Form.Item>
+
+          <Form.Item label="Or upload your own image">
             <Upload
               accept="image/*"
               showUploadList={false}
