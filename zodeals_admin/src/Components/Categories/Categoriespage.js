@@ -17,7 +17,7 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import UploadOutlined from '@ant-design/icons/UploadOutlined';
 import { v4 as uuidv4 } from 'uuid';
 import { hosturl } from '../libs/Constant';
-import { DEFAULT_CATEGORIES, ICON_LIBRARY, iconUrl, iconToFile } from './categoryIcons';
+import { ICON_LIBRARY, iconUrl, iconToFile } from './categoryIcons';
 
 const { Title } = Typography;
 
@@ -25,13 +25,11 @@ const CategoryPage = () => {
   const [categories, setCategories] = useState([]);
   const [msgApi, msgHolder] = message.useMessage();
   const [form] = Form.useForm();
-  const [confirmOpen, setConfirmOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
   const [selectedIcon, setSelectedIcon] = useState(null);
-  const [seeding, setSeeding] = useState(false);
 
   // Load categories on mount
   useEffect(() => {
@@ -151,46 +149,6 @@ const CategoryPage = () => {
     }
   };
 
-  // Categories from the default list that do not exist yet.
-  const missingDefaults = () => {
-    const existing = new Set(categories.map((c) => (c.title || '').trim().toLowerCase()));
-    return DEFAULT_CATEGORIES.filter((d) => !existing.has(d.title.toLowerCase()));
-  };
-
-  const handleAddDefaults = () => {
-    if (missingDefaults().length === 0) return msgApi.info('All default categories already exist.');
-    setConfirmOpen(true);
-  };
-
-  const runAddDefaults = async () => {
-    setConfirmOpen(false);
-    const todo = missingDefaults();
-    setSeeding(true);
-    const token = localStorage.getItem('token');
-    let added = 0;
-    const failed = [];
-    for (const d of todo) {
-      try {
-        const fd = new FormData();
-        fd.append('title', d.title);
-        fd.append('image', await iconToFile(d.icon, d.icon));
-        const r = await fetch(`${hosturl}/admin/category`, {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
-          body: fd,
-        });
-        if (r.ok) added += 1;
-        else failed.push(d.title);
-      } catch (e) {
-        failed.push(d.title);
-      }
-    }
-    setSeeding(false);
-    await fetchCategories();
-    if (failed.length) msgApi.warning(`Added ${added}. Failed: ${failed.join(', ')}`);
-    else msgApi.success(`Added ${added} categories`);
-  };
-
   const handleImageChange = async (info) => {
     const file = info.file;
     const isImage = file.type && file.type.startsWith('image/');
@@ -206,28 +164,18 @@ const CategoryPage = () => {
   return (
     <div style={{ padding: 24 }}>
       {msgHolder}
-      <Modal
-        title={`Add ${missingDefaults().length} default categories?`}
-        open={confirmOpen}
-        onOk={runAddDefaults}
-        onCancel={() => setConfirmOpen(false)}
-        okText="Add them"
-        cancelText="Cancel"
-      >
-        <p>Each category is created with a matching icon. Categories you already have are skipped, and you can edit or delete any of them later.</p>
-      </Modal>
       <Title level={3} style={{ marginBottom: 24, fontFamily: 'poppins', fontWeight: '500' }}>
         Category Management
       </Title>
 
-      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 24 }}>
-        <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
-          Add Category
-        </Button>
-        <Button onClick={handleAddDefaults} loading={seeding}>
-          Add default categories
-        </Button>
-      </div>
+      <Button
+        type="primary"
+        icon={<PlusOutlined />}
+        onClick={handleAdd}
+        style={{ marginBottom: 24 }}
+      >
+        Add Category
+      </Button>
 
   <Row gutter={[16, 16]}>
   {categories.map((category) => (

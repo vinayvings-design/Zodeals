@@ -1,3 +1,4 @@
+import '@ant-design/v5-patch-for-react-19';
 import React from 'react';
 import ReactDOM from 'react-dom/client'; // Make sure you're using `react-dom/client` for React 18 and later
 import { BrowserRouter as Router } from 'react-router-dom';
