@@ -10,15 +10,13 @@ import {
   Col,
   message,
 } from 'antd';
-import {
-  EditOutlined,
-  FlagOutlined,
-  MailOutlined,
-  PhoneOutlined,
-  UserOutlined,
-  GlobalOutlined,
-  SearchOutlined,
-} from '@ant-design/icons';
+import EditOutlined from '@ant-design/icons/EditOutlined';
+import FlagOutlined from '@ant-design/icons/FlagOutlined';
+import MailOutlined from '@ant-design/icons/MailOutlined';
+import PhoneOutlined from '@ant-design/icons/PhoneOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import GlobalOutlined from '@ant-design/icons/GlobalOutlined';
+import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import { hosturl } from '../libs/Constant'; // Ensure hosturl is like 'http://localhost:5000' or your API base
 
 const { Title } = Typography;

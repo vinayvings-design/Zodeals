@@ -14,18 +14,16 @@ import {
   Avatar,
   message,
 } from 'antd';
-import {
-  FlagOutlined,
-  MailOutlined,
-  ShopOutlined,
-  PhoneOutlined,
-  UserOutlined,
-  FilterOutlined,
-  SearchOutlined,
-  ClockCircleOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-} from '@ant-design/icons';
+import FlagOutlined from '@ant-design/icons/FlagOutlined';
+import MailOutlined from '@ant-design/icons/MailOutlined';
+import ShopOutlined from '@ant-design/icons/ShopOutlined';
+import PhoneOutlined from '@ant-design/icons/PhoneOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import FilterOutlined from '@ant-design/icons/FilterOutlined';
+import SearchOutlined from '@ant-design/icons/SearchOutlined';
+import ClockCircleOutlined from '@ant-design/icons/ClockCircleOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
+import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import VendorCounts from './VendorCounts';
 import { hosturl } from '../libs/Constant';
 

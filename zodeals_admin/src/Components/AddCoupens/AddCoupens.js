@@ -15,7 +15,11 @@ import {
   Space,
   Alert
 } from 'antd';
-import { UploadOutlined, InfoCircleOutlined ,LeftOutlined, RightOutlined, CheckCircleFilled} from '@ant-design/icons';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
+import InfoCircleOutlined from '@ant-design/icons/InfoCircleOutlined';
+import LeftOutlined from '@ant-design/icons/LeftOutlined';
+import RightOutlined from '@ant-design/icons/RightOutlined';
+import CheckCircleFilled from '@ant-design/icons/CheckCircleFilled';
 import moment from 'moment';
 
 const { TextArea } = Input;

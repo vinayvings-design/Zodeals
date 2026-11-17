@@ -14,15 +14,13 @@ import {
   Popconfirm,
   Badge
 } from 'antd';
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  EyeOutlined,
-  ClockCircleOutlined,
-  CheckOutlined,
-  CloseOutlined,
-  FilterOutlined
-} from '@ant-design/icons';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
+import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
+import EyeOutlined from '@ant-design/icons/EyeOutlined';
+import ClockCircleOutlined from '@ant-design/icons/ClockCircleOutlined';
+import CheckOutlined from '@ant-design/icons/CheckOutlined';
+import CloseOutlined from '@ant-design/icons/CloseOutlined';
+import FilterOutlined from '@ant-design/icons/FilterOutlined';
 import axios from 'axios';
 import { hosturl } from '../libs/Constant';
 

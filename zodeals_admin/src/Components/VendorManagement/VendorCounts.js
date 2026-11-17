@@ -6,12 +6,10 @@ import {
   Col,
   message,
 } from 'antd';
-import {
-  UserOutlined,
-  ClockCircleOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-} from '@ant-design/icons';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import ClockCircleOutlined from '@ant-design/icons/ClockCircleOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
+import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
 import { hosturl } from '../libs/Constant'; // Make sure hosturl is defined correctly
 
 export default function VendorCounts() {

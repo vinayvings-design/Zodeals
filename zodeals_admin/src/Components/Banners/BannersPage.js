@@ -3,9 +3,10 @@ import {
   Card, Button, Row, Col, Modal, Form, Input, InputNumber, Select, Switch,
   Upload, message, Typography, Tag, Popconfirm, Empty, Spin, Space,
 } from 'antd';
-import {
-  EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined,
-} from '@ant-design/icons';
+import EditOutlined from '@ant-design/icons/EditOutlined';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
 import { hosturl } from '../libs/Constant';
 
 const { Title, Text } = Typography;

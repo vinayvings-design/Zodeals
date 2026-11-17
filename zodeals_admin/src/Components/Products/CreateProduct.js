@@ -18,7 +18,10 @@ import {
   Tag,
   Collapse
 } from 'antd';
-import { UploadOutlined, EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
+import EditOutlined from '@ant-design/icons/EditOutlined';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import axios from 'axios';
 import { hosturl } from '../libs/Constant';
 import Colors from '../libs/Colors';
