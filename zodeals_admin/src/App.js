@@ -16,6 +16,7 @@ import ProductForm from './Components/Products/CreateProduct';
 import ContactDetailsForm from './Components/Customersupport/helpandsupport';
 import AgentManager from './Components/Agents/agents';
 import AgentList from './Components/Agents/agenttransactions';
+import LocationsPage from './Components/Locations/LocationsPage';
 const App = () => {
     return (
         <Routes>
@@ -28,6 +29,7 @@ const App = () => {
                <Route path='/payments' element={<PaymentHistory/>}/>
                <Route path='categorypage' element={<CategoryPage/>}/>
                <Route path='/bannerpage' element={<BannersPage/>}/>
+               <Route path='/locationspage' element={<LocationsPage/>}/>
                <Route path='/notifications' element={<NotificationsMessage/>}/>
                {/* <Route path='/coupen/price' element={<CouponPriceManagement/>}/> */}
                 <Route path='/testimonial' element={<TestimonialTable/>}/>

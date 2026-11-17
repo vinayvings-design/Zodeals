@@ -13,6 +13,7 @@ import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined';
 import CustomerServiceOutlined from '@ant-design/icons/CustomerServiceOutlined';
 import PictureOutlined from '@ant-design/icons/PictureOutlined';
+import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
 import './Homepagecomponent.css';
 import logo from '../assets/images/zodealsLogo.png';
 
@@ -27,6 +28,7 @@ const PATH_KEY_MAP = {
   '/payments':      '5',
   '/categorypage':  '6',
   '/bannerpage':    '12',
+  '/locationspage': '13',
   '/products':      '7',
   '/notifications': '9',
   '/testimonial':   '10',
@@ -66,6 +68,7 @@ const HomepageComponent = () => {
     { key: '5',  icon: <CreditCardOutlined />,       path: '/payments',      label: 'Payments' },
     { key: '6',  icon: <AppstoreOutlined />,         path: '/categorypage',  label: 'Categories' },
     { key: '12', icon: <PictureOutlined />,          path: '/bannerpage',    label: 'Hero Banners' },
+    { key: '13', icon: <EnvironmentOutlined />,      path: '/locationspage', label: 'Locations' },
     { key: '7',  icon: <ShoppingOutlined />,         path: '/products',      label: 'Products' },
     { key: '9',  icon: <BellOutlined />,             path: '/notifications', label: 'Notifications' },
     { key: '10', icon: <MessageOutlined />,          path: '/testimonial',   label: 'Testimonials' },
