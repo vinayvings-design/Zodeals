@@ -13,6 +13,7 @@ import {
 import Footer from '../Homepages/footerpage';
 import Header from '../MainPage/Header';
 import { hosturl } from '../libs/Constant';
+import CategoryIcon from '../Homepages/CategoryIcon';
 
 // ── Brand color — matches the logo/header indigo ──
 const BRAND = '#4338CA';
@@ -224,7 +225,10 @@ const CategoriesPage = () => {
                         mb: 1,
                       }}
                     >
-                      <IconComp
+                      <CategoryIcon
+                        image={cat.image}
+                        title={cat.title}
+                        Fallback={IconComp}
                         size={32}
                         color={BRAND}
                         strokeWidth={1.5}

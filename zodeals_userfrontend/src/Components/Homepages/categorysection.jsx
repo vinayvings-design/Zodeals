@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { hosturl } from '../libs/Constant';
+import CategoryIcon from './CategoryIcon';
 
 // Brand logo indigo color
 const BRAND = '#4338CA';
@@ -228,7 +229,7 @@ const CategoriesSection = () => {
                         position: 'relative',
                       }}
                     >
-                      <IconComp size={26} color={BRAND} strokeWidth={1.5} />
+                      <CategoryIcon image={cat.image} title={cat.title} Fallback={IconComp} size={26} color={BRAND} strokeWidth={1.5} />
 
                       {/* Coupon count overlay */}
                       {count !== null && (
