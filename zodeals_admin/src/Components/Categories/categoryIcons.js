@@ -1,148 +1,5 @@
-// Default categories (optimised list) and the icon library shown in the Add Category form.
+// Icon library shown in the Add / Edit Category form.
 // Every icon is a PNG in /public/category-icons, drawn in the ZoDeals brand blue.
-export const DEFAULT_CATEGORIES = [
-  {
-    "title": "Automobiles",
-    "icon": "car"
-  },
-  {
-    "title": "Mobiles",
-    "icon": "smartphone"
-  },
-  {
-    "title": "Electronics & Cameras",
-    "icon": "camera"
-  },
-  {
-    "title": "E-commerce",
-    "icon": "shopping-cart"
-  },
-  {
-    "title": "Fashion",
-    "icon": "shirt"
-  },
-  {
-    "title": "Footwear",
-    "icon": "footprints"
-  },
-  {
-    "title": "Watches & Jewellery",
-    "icon": "gem"
-  },
-  {
-    "title": "Supermarkets & FMCG",
-    "icon": "shopping-basket"
-  },
-  {
-    "title": "Banking & Finance",
-    "icon": "landmark"
-  },
-  {
-    "title": "Insurance",
-    "icon": "shield-check"
-  },
-  {
-    "title": "Heavy Equipment",
-    "icon": "tractor"
-  },
-  {
-    "title": "Pharmacy",
-    "icon": "pill"
-  },
-  {
-    "title": "Hospitals & Diagnostics",
-    "icon": "stethoscope"
-  },
-  {
-    "title": "Herbal & Ayurveda",
-    "icon": "leaf"
-  },
-  {
-    "title": "Pooja Stores",
-    "icon": "flower"
-  },
-  {
-    "title": "Real Estate",
-    "icon": "building"
-  },
-  {
-    "title": "Furniture",
-    "icon": "sofa"
-  },
-  {
-    "title": "Home Decor",
-    "icon": "lamp"
-  },
-  {
-    "title": "Kitchen Essentials",
-    "icon": "cooking-pot"
-  },
-  {
-    "title": "Hardware & Sanitary",
-    "icon": "wrench"
-  },
-  {
-    "title": "Beauty, Parlours & Spas",
-    "icon": "sparkles"
-  },
-  {
-    "title": "Hotels",
-    "icon": "bed"
-  },
-  {
-    "title": "Restaurants",
-    "icon": "utensils"
-  },
-  {
-    "title": "Bakery",
-    "icon": "cake"
-  },
-  {
-    "title": "Catering Services",
-    "icon": "concierge-bell"
-  },
-  {
-    "title": "Tours & Travels",
-    "icon": "plane"
-  },
-  {
-    "title": "Cabs",
-    "icon": "car-taxi-front"
-  },
-  {
-    "title": "Movies, Events & Tickets",
-    "icon": "ticket"
-  },
-  {
-    "title": "Wedding Planners",
-    "icon": "party-popper"
-  },
-  {
-    "title": "Printing & Stationery",
-    "icon": "printer"
-  },
-  {
-    "title": "Education",
-    "icon": "graduation-cap"
-  },
-  {
-    "title": "Delivery",
-    "icon": "package"
-  },
-  {
-    "title": "Telecom",
-    "icon": "radio-tower"
-  },
-  {
-    "title": "Toys & Games",
-    "icon": "gamepad-2"
-  },
-  {
-    "title": "Sports & Fitness",
-    "icon": "dumbbell"
-  }
-];
-
 export const ICON_LIBRARY = [
   {
     "key": "car",
@@ -185,8 +42,8 @@ export const ICON_LIBRARY = [
     "label": "Shield Check"
   },
   {
-    "key": "tractor",
-    "label": "Tractor"
+    "key": "forklift",
+    "label": "Forklift"
   },
   {
     "key": "pill",
@@ -201,12 +58,12 @@ export const ICON_LIBRARY = [
     "label": "Leaf"
   },
   {
-    "key": "flower",
-    "label": "Flower"
+    "key": "flame",
+    "label": "Flame"
   },
   {
-    "key": "building",
-    "label": "Building"
+    "key": "house",
+    "label": "House"
   },
   {
     "key": "sofa",
@@ -229,8 +86,8 @@ export const ICON_LIBRARY = [
     "label": "Sparkles"
   },
   {
-    "key": "bed",
-    "label": "Bed"
+    "key": "bed-double",
+    "label": "Bed Double"
   },
   {
     "key": "utensils",
@@ -257,8 +114,8 @@ export const ICON_LIBRARY = [
     "label": "Ticket"
   },
   {
-    "key": "party-popper",
-    "label": "Party Popper"
+    "key": "heart-handshake",
+    "label": "Heart Handshake"
   },
   {
     "key": "printer",
@@ -391,6 +248,38 @@ export const ICON_LIBRARY = [
   {
     "key": "watch",
     "label": "Watch"
+  },
+  {
+    "key": "building",
+    "label": "Building"
+  },
+  {
+    "key": "hotel",
+    "label": "Hotel"
+  },
+  {
+    "key": "church",
+    "label": "Church"
+  },
+  {
+    "key": "sprout",
+    "label": "Sprout"
+  },
+  {
+    "key": "flower",
+    "label": "Flower"
+  },
+  {
+    "key": "tractor",
+    "label": "Tractor"
+  },
+  {
+    "key": "bed",
+    "label": "Bed"
+  },
+  {
+    "key": "party-popper",
+    "label": "Party Popper"
   }
 ];
 
