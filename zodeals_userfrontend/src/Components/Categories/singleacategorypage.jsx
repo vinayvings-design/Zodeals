@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Card,
-  CardContent,
   Typography,
   Button,
   IconButton,
   Grid,
-  Avatar,
-  Divider,
-  CardActions,
   Container,
   Dialog,
   DialogContent,
@@ -21,7 +17,6 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 
-import Colors from '../libs/Colors';
 import CouponDetailDialog from '../Coupenenables/coupenenable';
 import Header from '../MainPage/Header';
 import Footer from '../Homepages/footerpage';
@@ -32,230 +27,181 @@ import CommentBox from './commentBox';
 import SignInRequiredPrompt from '../authentications/SigninOverlay';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const CouponCard = ({
+// One card design for both coupons and deals: logo, offer headline, description,
+// a blue action button (with the blurred code peeking out for coupons) and a footer.
+const OfferCard = ({
   brand,
   logo,
   title,
-  expiry,
   description,
-  views,
-  footerColor,
-  onViewDetails,
   coupencode,
+  applicableProducts,
+  isDeal,
+  onViewDetails,
   onToggleWishlist,
   isWishlisted,
-  couponId, applicableProducts, viewCount
+  couponId,
+  viewCount,
 }) => {
   const [showCommentBox, setShowCommentBox] = useState(false);
-
-  const handleToggleCommentBox = () => setShowCommentBox((prev) => !prev);
+  const [logoFailed, setLogoFailed] = useState(false);
+  const tag = applicableProducts && applicableProducts !== 'undefined' ? applicableProducts : null;
+  const BLUE = '#0B78D1';
 
   return (
     <Card
+      elevation={0}
       sx={{
         width: '100%',
-        minHeight: 240,
-        boxShadow: 2,
+        height: '100%',
+        minHeight: 300,
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        border: '1px solid #E5E7EB',
+        borderRadius: '10px',
+        backgroundColor: '#fff',
+        transition: 'box-shadow 0.2s ease, transform 0.2s ease',
+        '&:hover': { boxShadow: '0 8px 24px rgba(0,0,0,0.10)', transform: 'translateY(-2px)' },
       }}
     >
-      <CardContent sx={{ p: 2, pb: 1 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-          <img
-            crossOrigin='anonymous'
-            src={`${hosturl}${logo}`}
-            alt={brand} style={{ width: 100, height: 30 }} variant="square" />
-          <Box display="flex" alignItems="center" gap={0.5}>
-            <IconButton size="small" onClick={handleToggleCommentBox}>
-              <ModeCommentOutlinedIcon fontSize="small" />
-            </IconButton>
-            <IconButton size="small" onClick={() => onToggleWishlist(couponId)}>
-              {isWishlisted ? (
-                <FavoriteIcon color="error" fontSize="small" />
-              ) : (
-                <FavoriteBorderIcon fontSize="small" />
-              )}
-            </IconButton>
-
-            <VisibilityIcon fontSize="small" />
-            <Typography variant="caption" color="text.secondary">
-              {viewCount}
-            </Typography>
-          </Box>
-        </Box>
-        <Box display="flex" justifyContent="space-between" mt={0.5}>
-          {!showCommentBox && (
-            <Typography variant="caption" fontSize="10px" px={1}>
-              <LocalOfferIcon fontSize="inherit" /> {applicableProducts}
-            </Typography>
+      <Box sx={{ flexGrow: 1, px: 2.5, pt: 2.5, pb: 1.5, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+        {/* Logo */}
+        <Box sx={{ height: 64, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1.5 }}>
+          {logo && !logoFailed ? (
+            <img
+              crossOrigin="anonymous"
+              src={`${hosturl}${logo}`}
+              alt={brand || 'store'}
+              onError={() => setLogoFailed(true)}
+              style={{ maxWidth: '70%', maxHeight: 60, objectFit: 'contain' }}
+            />
+          ) : (
+            <Typography sx={{ fontWeight: 800, fontSize: 22, color: '#111827' }}>{brand || 'Store'}</Typography>
           )}
         </Box>
 
-        <Box mt={2}>
-          {!showCommentBox && (
-            <Typography fontWeight="bold" fontSize={14} mb={1} mt={0.5} px={2}>
+        {showCommentBox ? (
+          <Box sx={{ width: '100%', textAlign: 'left' }}>
+            <CommentBox couponId={couponId} />
+          </Box>
+        ) : (
+          <>
+            {tag && (
+              <Typography sx={{ fontSize: 11, color: '#6B7280', mb: 0.5, display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <LocalOfferIcon sx={{ fontSize: 12 }} /> {tag}
+              </Typography>
+            )}
+            <Typography
+              sx={{
+                fontWeight: 700,
+                fontSize: 17,
+                color: '#111827',
+                lineHeight: 1.3,
+                mb: 1,
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}
+            >
               {title}
             </Typography>
-          )}
-          {showCommentBox ? (
-            <CommentBox couponId={couponId} />
-          ) : (
             <Typography
-              variant="body2"
-              color="text.secondary"
-              fontWeight="600"
-              textAlign="center"
-              mt="20px"
+              sx={{
+                fontSize: 14.5,
+                color: '#374151',
+                lineHeight: 1.45,
+                whiteSpace: 'pre-line',
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}
             >
               {description}
             </Typography>
-          )}
+          </>
+        )}
+      </Box>
 
-        </Box>
-      </CardContent>
-
+      {/* Action button */}
       {!showCommentBox && (
-        <Box sx={{ position: 'relative', height: 50 }}>
-          <Typography
-            sx={{
-              backgroundColor: '#8B0000',
-              height: '100%',
-              width: '100%',
-              filter: 'blur(1px)',
-              color: 'white',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontWeight: 'bold',
-              fontSize: '16px',
-              marginLeft: '40px',
-            }}
-          >
-            {coupencode}
-          </Typography>
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              height: '100%',
-              width: '75%',
-              backgroundColor: footerColor,
-              clipPath: 'polygon(0 0, 90% 0, 80% 100%, 0% 100%)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              zIndex: 1,
-              borderTopLeftRadius: 15,
-            }}
-          >
+        <Box sx={{ px: 2.5, pb: 2 }}>
+          <Box sx={{ position: 'relative', height: 48, borderRadius: '4px', overflow: 'hidden', backgroundColor: BLUE }}>
             <Button
-              sx={{ color: 'black', fontWeight: 'bold', textTransform: 'none', zIndex: 2 }}
               fullWidth
               onClick={onViewDetails}
+              sx={{
+                height: '100%',
+                color: '#fff',
+                fontWeight: 600,
+                fontSize: 17,
+                letterSpacing: 0.3,
+                textTransform: 'uppercase',
+                borderRadius: 0,
+                backgroundColor: BLUE,
+                pr: isDeal ? 0 : '18%',
+                '&:hover': { backgroundColor: '#0966B0' },
+              }}
             >
-              View Code
+              {isDeal ? 'View Deal' : 'View Code'}
             </Button>
+            {!isDeal && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  height: '100%',
+                  width: '28%',
+                  backgroundColor: '#0A5496',
+                  clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  pr: 1.5,
+                  pointerEvents: 'none',
+                }}
+              >
+                <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 14, filter: 'blur(3px)', userSelect: 'none' }}>
+                  {String(coupencode || 'CODE').slice(-4)}
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Box>
       )}
-    </Card>
-  );
-};
 
-const DealCard = ({
-  logo,
-  brand,
-  applicableProducts,
-  description,
-  views,
-  title,
-  onViewDetails,
-  onToggleWishlist,
-  isWishlisted,
-  couponId, viewCount
-}) => {
-  const [showCommentBox, setShowCommentBox] = useState(false);
-
-  const handleToggleCommentBox = () => setShowCommentBox((prev) => !prev);
-
-  return (
-    <Card
-      sx={{
-        borderRadius: 3,
-        boxShadow: 2,
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Box display="flex" justifyContent="space-between" alignItems="center" p={2}>
-        <img
-          src={`${hosturl}${logo}`}
-          crossOrigin="anonymous"
-          alt="store"
-          style={{ width: 100, height: 25 }}
-        />
-        <Box display="flex" alignItems="center" gap={1}>
-          <IconButton size="small" onClick={handleToggleCommentBox}>
+      {/* Footer */}
+      <Box
+        sx={{
+          borderTop: '1px dashed #E5E7EB',
+          px: 2.5,
+          py: 0.75,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#6B7280' }}>
+          <VisibilityIcon sx={{ fontSize: 16 }} />
+          <Typography sx={{ fontSize: 13 }}>{viewCount || 0} views</Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <IconButton size="small" onClick={() => setShowCommentBox((v) => !v)} aria-label="comments">
             <ModeCommentOutlinedIcon fontSize="small" />
           </IconButton>
-          <IconButton size="small" onClick={() => onToggleWishlist(couponId)}>
-            {isWishlisted ? (
-              <FavoriteIcon color="error" fontSize="small" />
-            ) : (
-              <FavoriteBorderIcon fontSize="small" />
-            )}
+          <IconButton size="small" onClick={() => onToggleWishlist(couponId)} aria-label="favourite">
+            {isWishlisted ? <FavoriteIcon color="error" fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
           </IconButton>
-
-          <VisibilityIcon fontSize="small" />
-          <Typography fontSize={12}>{viewCount}</Typography>
         </Box>
       </Box>
-      <Divider />
-
-      <Box sx={{ px: 2, flexGrow: 1, p: 1 }}>
-        <Box display="flex" justifyContent="space-between" mt={0.5}>
-          {!showCommentBox && (
-            <Typography variant="caption" fontSize="10px" px={1}>
-              <LocalOfferIcon fontSize="inherit" /> {applicableProducts}
-            </Typography>
-          )}
-        </Box>
-
-        {!showCommentBox && (
-          <Typography fontWeight="bold" fontSize={14} mb={1} mt={0.5} px={2}>
-            {title}
-          </Typography>
-        )}
-        <Box px={2}>
-          {!showCommentBox ? (
-            <Typography variant="body2" color="text.secondary" whiteSpace="pre-line">
-              {description}
-            </Typography>
-          ) : (
-            <CommentBox couponId={couponId} />
-          )}
-        </Box>
-      </Box>
-      {!showCommentBox && (
-        <CardActions sx={{ justifyContent: 'flex-end', py: 0, px: 0 }}>
-          <Button
-            size="small"
-            variant="contained"
-            sx={{ borderRadius: 2, backgroundColor: Colors.secondary, textTransform: 'none', width: 130 }}
-            onClick={onViewDetails}
-          >
-            Deal
-          </Button>
-        </CardActions>
-      )}
     </Card>
   );
 };
+
+const CouponCard = (props) => <OfferCard {...props} isDeal={false} />;
+const DealCard = (props) => <OfferCard {...props} isDeal />;
 
 export default function SingleCategoryPage() {
   const location = useLocation();
