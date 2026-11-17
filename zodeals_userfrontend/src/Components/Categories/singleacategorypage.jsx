@@ -46,7 +46,9 @@ const OfferCard = ({
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
   const tag = applicableProducts && applicableProducts !== 'undefined' ? applicableProducts : null;
-  const BLUE = '#0B78D1';
+  // original button colours: yellow for coupons, navy for deals
+  const BTN = isDeal ? '#12253d' : '#F8C433';
+  const BTN_TEXT = isDeal ? '#fff' : '#000';
 
   return (
     <Card
@@ -127,21 +129,21 @@ const OfferCard = ({
       {/* Action button */}
       {!showCommentBox && (
         <Box sx={{ px: 2.5, pb: 2 }}>
-          <Box sx={{ position: 'relative', height: 48, borderRadius: '4px', overflow: 'hidden', backgroundColor: BLUE }}>
+          <Box sx={{ position: 'relative', height: 48, borderRadius: '4px', overflow: 'hidden', backgroundColor: BTN }}>
             <Button
               fullWidth
               onClick={onViewDetails}
               sx={{
                 height: '100%',
-                color: '#fff',
-                fontWeight: 600,
+                color: BTN_TEXT,
+                fontWeight: 700,
                 fontSize: 17,
                 letterSpacing: 0.3,
                 textTransform: 'uppercase',
                 borderRadius: 0,
-                backgroundColor: BLUE,
+                backgroundColor: BTN,
                 pr: isDeal ? 0 : '18%',
-                '&:hover': { backgroundColor: '#0966B0' },
+                '&:hover': { backgroundColor: BTN, filter: 'brightness(0.95)' },
               }}
             >
               {isDeal ? 'View Deal' : 'View Code'}
@@ -154,7 +156,7 @@ const OfferCard = ({
                   right: 0,
                   height: '100%',
                   width: '28%',
-                  backgroundColor: '#0A5496',
+                  backgroundColor: '#8B0000',
                   clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)',
                   display: 'flex',
                   alignItems: 'center',
