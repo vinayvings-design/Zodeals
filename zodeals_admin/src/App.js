@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomepageComponent from './Components/HomepageComponent';
 import LoginForm from './Components/Authentications/LoginPage';
-import SignUpPage from './Components/Authentications/SignUpPage';
 import Dashboard from './Components/DashBoard/Dashboard';
 import VendorTable from './Components/VendorManagement/Vendorpage';
 import CouponDealForm from './Components/AddCoupens/AddCoupens';
@@ -21,7 +20,6 @@ const App = () => {
     return (
         <Routes>
             <Route path="/" element={<LoginForm />} />
-            <Route path="/signup" element={<SignUpPage />} /> {/* Separate Sign Up Route */}
             <Route element={<HomepageComponent />}>
               <Route path="/dashboard" element={<Dashboard />} />
                <Route path="/vendorpage" element={<VendorTable />} />
