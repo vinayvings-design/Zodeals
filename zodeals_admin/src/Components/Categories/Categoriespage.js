@@ -121,7 +121,7 @@ const CategoryPage = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Error saving category');
+        throw new Error(errorData.displayMessage || errorData.message || 'Error saving category');
       }
       fetchCategories();
 
@@ -143,7 +143,7 @@ const CategoryPage = () => {
       setImageFile(file);
       setSelectedIcon(key);
       setImagePreview(iconUrl(key));
-      if (!form.getFieldValue('title')) form.setFieldsValue({ title: label });
+      if (!editingCategory && !form.getFieldValue('title')) form.setFieldsValue({ title: label });
     } catch (e) {
       msgApi.error('Could not load that icon');
     }
@@ -227,6 +227,7 @@ const CategoryPage = () => {
       <Modal
         title={editingCategory ? 'Edit Category' : 'Add Category'}
         open={isModalVisible}
+        forceRender
         onOk={handleOk}
         onCancel={() => {
           setIsModalVisible(false);
