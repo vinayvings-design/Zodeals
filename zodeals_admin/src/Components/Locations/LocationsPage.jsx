@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Card, Button, Progress, Typography, Row, Col, Statistic, Alert, message } from 'antd';
 import { hosturl } from '../libs/Constant';
-import LocationEditor from './LocationEditor';
 
 const { Title, Text } = Typography;
 
@@ -168,8 +167,6 @@ const LocationsPage = () => {
           <Text type="secondary">{status}</Text>
         </div>
       ) : null}
-
-      <LocationEditor onChanged={refresh} />
     </div>
   );
 };

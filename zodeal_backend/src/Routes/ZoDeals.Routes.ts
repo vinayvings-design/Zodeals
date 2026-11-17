@@ -89,7 +89,6 @@ import {
 import { getContactUsController, saveContactUsController, updateContactUsController } from "../Controllers/ContactUs.Controller.js";
 import { createOrder, getCouponPaymentHistory, getPaymentHistory, verifyPayment, verifyPaymentCoupon } from "../Controllers/Payment.Controller.js";
 import { PincodeController } from "../Controllers/Pincode.Controller.js";
-import { LocationAdminController } from "../Controllers/LocationAdmin.Controller.js";
 import { AgentController } from "../Controllers/Agent.Controller.js";
 const router = express.Router();
 function handleLogoAndBannerUploads(
@@ -282,10 +281,6 @@ router.get("/payment-history", adminAuth, getPaymentHistory);
 router.post("/admin/pincode",PincodeController.savePinCode);
 router.get("/pincode",PincodeController.getPinCode);
 router.get("/state/cities/:stateName", PincodeController.getAllCitiesByState);
-//admin location management (states, districts, pincodes)
-router.get("/admin/location-data", adminAuth, LocationAdminController.listLocationData);
-router.put("/admin/location-data/state", adminAuth, LocationAdminController.saveState);
-router.delete("/admin/location-data/state/:name", adminAuth, LocationAdminController.deleteState);
 //agent
 router.post("/admin/agent",AgentController.save);
 router.patch("/admin/agent/:id", adminAuth, AgentController.update);
