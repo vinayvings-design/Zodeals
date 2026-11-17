@@ -369,7 +369,7 @@ export default function SingleCategoryPage() {
             </Typography>
           </Box>
         )}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fill, minmax(350px, 1fr))' }, gap: 4 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fill, minmax(350px, 400px))' }, justifyContent: { sm: 'start' }, gap: 4 }}>
           {coupons.map((coupon, index) => (
             <Box key={coupon._id || index} sx={{ minWidth: 0 }}>
               {coupon.type === 'Deal' ? (
