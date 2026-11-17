@@ -23,7 +23,9 @@ const { Title } = Typography;
 
 const CategoryPage = () => {
   const [categories, setCategories] = useState([]);
+  const [msgApi, msgHolder] = message.useMessage();
   const [form] = Form.useForm();
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -50,7 +52,7 @@ const CategoryPage = () => {
     setCategories(data.result);
     } catch (error) {
       console.error(error);
-      message.error('Error loading categories');
+      msgApi.error('Error loading categories');
     }
   };
 
@@ -86,11 +88,11 @@ const CategoryPage = () => {
       });
 
       if (!response.ok) throw new Error('Delete failed');
-      message.success('Category deleted successfully');
+      msgApi.success('Category deleted successfully');
       fetchCategories();
     } catch (error) {
       console.error(error);
-      message.error('Error deleting category');
+      msgApi.error('Error deleting category');
     }
   };
 
@@ -125,7 +127,7 @@ const CategoryPage = () => {
       }
       fetchCategories();
 
-      message.success(editingCategory ? 'Category updated' : 'Category added');
+      msgApi.success(editingCategory ? 'Category updated' : 'Category added');
       setIsModalVisible(false);
       form.resetFields();
       setImagePreview(null);
@@ -133,7 +135,7 @@ const CategoryPage = () => {
       
     } catch (error) {
       console.error(error);
-      message.error(error.message);
+      msgApi.error(error.message);
     }
   };
 
@@ -145,52 +147,54 @@ const CategoryPage = () => {
       setImagePreview(iconUrl(key));
       if (!form.getFieldValue('title')) form.setFieldsValue({ title: label });
     } catch (e) {
-      message.error('Could not load that icon');
+      msgApi.error('Could not load that icon');
     }
   };
 
-  // Adds every default category that does not exist yet, each with its icon.
-  const handleAddDefaults = () => {
+  // Categories from the default list that do not exist yet.
+  const missingDefaults = () => {
     const existing = new Set(categories.map((c) => (c.title || '').trim().toLowerCase()));
-    const todo = DEFAULT_CATEGORIES.filter((d) => !existing.has(d.title.toLowerCase()));
-    if (todo.length === 0) return message.info('All default categories already exist.');
-    Modal.confirm({
-      title: `Add ${todo.length} default categories?`,
-      content: 'Each one is created with a matching icon. Categories you already have are skipped, and you can edit or delete any of them later.',
-      okText: 'Add them',
-      onOk: async () => {
-        setSeeding(true);
-        const token = localStorage.getItem('token');
-        let added = 0;
-        const failed = [];
-        for (const d of todo) {
-          try {
-            const fd = new FormData();
-            fd.append('title', d.title);
-            fd.append('image', await iconToFile(d.icon, d.icon));
-            const r = await fetch(`${hosturl}/admin/category`, {
-              method: 'POST',
-              headers: { Authorization: `Bearer ${token}` },
-              body: fd,
-            });
-            if (r.ok) added += 1;
-            else failed.push(d.title);
-          } catch (e) {
-            failed.push(d.title);
-          }
-        }
-        setSeeding(false);
-        await fetchCategories();
-        if (failed.length) message.warning(`Added ${added}. Failed: ${failed.join(', ')}`);
-        else message.success(`Added ${added} categories`);
-      },
-    });
+    return DEFAULT_CATEGORIES.filter((d) => !existing.has(d.title.toLowerCase()));
+  };
+
+  const handleAddDefaults = () => {
+    if (missingDefaults().length === 0) return msgApi.info('All default categories already exist.');
+    setConfirmOpen(true);
+  };
+
+  const runAddDefaults = async () => {
+    setConfirmOpen(false);
+    const todo = missingDefaults();
+    setSeeding(true);
+    const token = localStorage.getItem('token');
+    let added = 0;
+    const failed = [];
+    for (const d of todo) {
+      try {
+        const fd = new FormData();
+        fd.append('title', d.title);
+        fd.append('image', await iconToFile(d.icon, d.icon));
+        const r = await fetch(`${hosturl}/admin/category`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${token}` },
+          body: fd,
+        });
+        if (r.ok) added += 1;
+        else failed.push(d.title);
+      } catch (e) {
+        failed.push(d.title);
+      }
+    }
+    setSeeding(false);
+    await fetchCategories();
+    if (failed.length) msgApi.warning(`Added ${added}. Failed: ${failed.join(', ')}`);
+    else msgApi.success(`Added ${added} categories`);
   };
 
   const handleImageChange = async (info) => {
     const file = info.file;
     const isImage = file.type && file.type.startsWith('image/');
-    if (!isImage) return message.error('Only image files are allowed!');
+    if (!isImage) return msgApi.error('Only image files are allowed!');
     const reader = new FileReader();
     reader.onload = () => setImagePreview(reader.result);
     reader.readAsDataURL(file);
@@ -201,6 +205,17 @@ const CategoryPage = () => {
   
   return (
     <div style={{ padding: 24 }}>
+      {msgHolder}
+      <Modal
+        title={`Add ${missingDefaults().length} default categories?`}
+        open={confirmOpen}
+        onOk={runAddDefaults}
+        onCancel={() => setConfirmOpen(false)}
+        okText="Add them"
+        cancelText="Cancel"
+      >
+        <p>Each category is created with a matching icon. Categories you already have are skipped, and you can edit or delete any of them later.</p>
+      </Modal>
       <Title level={3} style={{ marginBottom: 24, fontFamily: 'poppins', fontWeight: '500' }}>
         Category Management
       </Title>
