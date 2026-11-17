@@ -45,7 +45,6 @@ const OfferCard = ({
 }) => {
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [logoFailed, setLogoFailed] = useState(false);
-  const tag = applicableProducts && applicableProducts !== 'undefined' ? applicableProducts : null;
   // original button colours: yellow for coupons, navy for deals
   const BTN = isDeal ? '#12253d' : '#F8C433';
   const BTN_TEXT = isDeal ? '#fff' : '#000';
@@ -88,18 +87,13 @@ const OfferCard = ({
           </Box>
         ) : (
           <>
-            {tag && (
-              <Typography sx={{ fontSize: 11, color: '#6B7280', mb: 0.5, display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <LocalOfferIcon sx={{ fontSize: 12 }} /> {tag}
-              </Typography>
-            )}
             <Typography
               sx={{
-                fontWeight: 700,
-                fontSize: 19,
+                fontWeight: 500,
+                fontSize: 18,
                 color: '#111827',
                 lineHeight: 1.3,
-                mb: 1,
+                mb: 3,
                 display: '-webkit-box',
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: 'vertical',
@@ -111,7 +105,7 @@ const OfferCard = ({
             <Typography
               sx={{
                 fontSize: 16,
-                color: '#374151',
+                color: '#1F2937',
                 lineHeight: 1.45,
                 whiteSpace: 'pre-line',
                 display: '-webkit-box',
@@ -136,13 +130,14 @@ const OfferCard = ({
               sx={{
                 height: '100%',
                 color: BTN_TEXT,
-                fontWeight: 700,
-                fontSize: 19,
+                fontWeight: 500,
+                fontSize: 18,
+                whiteSpace: 'nowrap',
                 letterSpacing: 0.3,
                 textTransform: 'uppercase',
                 borderRadius: 0,
                 backgroundColor: BTN,
-                pr: isDeal ? 0 : '18%',
+                pr: isDeal ? 0 : '16%',
                 '&:hover': { backgroundColor: BTN, filter: 'brightness(0.95)' },
               }}
             >
@@ -165,7 +160,7 @@ const OfferCard = ({
                   pointerEvents: 'none',
                 }}
               >
-                <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 14, filter: 'blur(3px)', userSelect: 'none' }}>
+                <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 14, filter: 'blur(1.2px)', userSelect: 'none' }}>
                   {String(coupencode || 'CODE').slice(-4)}
                 </Typography>
               </Box>
