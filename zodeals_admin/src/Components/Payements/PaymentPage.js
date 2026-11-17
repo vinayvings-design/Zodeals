@@ -16,17 +16,15 @@ import {
 } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
-import {
-  SearchOutlined,
-  FilterOutlined,
-  CheckCircleOutlined,
-  SyncOutlined,
-  CloseCircleOutlined,
-  DollarOutlined,
-  CalendarOutlined,
-  IdcardOutlined,
-  ShopOutlined,
-} from '@ant-design/icons';
+import SearchOutlined from '@ant-design/icons/SearchOutlined';
+import FilterOutlined from '@ant-design/icons/FilterOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
+import SyncOutlined from '@ant-design/icons/SyncOutlined';
+import CloseCircleOutlined from '@ant-design/icons/CloseCircleOutlined';
+import DollarOutlined from '@ant-design/icons/DollarOutlined';
+import CalendarOutlined from '@ant-design/icons/CalendarOutlined';
+import IdcardOutlined from '@ant-design/icons/IdcardOutlined';
+import ShopOutlined from '@ant-design/icons/ShopOutlined';
 import { hosturl } from '../libs/Constant';
 
 const { RangePicker } = DatePicker;

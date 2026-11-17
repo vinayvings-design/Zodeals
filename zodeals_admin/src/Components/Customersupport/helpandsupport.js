@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Form, Input, Row, Col, Card, Button, Divider, Typography, Space, message } from 'antd';
-import {
-  MailOutlined, PhoneOutlined, EnvironmentOutlined,
-  InstagramOutlined, FacebookOutlined, TwitterOutlined, LinkedinOutlined
-} from '@ant-design/icons';
+import MailOutlined from '@ant-design/icons/MailOutlined';
+import PhoneOutlined from '@ant-design/icons/PhoneOutlined';
+import EnvironmentOutlined from '@ant-design/icons/EnvironmentOutlined';
+import InstagramOutlined from '@ant-design/icons/InstagramOutlined';
+import FacebookOutlined from '@ant-design/icons/FacebookOutlined';
+import TwitterOutlined from '@ant-design/icons/TwitterOutlined';
+import LinkedinOutlined from '@ant-design/icons/LinkedinOutlined';
 import { hosturl } from '../libs/Constant';
 
 const { Title, Text } = Typography;

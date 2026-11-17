@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Statistic, Typography, message } from 'antd';
-import {
-  MailOutlined,
-  UserOutlined,
-  ShopOutlined,
-  CheckCircleOutlined,
-} from '@ant-design/icons';
+import MailOutlined from '@ant-design/icons/MailOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import ShopOutlined from '@ant-design/icons/ShopOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import { hosturl } from '../libs/Constant';
 const { Title } = Typography;
 

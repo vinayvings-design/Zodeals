@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Form, Input, Button, Card, Row, Col } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Form, Input, Button, Card, Row, Col, Alert } from "antd";
+import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import EyeTwoTone from '@ant-design/icons/EyeTwoTone';
+import { Link, useNavigate } from "react-router-dom";
+import { hosturl } from "../libs/Constant";
 import LoginBackground from "../../assets/images/loginbackground.jpg";
 import SigninIcon from "../../assets/images/signupIcon.png";
 
 const SignUpPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const navigate = useNavigate();
+  const [msg, setMsg] = useState({ type: "", text: "" });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,8 +22,29 @@ const SignUpPage = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  // Creates the one-and-only admin account. The server refuses if an admin already exists.
+  const onFinish = async (values) => {
+    setMsg({ type: "", text: "" });
+    setLoading(true);
+    try {
+      const response = await fetch(`${hosturl}/admin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: values.fullname, email: values.email, password: values.password }),
+      });
+      let data = {};
+      try { data = await response.json(); } catch (e) { data = {}; }
+      if (response.ok) {
+        setMsg({ type: "success", text: "Admin account created. Redirecting to login..." });
+        setTimeout(() => navigate("/"), 1500);
+      } else {
+        setMsg({ type: "error", text: data.displayMessage || "Could not create the admin account." });
+      }
+    } catch (e) {
+      setMsg({ type: "error", text: "Cannot reach the server right now. Please try again in a few minutes." });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -61,6 +87,7 @@ const SignUpPage = () => {
           }}
         >
           <Form name="signup" layout="vertical" onFinish={onFinish}>
+            {msg.text ? <Alert type={msg.type} message={msg.text} showIcon style={{ marginBottom: 16 }} /> : null}
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item
@@ -123,6 +150,7 @@ const SignUpPage = () => {
               <Button
                 type="primary"
                 htmlType="submit"
+                loading={loading}
                 style={{
                   width: "100%",
                   height: 40,

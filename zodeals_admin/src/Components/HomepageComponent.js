@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import {
-  DashboardOutlined,
-  UserOutlined,
-  ShopOutlined,
-  CreditCardOutlined,
-  AppstoreOutlined,
-  TagOutlined,
-  BellOutlined,
-  MessageOutlined,
-  LogoutOutlined,
-  ShoppingOutlined,
-  CustomerServiceOutlined,
-  PictureOutlined,
-} from '@ant-design/icons';
+import DashboardOutlined from '@ant-design/icons/DashboardOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import ShopOutlined from '@ant-design/icons/ShopOutlined';
+import CreditCardOutlined from '@ant-design/icons/CreditCardOutlined';
+import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined';
+import TagOutlined from '@ant-design/icons/TagOutlined';
+import BellOutlined from '@ant-design/icons/BellOutlined';
+import MessageOutlined from '@ant-design/icons/MessageOutlined';
+import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
+import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined';
+import CustomerServiceOutlined from '@ant-design/icons/CustomerServiceOutlined';
+import PictureOutlined from '@ant-design/icons/PictureOutlined';
 import './Homepagecomponent.css';
 import logo from '../assets/images/zodealsLogo.png';
 

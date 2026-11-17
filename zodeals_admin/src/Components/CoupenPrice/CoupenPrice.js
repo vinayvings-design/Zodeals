@@ -3,7 +3,7 @@ import {
   Card, Button, Form, Input, Modal, message,
   Typography, Statistic, Space, Divider
 } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import EditOutlined from '@ant-design/icons/EditOutlined';
 import { hosturl } from '../libs/Constant';
 
 const { Title } = Typography;

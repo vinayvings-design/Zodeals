@@ -11,7 +11,8 @@ import {
   Row,
   Col,
 } from 'antd';
-import { UploadOutlined, SendOutlined } from '@ant-design/icons';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
+import SendOutlined from '@ant-design/icons/SendOutlined';
 import { hosturl } from '../libs/Constant';
 
 const { Title } = Typography;

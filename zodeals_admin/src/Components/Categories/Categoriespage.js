@@ -11,12 +11,10 @@ import {
   message,
   Typography,
 } from 'antd';
-import {
-  EditOutlined,
-  DeleteOutlined,
-  PlusOutlined,
-  UploadOutlined,
-} from '@ant-design/icons';
+import EditOutlined from '@ant-design/icons/EditOutlined';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
+import UploadOutlined from '@ant-design/icons/UploadOutlined';
 import { v4 as uuidv4 } from 'uuid';
 import { hosturl } from '../libs/Constant';
 

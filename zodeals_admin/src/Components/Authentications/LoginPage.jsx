@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Card, Alert } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import EyeTwoTone from '@ant-design/icons/EyeTwoTone';
 import { Link, Navigate } from "react-router-dom";
 import LoginBackground from "../../assets/images/loginbackground.jpg";
 import SigninIcon from "../../assets/images/signinIcon.png";
@@ -36,9 +37,10 @@ const LoginForm = () => {
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      let data = {};
+      try { data = await response.json(); } catch (e) { data = {}; }
 
-      if (response.ok) {
+      if (response.ok && data.result) {
         localStorage.setItem("token", data.result.token);
         localStorage.setItem("role", data.result.role);
         navigate("/dashboard");
@@ -46,7 +48,7 @@ const LoginForm = () => {
         setErrorMessage(data.displayMessage || "Invalid email or password");
       }
     } catch (error) {
-      setErrorMessage("Something went wrong. Please try again.");
+      setErrorMessage("Cannot reach the server right now. Please check your internet connection and try again in a few minutes.");
     }
   };
 
