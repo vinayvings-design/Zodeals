@@ -120,12 +120,28 @@ const CategoriesPage = () => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [couponCounts, setCouponCounts] = useState({});
 
   useEffect(() => {
     fetch(`${hosturl}/category`)
       .then(r => r.json())
       .then(d => {
-        if (d.statusCode === 200 && Array.isArray(d.result)) setCategories(d.result);
+        if (d.statusCode === 200 && Array.isArray(d.result)) {
+          setCategories(d.result);
+          // coupon count for every category, fetched in parallel (same as the home page)
+          Promise.all(
+            d.result.map(cat =>
+              fetch(`${hosturl}/category/coupons/${cat._id}`)
+                .then(r => r.json())
+                .then(res => ({ id: cat._id, count: Array.isArray(res.result) ? res.result.length : 0 }))
+                .catch(() => ({ id: cat._id, count: 0 }))
+            )
+          ).then(results => {
+            const map = {};
+            results.forEach(({ id, count }) => { map[id] = count; });
+            setCouponCounts(map);
+          });
+        }
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -184,6 +200,7 @@ const CategoriesPage = () => {
             >
               {categories.map((cat, idx) => {
                 const IconComp = getIcon(cat.title, idx);
+                const count = couponCounts[cat._id] ?? null;
                 return (
                   <Box
                     key={cat._id}
@@ -202,7 +219,11 @@ const CategoriesPage = () => {
                         transform: 'translateY(-4px)',
                         '& .cat-card': {
                           boxShadow: `0 8px 24px rgba(67,56,202,0.18)`,
-                          borderColor: '#C7D2FE',
+                          borderColor: '#6366F1',
+                        },
+                        '& .coupon-overlay': {
+                          opacity: 1,
+                          transform: 'translateY(0)',
                         },
                       },
                     }}
@@ -223,6 +244,8 @@ const CategoriesPage = () => {
                         boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
                         transition: 'all 0.2s ease',
                         mb: 1,
+                        overflow: 'hidden',
+                        position: 'relative',
                       }}
                     >
                       <CategoryIcon
@@ -233,6 +256,33 @@ const CategoriesPage = () => {
                         color={BRAND}
                         strokeWidth={1.5}
                       />
+
+                      {/* Coupon count overlay (shown on hover) */}
+                      {count !== null && (
+                        <Box
+                          className="coupon-overlay"
+                          sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(135deg, #4338CA, #6366F1)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            opacity: 0,
+                            transform: 'translateY(6px)',
+                            transition: 'opacity 0.22s ease, transform 0.22s ease',
+                            gap: 0.3,
+                          }}
+                        >
+                          <Typography sx={{ fontSize: { xs: 18, sm: 22 }, fontWeight: 800, color: '#fff', fontFamily: 'Inter, sans-serif', lineHeight: 1 }}>
+                            {count}
+                          </Typography>
+                          <Typography sx={{ fontSize: 9.5, fontWeight: 600, color: 'rgba(255,255,255,0.85)', fontFamily: 'Inter, sans-serif', letterSpacing: 0.3, lineHeight: 1 }}>
+                            COUPONS
+                          </Typography>
+                        </Box>
+                      )}
                     </Box>
 
                     {/* Label */}
