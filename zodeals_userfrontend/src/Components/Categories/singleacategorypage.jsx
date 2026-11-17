@@ -56,7 +56,7 @@ const OfferCard = ({
       sx={{
         width: '100%',
         height: '100%',
-        minHeight: 300,
+        minHeight: 340,
         display: 'flex',
         flexDirection: 'column',
         border: '1px solid #E5E7EB',
@@ -66,16 +66,16 @@ const OfferCard = ({
         '&:hover': { boxShadow: '0 8px 24px rgba(0,0,0,0.10)', transform: 'translateY(-2px)' },
       }}
     >
-      <Box sx={{ flexGrow: 1, px: 2.5, pt: 2.5, pb: 1.5, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ flexGrow: 1, px: 3.5, pt: 3, pb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
         {/* Logo */}
-        <Box sx={{ height: 64, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1.5 }}>
+        <Box sx={{ height: 80, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1.5 }}>
           {logo && !logoFailed ? (
             <img
               crossOrigin="anonymous"
               src={`${hosturl}${logo}`}
               alt={brand || 'store'}
               onError={() => setLogoFailed(true)}
-              style={{ maxWidth: '70%', maxHeight: 60, objectFit: 'contain' }}
+              style={{ maxWidth: '65%', maxHeight: 76, objectFit: 'contain' }}
             />
           ) : (
             <Typography sx={{ fontWeight: 800, fontSize: 22, color: '#111827' }}>{brand || 'Store'}</Typography>
@@ -96,7 +96,7 @@ const OfferCard = ({
             <Typography
               sx={{
                 fontWeight: 700,
-                fontSize: 17,
+                fontSize: 19,
                 color: '#111827',
                 lineHeight: 1.3,
                 mb: 1,
@@ -110,7 +110,7 @@ const OfferCard = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: 14.5,
+                fontSize: 16,
                 color: '#374151',
                 lineHeight: 1.45,
                 whiteSpace: 'pre-line',
@@ -128,8 +128,8 @@ const OfferCard = ({
 
       {/* Action button */}
       {!showCommentBox && (
-        <Box sx={{ px: 2.5, pb: 2 }}>
-          <Box sx={{ position: 'relative', height: 48, borderRadius: '4px', overflow: 'hidden', backgroundColor: BTN }}>
+        <Box sx={{ px: 3.5, pb: 2.5 }}>
+          <Box sx={{ position: 'relative', height: 56, borderRadius: '4px', overflow: 'hidden', backgroundColor: BTN }}>
             <Button
               fullWidth
               onClick={onViewDetails}
@@ -137,7 +137,7 @@ const OfferCard = ({
                 height: '100%',
                 color: BTN_TEXT,
                 fontWeight: 700,
-                fontSize: 17,
+                fontSize: 19,
                 letterSpacing: 0.3,
                 textTransform: 'uppercase',
                 borderRadius: 0,
@@ -178,8 +178,8 @@ const OfferCard = ({
       <Box
         sx={{
           borderTop: '1px dashed #E5E7EB',
-          px: 2.5,
-          py: 0.75,
+          px: 3.5,
+          py: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -323,7 +323,7 @@ export default function SingleCategoryPage() {
   return (
     <>
       <Header />
-      <Container style={{ paddingBottom: '100px' }}>
+      <Container maxWidth="xl" style={{ paddingBottom: '100px' }}>
         <Box display="flex" alignItems="center" mb={3}>
           <Typography
             variant="body2"
@@ -375,7 +375,7 @@ export default function SingleCategoryPage() {
             </Typography>
           </Box>
         )}
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
           {coupons.map((coupon, index) => (
             <Grid item xs={12} sm={6} md={4} key={coupon._id || index}>
               {coupon.type === 'Deal' ? (
