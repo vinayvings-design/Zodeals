@@ -5,7 +5,6 @@ import {
   Typography,
   Button,
   IconButton,
-  Grid,
   Container,
   Dialog,
   DialogContent,
@@ -370,9 +369,9 @@ export default function SingleCategoryPage() {
             </Typography>
           </Box>
         )}
-        <Grid container spacing={4}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fill, minmax(350px, 1fr))' }, gap: 4 }}>
           {coupons.map((coupon, index) => (
-            <Grid item xs={12} sm={6} md={4} key={coupon._id || index}>
+            <Box key={coupon._id || index} sx={{ minWidth: 0 }}>
               {coupon.type === 'Deal' ? (
                 <DealCard
                   {...coupon}
@@ -396,9 +395,9 @@ export default function SingleCategoryPage() {
                   viewCount={coupon.viewCount}
                 />
               )}
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
 
         <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="xl" fullWidth>
           <DialogContent>
