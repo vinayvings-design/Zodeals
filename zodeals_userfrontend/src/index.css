@@ -449,7 +449,7 @@ img {
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: 1fr;
   opacity: 0.21;
   pointer-events: none;
@@ -458,7 +458,7 @@ img {
   animation: zdBgIn 0.5s ease both;
 }
 .zd-bg > div { display: flex; align-items: center; justify-content: center; }
-.zd-bg img { width: min(72px, 9vw); height: auto; transform: rotate(-8deg); }
+.zd-bg img { width: min(120px, 11vw); height: auto; transform: rotate(-8deg); }
 @media (max-width: 640px) {
   .zd-bg { grid-template-columns: repeat(5, 1fr); }
   .zd-bg img { width: 11vw; }
