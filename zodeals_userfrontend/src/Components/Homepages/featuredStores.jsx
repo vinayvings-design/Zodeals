@@ -60,9 +60,9 @@ const StoreCard = ({ store, count, isDummy, onClick }) => (
     {/* Logo area */}
     <Box sx={{
       backgroundColor: isDummy ? (store.bg || '#FAFBFD') : '#FAFBFD',
-      p: 2.5,
+      p: isDummy ? 2.5 : 0,
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      minHeight: 110,
+      height: 130, minHeight: 130, overflow: 'hidden',
       borderBottom: '1px solid #F0F2F7',
     }}>
       {isDummy ? (
@@ -72,7 +72,7 @@ const StoreCard = ({ store, count, isDummy, onClick }) => (
           crossOrigin="anonymous"
           src={`${hosturl}${store.logo}`}
           alt={store.name}
-          style={{ height: 46, maxWidth: 100, objectFit: 'contain', display: 'block' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
         />
       )}
     </Box>
