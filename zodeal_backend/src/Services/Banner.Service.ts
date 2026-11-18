@@ -26,6 +26,7 @@ interface BannerFile {
 }
 interface BannerRequest {
   file?: BannerFile;
+  backgroundFile?: BannerFile;
   body: Record<string, any>;
 }
 
@@ -109,10 +110,11 @@ const checkImage = (file?: BannerFile) => {
   }
 };
 
-const saveBannerService = async ({ file, body }: BannerRequest): Promise<IBannerDocument> => {
+const saveBannerService = async ({ file, backgroundFile, body }: BannerRequest): Promise<IBannerDocument> => {
   try {
     if (!file) throw error(badRequest, "You must upload a banner image.");
     checkImage(file);
+    checkImage(backgroundFile);
     const fields = parseBannerFields(body);
     if (!fields.headline) throw error(badRequest, "Headline is required.");
     if ((fields.primaryLabel && !fields.primaryLink) ||
@@ -135,20 +137,23 @@ const saveBannerService = async ({ file, body }: BannerRequest): Promise<IBanner
       headline: fields.headline,
       order,
       image: `/uploads/BannerImages/${file.filename}`,
+      backgroundImage: backgroundFile ? `/uploads/BannerImages/${backgroundFile.filename}` : "",
     });
   } catch (err) {
     await removeUpload(file);
+    await removeUpload(backgroundFile);
     throw err;
   }
 };
 
 const updateBannerService = async (
   id: string | Types.ObjectId,
-  { file, body }: BannerRequest
+  { file, backgroundFile, body }: BannerRequest
 ): Promise<IBannerDocument | null> => {
   try {
     if (!Types.ObjectId.isValid(id as string)) throw error(notFound, "Banner not found.");
     checkImage(file);
+    checkImage(backgroundFile);
     const existing = await getBannerByIdQuery(id);
     if (!existing) throw error(notFound, "Banner not found.");
     const fields = parseBannerFields(body);
@@ -162,12 +167,19 @@ const updateBannerService = async (
     }
     const update: Partial<IBanner> = { ...fields };
     if (file) update.image = `/uploads/BannerImages/${file.filename}`;
+    const removeBackground = toBool(body.removeBackgroundImage);
+    if (backgroundFile) update.backgroundImage = `/uploads/BannerImages/${backgroundFile.filename}`;
+    else if (removeBackground) update.backgroundImage = "";
     const updated = await updateBannerQuery(id, update);
     if (!updated) throw error(notFound, "Unable to update banner.");
     if (file) await deleteFile(existing.image);
+    if (existing.backgroundImage && (backgroundFile || removeBackground)) {
+      await deleteFile(existing.backgroundImage);
+    }
     return updated;
   } catch (err) {
     await removeUpload(file);
+    await removeUpload(backgroundFile);
     throw err;
   }
 };
@@ -179,6 +191,7 @@ const deleteBannerService = async (
   const deleted = await deleteBannerQuery(id);
   if (!deleted) throw error(notFound, "Banner not found.");
   await deleteFile(deleted.image);
+  if (deleted.backgroundImage) await deleteFile(deleted.backgroundImage);
   return deleted;
 };
 

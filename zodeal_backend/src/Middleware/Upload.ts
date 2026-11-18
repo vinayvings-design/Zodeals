@@ -57,4 +57,16 @@ const dynamicUpload = (
   return isMultiple ? upload.array(fieldName) : upload.single(fieldName);
 };
 
-export { dynamicUpload, createStorage };
+// Several named single-file fields in one request (e.g. image + backgroundImage).
+const dynamicUploadFields = (
+  fields: { name: string; maxCount?: number }[],
+  folderName: string
+) => {
+  const upload = multer({
+    limits: { fileSize: 1024 * 1024 * 10 },
+    storage: createStorage(folderName),
+  });
+  return upload.fields(fields.map((f) => ({ name: f.name, maxCount: f.maxCount ?? 1 })));
+};
+
+export { dynamicUpload, dynamicUploadFields, createStorage };

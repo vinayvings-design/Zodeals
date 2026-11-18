@@ -5,6 +5,7 @@ export type BannerTheme = (typeof BANNER_THEMES)[number];
 
 export interface IBanner {
   image: string;
+  backgroundImage: string;
   badge: string;
   headline: string;
   accentText: string;
