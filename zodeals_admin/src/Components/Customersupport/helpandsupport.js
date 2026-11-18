@@ -37,7 +37,13 @@ const ContactDetailsForm = () => {
         });
       }
     } catch (error) {
-      message.error('❌ Failed to fetch contact details');
+      if (error?.response?.status === 404) {
+        // Nothing saved yet (for example on a fresh database): let the admin add the details.
+        setContactId(null);
+        setIsEditable(true);
+      } else {
+        message.error('❌ Failed to fetch contact details');
+      }
     }
   };
 
@@ -50,11 +56,6 @@ const ContactDetailsForm = () => {
   };
 
   const handleSubmit = async (values) => {
-    if (!contactId) {
-      message.error("Contact ID not found.");
-      return;
-    }
-
     const payload = {
       email: values.email,
       primaryNumber: values.phone,
@@ -74,11 +75,18 @@ const ContactDetailsForm = () => {
 
     try {
       setLoading(true);
-      await axios.patch(`${hosturl}/admin/contact-us/${contactId}`, payload, config);
-      message.success('✅ Contact details updated successfully');
+      if (!contactId) {
+        // First time: create the contact details record.
+        const res = await axios.post(`${hosturl}/admin/contact-us`, payload, config);
+        if (res.data?.result?._id) setContactId(res.data.result._id);
+        message.success('✅ Contact details saved');
+      } else {
+        await axios.patch(`${hosturl}/admin/contact-us/${contactId}`, payload, config);
+        message.success('✅ Contact details updated successfully');
+      }
       setIsEditable(false);
     } catch (error) {
-      message.error('❌ Failed to update contact details');
+      message.error(contactId ? '❌ Failed to update contact details' : '❌ Failed to save contact details');
     } finally {
       setLoading(false);
     }
@@ -101,7 +109,7 @@ const ContactDetailsForm = () => {
                 Help & Support
               </Title>
               <Text type="secondary" style={{ fontSize: 16 }}>
-                View and update your contact details here.
+                {contactId ? 'View and update your contact details here.' : 'No contact details saved yet. Fill them in and save.'}
               </Text>
             </Col>
             <Col>
