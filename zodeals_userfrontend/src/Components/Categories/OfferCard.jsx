@@ -45,16 +45,16 @@ const OfferCard = ({
         '&:hover': { boxShadow: '0 8px 24px rgba(0,0,0,0.10)', transform: 'translateY(-2px)' },
       }}
     >
-      <Box sx={{ flexGrow: 1, px: 3.5, pt: 3, pb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ flexGrow: 1, px: 3, pt: 2.5, pb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
         {/* Logo */}
-        <Box sx={{ height: 80, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1.5 }}>
+        <Box sx={{ height: 96, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1.5 }}>
           {logo && !logoFailed ? (
             <img
               crossOrigin="anonymous"
               src={`${hosturl}${logo}`}
               alt={brand || 'store'}
               onError={() => setLogoFailed(true)}
-              style={{ maxWidth: '65%', maxHeight: 76, objectFit: 'contain' }}
+              style={{ height: 92, width: 'auto', maxWidth: '85%', objectFit: 'contain' }}
             />
           ) : (
             <Typography sx={{ fontWeight: 800, fontSize: 22, color: '#111827' }}>{brand || 'Store'}</Typography>
@@ -70,10 +70,10 @@ const OfferCard = ({
             <Typography
               sx={{
                 fontWeight: 500,
-                fontSize: 18,
+                fontSize: 16,
                 color: '#111827',
                 lineHeight: 1.3,
-                mb: 3,
+                mb: 2.5,
                 display: '-webkit-box',
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: 'vertical',
@@ -84,7 +84,7 @@ const OfferCard = ({
             </Typography>
             <Typography
               sx={{
-                fontSize: 16,
+                fontSize: 15,
                 color: '#1F2937',
                 lineHeight: 1.45,
                 whiteSpace: 'pre-line',
@@ -102,8 +102,8 @@ const OfferCard = ({
 
       {/* Action button */}
       {!showCommentBox && (
-        <Box sx={{ px: 3.5, pb: 2.5 }}>
-          <Box sx={{ position: 'relative', height: 56, borderRadius: '4px', overflow: 'hidden', backgroundColor: BTN }}>
+        <Box sx={{ px: 3, pb: 2.5 }}>
+          <Box sx={{ position: 'relative', height: 50, borderRadius: '3px', overflow: 'hidden', backgroundColor: BTN }}>
             <Button
               fullWidth
               onClick={onViewDetails}
@@ -111,7 +111,7 @@ const OfferCard = ({
                 height: '100%',
                 color: BTN_TEXT,
                 fontWeight: 500,
-                fontSize: 18,
+                fontSize: 17,
                 whiteSpace: 'nowrap',
                 letterSpacing: 0.3,
                 textTransform: 'uppercase',
