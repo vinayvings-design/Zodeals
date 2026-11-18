@@ -280,17 +280,11 @@ const VendorCouponsAndDeals = () => {
               }}
             >
               {item.logo ? (
-                <Image
+                <img
                   crossOrigin="anonymous"
                   alt="Coupon Logo"
-                  width={150}
                   src={`${hosturl}${item.logo}`}
-                  style={{
-                    objectFit: 'contain',
-                    maxHeight: '100%',
-                    padding: '16px'
-                  }}
-                  preview={false}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
               ) : (
                 <div style={{
