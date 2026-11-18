@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, FlatList, ImageBackground, TouchableOpacity, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, Text, FlatList, ImageBackground, Image, TouchableOpacity, useWindowDimensions, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { C, F } from '../../theme';
@@ -40,7 +40,7 @@ export default function HeroCarousel() {
 
   useEffect(() => {
     let off = false;
-    getBanners().then((b) => { if (!off) setSlides(b.length ? b.map((x) => ({ ...x, id: x._id, image: { uri: imgUrl(x.image) } })) : BUILT_IN); })
+    getBanners().then((b) => { if (!off) setSlides(b.length ? b.map((x) => ({ ...x, id: x._id, image: { uri: imgUrl(x.image) }, bg: x.backgroundImage ? { uri: imgUrl(x.backgroundImage) } : null })) : BUILT_IN); })
       .catch(() => { if (!off) setSlides(BUILT_IN); });
     return () => { off = true; };
   }, []);
@@ -66,6 +66,30 @@ export default function HeroCarousel() {
         getItemLayout={(_, i) => ({ length: W, offset: STEP * i, index: i })}
         renderItem={({ item }) => {
           const t = THEMES[item.theme] || THEMES.orange;
+          if (item.bg) {
+            // Admin set a background image: it replaces the gradient, light overlay, dark text, photo on the right.
+            return (
+              <ImageBackground source={item.bg} style={[s.slide, { width: W }]} imageStyle={{ borderRadius: 20 }} resizeMode="cover">
+                <LinearGradient colors={['rgba(255,255,255,0.72)', 'rgba(255,255,255,0.88)']} style={[StyleSheet.absoluteFill, { borderRadius: 20 }]} />
+                {item.image?.uri ? <Image source={item.image} style={s.rightImg} resizeMode="contain" /> : null}
+                <View style={s.body}>
+                  {item.badge ? <View style={[s.badge, { backgroundColor: 'rgba(15,27,53,0.08)' }]}><Text style={[s.badgeTxt, { color: C.navy }]}>{item.badge}</Text></View> : null}
+                  <Text style={[s.head, { color: C.navy }]} numberOfLines={3}>{item.headline}</Text>
+                  {item.subtitle ? <Text style={[s.sub, { color: '#374151' }]} numberOfLines={2}>{item.subtitle}</Text> : null}
+                  <View style={{ flexDirection: 'row', gap: 10, marginTop: 14, flexWrap: 'wrap' }}>
+                    {item.primaryLabel && safe(item.primaryLink) ? (
+                      <TouchableOpacity activeOpacity={0.85} onPress={() => openLink(nav, item.primaryLink)}>
+                        <LinearGradient colors={t.grad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={s.btn}><Text style={s.btnTxt}>{item.primaryLabel}</Text></LinearGradient>
+                      </TouchableOpacity>
+                    ) : null}
+                    {item.secondaryLabel && safe(item.secondaryLink) ? (
+                      <TouchableOpacity activeOpacity={0.85} onPress={() => openLink(nav, item.secondaryLink)} style={[s.btn2, { borderColor: C.navy }]}><Text style={[s.btnTxt, { color: C.navy }]}>{item.secondaryLabel}</Text></TouchableOpacity>
+                    ) : null}
+                  </View>
+                </View>
+              </ImageBackground>
+            );
+          }
           return (
             <ImageBackground source={item.image} style={[s.slide, { width: W }]} imageStyle={{ borderRadius: 20 }} resizeMode="cover">
               <LinearGradient colors={t.overlay} style={[StyleSheet.absoluteFill, { borderRadius: 20 }]} />
@@ -98,6 +122,7 @@ export default function HeroCarousel() {
 const s = StyleSheet.create({
   slide: { height: 270, borderRadius: 20, overflow: 'hidden', justifyContent: 'flex-end' },
   body: { padding: 18 },
+  rightImg: { position: 'absolute', right: 8, top: 8, width: '45%', height: 120 },
   badge: { alignSelf: 'flex-start', backgroundColor: 'rgba(255,255,255,0.18)', borderRadius: 50, paddingHorizontal: 11, paddingVertical: 4, marginBottom: 8 },
   badgeTxt: { color: '#fff', fontFamily: F.semi, fontSize: 11 },
   head: { color: '#fff', fontFamily: F.black, fontSize: 22, lineHeight: 28 },

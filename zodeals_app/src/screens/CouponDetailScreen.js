@@ -6,7 +6,7 @@ import { C, F, shadow } from '../theme';
 import { useApp } from '../context/AppContext';
 import { getCoupon, getFeedback, sendFeedback, getComments, postComment, subscribeStore, getAllCoupons, imgUrl, errMsg } from '../api';
 import { GradButton, OutlineButton, Loader, Field, Banner } from '../components/ui';
-import CouponCard from '../components/CouponCard';
+import OfferCard from '../components/OfferCard';
 
 export default function CouponDetailScreen({ route, navigation }) {
   const base = route.params.coupon;
@@ -126,7 +126,7 @@ export default function CouponDetailScreen({ route, navigation }) {
           <View>
             <Text style={[s.h2, { marginBottom: 10 }]}>Related offers</Text>
             <FlatList data={related} horizontal showsHorizontalScrollIndicator={false} keyExtractor={(i) => i._id} contentContainerStyle={{ gap: 12 }}
-              renderItem={({ item }) => <CouponCard width={158} item={item} onPress={(x) => navigation.push('CouponDetail', { coupon: x })} />} />
+              renderItem={({ item }) => <OfferCard width={290} item={item} onPress={(x) => navigation.push('CouponDetail', { coupon: x })} />} />
           </View>
         ) : null}
       </ScrollView>
