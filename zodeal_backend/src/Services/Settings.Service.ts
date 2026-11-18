@@ -11,10 +11,11 @@ export const setPlanModeService = async (planMode: unknown): Promise<PlanMode> =
   if (typeof planMode !== "string" || !PLAN_MODES.includes(planMode as PlanMode)) {
     throw error(badRequest, 'planMode must be "free" or "paid".');
   }
+  const mode = planMode as PlanMode;
   const doc = await SettingsModel.findOneAndUpdate(
     {},
-    { planMode },
+    { planMode: mode },
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
-  return doc.planMode;
+  return doc?.planMode ?? mode;
 };
