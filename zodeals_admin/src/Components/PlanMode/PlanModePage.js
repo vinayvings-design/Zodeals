@@ -18,11 +18,19 @@ const PlanModePage = () => {
         const res = await fetch(`${hosturl}/admin/plan-mode`, {
           headers: { Authorization: `Bearer ${token()}` },
         });
-        const data = await res.json();
+        let data = null;
+        try { data = await res.json(); } catch (_) { /* not JSON */ }
         if (data?.result?.planMode) setPlanMode(data.result.planMode);
-        else throw new Error('No plan mode in response');
+        else {
+          const why = res.status === 404
+            ? 'the backend does not have the plan-mode route yet (HTTP 404). Redeploy the latest backend.'
+            : res.status === 401 || res.status === 403
+              ? `you are not authorised (HTTP ${res.status}). Log in to admin again.`
+              : `HTTP ${res.status}${data?.displayMessage ? ' - ' + data.displayMessage : ''}`;
+          msgApi.error(`Could not load the current plan mode: ${why}`, 8);
+        }
       } catch (e) {
-        msgApi.error('Could not load the current plan mode');
+        msgApi.error('Could not load the current plan mode: the backend could not be reached.', 8);
       }
     };
     load();
