@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Switch, Typography, Modal, Spin, Tag, message } from 'antd';
+import { Card, Switch, Typography, Modal, Spin, Tag, Button, Alert, message } from 'antd';
 import { hosturl } from '../libs/Constant';
 
 const { Title, Text, Paragraph } = Typography;
@@ -9,11 +9,14 @@ const PlanModePage = () => {
   const [planMode, setPlanMode] = useState(null); // 'free' | 'paid' | null while loading
   const [pending, setPending] = useState(null); // mode waiting for confirmation
   const [saving, setSaving] = useState(false);
+  const [loadError, setLoadError] = useState('');
+  const [reloadKey, setReloadKey] = useState(0);
 
   const token = () => localStorage.getItem('token');
 
   useEffect(() => {
     const load = async () => {
+      setLoadError('');
       try {
         const res = await fetch(`${hosturl}/admin/plan-mode`, {
           headers: { Authorization: `Bearer ${token()}` },
@@ -27,15 +30,15 @@ const PlanModePage = () => {
             : res.status === 401 || res.status === 403
               ? `you are not authorised (HTTP ${res.status}). Log in to admin again.`
               : `HTTP ${res.status}${data?.displayMessage ? ' - ' + data.displayMessage : ''}`;
-          msgApi.error(`Could not load the current plan mode: ${why}`, 8);
+          setLoadError(why);
         }
       } catch (e) {
-        msgApi.error('Could not load the current plan mode: the backend could not be reached.', 8);
+        setLoadError('the backend could not be reached.');
       }
     };
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reloadKey]);
 
   const confirmChange = async () => {
     setSaving(true);
@@ -68,7 +71,15 @@ const PlanModePage = () => {
       </Paragraph>
 
       <Card>
-        {planMode === null ? (
+        {planMode === null && loadError ? (
+          <Alert
+            type="error"
+            showIcon
+            message="Could not load the current plan mode"
+            description={loadError}
+            action={<Button size="small" onClick={() => { setPlanMode(null); setReloadKey((k) => k + 1); }}>Try again</Button>}
+          />
+        ) : planMode === null ? (
           <Spin />
         ) : (
           <>
