@@ -18,10 +18,18 @@ import { findVendorByEmailQuery } from "../Queries/Vendor.Query.js";
 import { AgentQuery } from "../Queries/Agent.Query.js";
 import { VendorModel } from "../Models/Vendor/Vendor.Model.js";
 import { getPlanModeService } from "./Settings.Service.js";
-const razorpayInstance = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID as string,
-  key_secret: process.env.RAZORPAY_KEY_SECRET as string,
-});
+// Created on first use, not at start-up: if the Razorpay keys are missing the server must
+// still boot (e.g. in Free mode no payment is needed); only creating an order will fail.
+let razorpayInstance: Razorpay | null = null;
+const getRazorpay = (): Razorpay => {
+  if (!razorpayInstance) {
+    razorpayInstance = new Razorpay({
+      key_id: process.env.RAZORPAY_KEY_ID as string,
+      key_secret: process.env.RAZORPAY_KEY_SECRET as string,
+    });
+  }
+  return razorpayInstance;
+};
 const createOrderService = async ({ amount }: { amount: number }) => {
   try {
     console.log(amount)
@@ -31,7 +39,7 @@ const createOrderService = async ({ amount }: { amount: number }) => {
       receipt: crypto.randomBytes(10).toString("hex"),
     };
     const order = await new Promise((resolve, reject) => {
-      razorpayInstance.orders.create(options, (error, order) => {
+      getRazorpay().orders.create(options, (error, order) => {
         if (error) {
           return reject(error);
         }
