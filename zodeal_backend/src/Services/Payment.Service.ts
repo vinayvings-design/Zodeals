@@ -17,6 +17,7 @@ import { pinCodeQuery } from "../Queries/Pincode.Query.js";
 import { findVendorByEmailQuery } from "../Queries/Vendor.Query.js";
 import { AgentQuery } from "../Queries/Agent.Query.js";
 import { VendorModel } from "../Models/Vendor/Vendor.Model.js";
+import { getPlanModeService } from "./Settings.Service.js";
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID as string,
   key_secret: process.env.RAZORPAY_KEY_SECRET as string,
@@ -124,12 +125,43 @@ const verifyPaymentCouponService = async (
     userName = vendor?._id;
     let payment;
     if (!razorpay_payment_id) {
+      // In Free mode (set by the admin) publishing needs no payment for any area type,
+      // so the pincodes are worked out here the same way the paid flow does it.
+      const freeMode = (await getPlanModeService()) === "free";
+      let areaPinCodes: any = pinCode;
+      let isPanIndia = false;
+      if (freeMode) {
+        if (tag === "fullCity") {
+          if (!Array.isArray(state) || state.length === 0 || !city) {
+            throw error(badRequest, "please enter state and city.");
+          }
+          areaPinCodes = await pinCodeQuery.getPinCodeByQuery(state[0], city);
+        } else if (tag === "fullState" || tag === "twoState") {
+          if (!Array.isArray(state) || state.length === 0) {
+            throw error(badRequest, "please enter state name.");
+          }
+          const all: string[] = [];
+          for (const s of state) {
+            all.push(...(await pinCodeQuery.getPinCodeByQuery(s)));
+          }
+          areaPinCodes = [...new Set(all)];
+        } else if (tag === "panIndia") {
+          areaPinCodes = [];
+          isPanIndia = true;
+        }
+      }
       if (couponId && Array.isArray(couponId)) {
         for (const coupon of couponId) {
-          await editCouponByIdQuery(coupon, { paid: true, pinCode, agentCode });
+          await editCouponByIdQuery(coupon, {
+            paid: true,
+            pinCode: areaPinCodes,
+            agentCode,
+            ...(isPanIndia ? { isPanIndia: true } : {}),
+          });
         }
       }
       if (
+        freeMode ||
         tag === "single" ||
         tag === "double" ||
         tag === "threeToFour" ||
@@ -144,7 +176,9 @@ const verifyPaymentCouponService = async (
           paymentMethod: "complimentary",
           amount: 0,
           couponId,
-          pinCode,
+          pinCode: areaPinCodes,
+          ...(freeMode && Array.isArray(state) && state.length ? { state } : {}),
+          ...(freeMode && tag === "fullCity" && city ? { city } : {}),
         });
         await VendorModel.findByIdAndUpdate(userName, {
           is_first_time_user: false,

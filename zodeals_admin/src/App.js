@@ -16,6 +16,7 @@ import ProductForm from './Components/Products/CreateProduct';
 import ContactDetailsForm from './Components/Customersupport/helpandsupport';
 import AgentManager from './Components/Agents/agents';
 import AgentList from './Components/Agents/agenttransactions';
+import PlanModePage from './Components/PlanMode/PlanModePage';
 const App = () => {
     return (
         <Routes>
@@ -35,6 +36,7 @@ const App = () => {
                  <Route path='/helpandsupport' element={<ContactDetailsForm/>}/>
                     <Route path='/agents' element={<AgentManager/>}/>
                 <Route path='/agent/transactions' element={<AgentList/>}/>
+                <Route path='/planmode' element={<PlanModePage/>}/>
             </Route>
         </Routes>
     );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { hosturl } from '../libs/Constant';
+import usePlanMode from '../libs/usePlanMode';
 import {
   Button,
   Divider,
@@ -36,6 +37,8 @@ const CheckoutPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { couponData = [], isPaid = false } = location.state || {};
+  const { isFree } = usePlanMode();
+  const minCoupons = isFree ? 1 : 2;
   console.log(couponData, isPaid)
   const [couponList, setCouponList] = useState(couponData || []);
   // Dummy prices; replace with real ones
@@ -156,7 +159,8 @@ const CheckoutPage = () => {
     const freeCoupons = 2;
     chargeableCoupons = Math.max(totalCoupons - freeCoupons, 0);
   }
-  let merchantPrice = baseMerchantPrice * chargeableCoupons;
+  // Free mode: nothing is charged, whatever area is chosen.
+  let merchantPrice = isFree ? 0 : baseMerchantPrice * chargeableCoupons;
   const gst = Math.round(merchantPrice * 0.18);
   const merchantTotal = merchantPrice + gst;
 
@@ -244,8 +248,8 @@ const CheckoutPage = () => {
     });
   };
   const handleRemoveCoupon = (index) => {
-    if (couponList.length <= 2) {
-      message.warning('You must select at least 2 coupons.');
+    if (couponList.length <= minCoupons) {
+      message.warning(`You must select at least ${minCoupons} coupon${minCoupons > 1 ? 's' : ''}.`);
       return;
     }
     const updatedList = [...couponList];
@@ -420,10 +424,12 @@ const CheckoutPage = () => {
           />
         </motion.div>
         <Title level={2} style={{ marginBottom: '16px', color: '#2d3436' }}>
-          Payment Successful!
+          {isFree ? 'Published!' : 'Payment Successful!'}
         </Title>
         <Text type="secondary" style={{ fontSize: '16px', marginBottom: '24px' }}>
-          Your payment of <Text strong>₹{merchantTotal}</Text> has been processed successfully.
+          {isFree
+            ? 'Your coupons and deals are now live.'
+            : <>Your payment of <Text strong>₹{merchantTotal}</Text> has been processed successfully.</>}
         </Text>
         <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ repeat: Infinity, duration: 2 }}>
           <Spin size="large" />
@@ -448,7 +454,7 @@ const CheckoutPage = () => {
 
       <Steps current={1} style={{ marginBottom: '40px' }}>
         <Step title="Cart" icon={<ShoppingCartOutlined />} />
-        <Step title="Payment" icon={<CreditCardOutlined />} />
+        <Step title={isFree ? 'Publish' : 'Payment'} icon={<CreditCardOutlined />} />
         <Step title="Complete" icon={<CheckCircleOutlined />} />
       </Steps>
 
@@ -507,12 +513,12 @@ const CheckoutPage = () => {
                   </div>
 
                   {/* Remove Button */}
-                  <Tooltip title={couponList.length <= 2 ? 'At least 2 coupons required' : 'Remove this coupon'}>
+                  <Tooltip title={couponList.length <= minCoupons ? `At least ${minCoupons} coupon${minCoupons > 1 ? 's' : ''} required` : 'Remove this coupon'}>
                     <Button
                       danger
                       type="text"
                       onClick={() => handleRemoveCoupon(idx)}
-                      disabled={couponList.length <= 2}
+                      disabled={couponList.length <= minCoupons}
                       style={{ marginLeft: 12 }}
                     >
                       Remove
@@ -705,6 +711,8 @@ const CheckoutPage = () => {
             </Form.Item>
 
 
+            {!isFree && (
+              <>
             <Divider />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <Text>Merchant Cost:</Text>
@@ -729,9 +737,11 @@ const CheckoutPage = () => {
               </Text>
 
             </div>
+              </>
+            )}
           </Card>
-          <Card title="Order Total" bordered={false} style={{ marginTop: 10 }}>
-            <div style={{ padding: '1px 0' }}>
+          <Card title={isFree ? 'Publish' : 'Order Total'} bordered={false} style={{ marginTop: 10 }}>
+            {!isFree && (<div style={{ padding: '1px 0' }}>
               <div
                 style={{
                   display: 'flex',
@@ -746,7 +756,7 @@ const CheckoutPage = () => {
                 </Text>
                 <Text strong style={{ fontSize: '20px' }}>₹{merchantTotal}</Text>
               </div>
-            </div>
+            </div>)}
             <Checkbox onChange={(e) => setAgreed(e.target.checked)}>
               I agree to the{" "}
               <a
@@ -776,7 +786,9 @@ const CheckoutPage = () => {
               loading={paymentProcessing}
               style={{ marginTop: 5 }}
             >
-              {merchantPrice === 0
+              {isFree
+                ? (paymentProcessing ? "Publishing..." : "Publish")
+                : merchantPrice === 0
                 ? "Get Complimentary"
                 : paymentProcessing
                   ? "Processing..."
