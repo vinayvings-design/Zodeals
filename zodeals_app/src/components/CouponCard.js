@@ -22,7 +22,7 @@ export default function CouponCard({ item, onPress, width, style }) {
         <TouchableOpacity onPress={() => toggleWishlist(item._id)} style={[s.heart, liked && { borderColor: C.danger }]} hitSlop={8}>
           <Feather name="heart" size={14} color={liked ? C.danger : C.faint} />
         </TouchableOpacity>
-        {item.logo ? <Image source={{ uri: imgUrl(item.logo) }} style={s.logo} resizeMode="contain" /> : <Feather name="tag" size={32} color={C.faint} />}
+        {item.logo ? <Image source={{ uri: imgUrl(item.logo) }} style={s.logo} resizeMode="cover" /> : <Feather name="tag" size={32} color={C.faint} />}
       </View>
       <View style={{ padding: 10, flex: 1 }}>
         <Text style={s.title} numberOfLines={2}>{item.title}</Text>
@@ -42,11 +42,11 @@ export default function CouponCard({ item, onPress, width, style }) {
 
 const s = StyleSheet.create({
   card: { backgroundColor: '#fff', borderRadius: 16, borderWidth: 1.5, borderColor: C.border, overflow: 'hidden', ...shadow },
-  imgArea: { backgroundColor: '#FAFBFD', height: 104, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#F0F2F7' },
+  imgArea: { backgroundColor: '#FAFBFD', overflow: 'hidden', height: 104, alignItems: 'center', justifyContent: 'center', borderBottomWidth: 1, borderBottomColor: '#F0F2F7' },
   badge: { position: 'absolute', top: 8, left: 8, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3, zIndex: 2 },
   badgeTxt: { color: '#fff', fontFamily: F.black, fontSize: 10.5 },
   heart: { position: 'absolute', top: 6, right: 6, zIndex: 2, backgroundColor: '#fff', borderRadius: 10, padding: 6, borderWidth: 1.5, borderColor: 'transparent', ...shadow },
-  logo: { height: 46, width: 100 },
+  logo: { height: '100%', width: '100%' },
   title: { fontFamily: F.bold, fontSize: 12.5, color: C.text, lineHeight: 17, minHeight: 34 },
   views: { fontFamily: F.reg, fontSize: 11, color: C.faint },
   cta: { borderRadius: 10, paddingVertical: 9, alignItems: 'center' },
