@@ -13,6 +13,7 @@ import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined';
 import CustomerServiceOutlined from '@ant-design/icons/CustomerServiceOutlined';
 import PictureOutlined from '@ant-design/icons/PictureOutlined';
+import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import './Homepagecomponent.css';
 import logo from '../assets/images/zodealsLogo.png';
 
@@ -31,6 +32,7 @@ const PATH_KEY_MAP = {
   '/notifications': '9',
   '/testimonial':   '10',
   '/helpandsupport':'11',
+  '/planmode':      '13',
 };
 
 const HomepageComponent = () => {
@@ -70,6 +72,7 @@ const HomepageComponent = () => {
     { key: '9',  icon: <BellOutlined />,             path: '/notifications', label: 'Notifications' },
     { key: '10', icon: <MessageOutlined />,          path: '/testimonial',   label: 'Testimonials' },
     { key: '11', icon: <CustomerServiceOutlined />,  path: '/helpandsupport',label: 'Help & Support' },
+    { key: '13', icon: <SettingOutlined />,          path: '/planmode',      label: 'Plan Mode' },
   ];
 
   return (

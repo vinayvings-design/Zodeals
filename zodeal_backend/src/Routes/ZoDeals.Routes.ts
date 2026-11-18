@@ -87,6 +87,7 @@ import {
   updateProductController,
 } from "../Controllers/Product.Controller.js";
 import { getContactUsController, saveContactUsController, updateContactUsController } from "../Controllers/ContactUs.Controller.js";
+import { getPlanModeController, setPlanModeController } from "../Controllers/Settings.Controller.js";
 import { createOrder, getCouponPaymentHistory, getPaymentHistory, verifyPayment, verifyPaymentCoupon } from "../Controllers/Payment.Controller.js";
 import { PincodeController } from "../Controllers/Pincode.Controller.js";
 import { AgentController } from "../Controllers/Agent.Controller.js";
@@ -273,6 +274,9 @@ router.patch("/admin/contact-us/:id", adminAuth, updateContactUsController);
 router.get("/contact-us", getContactUsController);
 //payment
 router.post("/create-order", vendorAuth, createOrder);
+router.get("/plan-mode", vendorAuth, getPlanModeController);
+router.get("/admin/plan-mode", adminAuth, getPlanModeController);
+router.put("/admin/plan-mode", adminAuth, setPlanModeController);
 router.post("/verify-payment", vendorAuth, verifyPayment);
 router.post("/verify-payment-coupon", vendorAuth, verifyPaymentCoupon);
 router.get("/coupon/payment-history", vendorAuth, getCouponPaymentHistory);

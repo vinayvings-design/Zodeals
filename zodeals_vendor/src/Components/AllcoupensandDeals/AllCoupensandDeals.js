@@ -16,6 +16,8 @@ import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import FilterOutlined from '@ant-design/icons/FilterOutlined';
 import DollarOutlined from '@ant-design/icons/DollarOutlined';
+import SendOutlined from '@ant-design/icons/SendOutlined';
+import usePlanMode from '../libs/usePlanMode';
 import axios from 'axios';
 import { hosturl } from '../libs/Constant';
 import moment from 'moment';
@@ -30,6 +32,7 @@ const { TabPane } = Tabs;
 const VendorCouponsAndDeals = () => {
   const [coupons, setCoupons] = useState([]);
   const [paidCoupons, setPaidCoupons] = useState([]);
+  const { isFree } = usePlanMode();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
@@ -189,6 +192,22 @@ const VendorCouponsAndDeals = () => {
   const handleUploadChange = ({ fileList }) => setFileList(fileList);
 
   const handleProceedToPay = () => {
+    // Free mode: no payment and no minimum, vendors just publish.
+    if (isFree) {
+      if (coupons.length < 1) return;
+      navigate('/checkout', {
+        state: {
+          couponData: coupons.map(coupon => ({
+            id: coupon._id,
+            title: coupon.title,
+            logo: coupon.logo,
+            type: coupon.type,
+          })),
+          isPaid: false,
+        },
+      });
+      return;
+    }
     if (coupons.length < 2) {
       message.warning('You need at least 2 coupons to proceed to payment.');
       return;
@@ -520,12 +539,12 @@ const VendorCouponsAndDeals = () => {
             Add New Coupon
           </Button>
           {coupons.length > 0 && (
-            <Tooltip title="At least 2 coupons are required to proceed">
+            <Tooltip title={isFree ? 'Choose where your coupons show and make them live' : 'At least 2 coupons are required to proceed'}>
               <Button
                 type="default"
                 onClick={handleProceedToPay}
-                icon={<DollarOutlined />}
-                disabled={coupons.length < 2}
+                icon={isFree ? <SendOutlined /> : <DollarOutlined />}
+                disabled={coupons.length < (isFree ? 1 : 2)}
                 style={{
                   borderRadius: '8px',
                   height: '40px',
@@ -533,7 +552,7 @@ const VendorCouponsAndDeals = () => {
                   fontWeight: 500
                 }}
               >
-                Proceed to Pay
+                {isFree ? 'Publish' : 'Proceed to Pay'}
               </Button>
             </Tooltip>
 
