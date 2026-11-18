@@ -1,0 +1,41 @@
+name: Deploy backend to Railway
+
+# Redeploys the backend (zodeal_backend) to Railway whenever backend code on main changes.
+# Needs two GitHub repository secrets:
+#   RAILWAY_TOKEN    - a Railway *project token* (Railway project > Settings > Tokens)
+#   RAILWAY_SERVICE  - the name (or id) of the backend service in that Railway project
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "zodeal_backend/**"
+      - ".github/workflows/deploy-backend-railway.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-backend-railway
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: zodeal_backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: railway up --ci --service "${{ secrets.RAILWAY_SERVICE }}"
