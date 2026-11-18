@@ -24,7 +24,7 @@ import {
   saveCategoryController,
   updateCategoryController,
 } from "../Controllers/Category.Controller.js";
-import { dynamicUpload, createStorage } from "../Middleware/Upload.js";
+import { dynamicUpload, dynamicUploadFields, createStorage } from "../Middleware/Upload.js";
 import {
   deleteBannerController,
   getActiveBannersController,
@@ -153,13 +153,13 @@ router.get("/admin/banners", adminAuth, getAllBannersController);
 router.post(
   "/admin/banner",
   adminAuth,
-  dynamicUpload("image", "BannerImages", false),
+  dynamicUploadFields([{ name: "image" }, { name: "backgroundImage" }], "BannerImages"),
   saveBannerController
 );
 router.patch(
   "/admin/banner/:id",
   adminAuth,
-  dynamicUpload("image", "BannerImages", false),
+  dynamicUploadFields([{ name: "image" }, { name: "backgroundImage" }], "BannerImages"),
   updateBannerController
 );
 router.delete("/admin/banner/:id", adminAuth, deleteBannerController);

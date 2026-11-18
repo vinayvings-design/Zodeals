@@ -49,6 +49,9 @@ const BannersPage = () => {
   const [editing, setEditing] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [bgFile, setBgFile] = useState(null);
+  const [bgPreview, setBgPreview] = useState(null);
+  const [removeBg, setRemoveBg] = useState(false);
   const [form] = Form.useForm();
 
   const fetchBanners = async () => {
@@ -73,6 +76,9 @@ const BannersPage = () => {
     setEditing(null);
     setImageFile(null);
     setImagePreview(null);
+    setBgFile(null);
+    setBgPreview(null);
+    setRemoveBg(false);
     form.resetFields();
   };
 
@@ -82,6 +88,9 @@ const BannersPage = () => {
     setEditing(null);
     setImageFile(null);
     setImagePreview(null);
+    setBgFile(null);
+    setBgPreview(null);
+    setRemoveBg(false);
     setOpen(true);
   };
 
@@ -102,6 +111,9 @@ const BannersPage = () => {
     setEditing(banner);
     setImageFile(null);
     setImagePreview(`${hosturl}${banner.image}`);
+    setBgFile(null);
+    setBgPreview(banner.backgroundImage ? `${hosturl}${banner.backgroundImage}` : null);
+    setRemoveBg(false);
     setOpen(true);
   };
 
@@ -121,6 +133,29 @@ const BannersPage = () => {
     setImageFile(file);
   };
 
+  const handleBgChange = (info) => {
+    const file = info.file;
+    if (!file.type || !['image/jpeg', 'image/png', 'image/webp', 'image/gif'].includes(file.type)) {
+      message.error('Please choose a JPG, PNG, WebP or GIF image');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      message.error('Image must be smaller than 10 MB');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => setBgPreview(reader.result);
+    reader.readAsDataURL(file);
+    setBgFile(file);
+    setRemoveBg(false);
+  };
+
+  const handleRemoveBg = () => {
+    setBgFile(null);
+    setBgPreview(null);
+    setRemoveBg(true);
+  };
+
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
@@ -137,6 +172,8 @@ const BannersPage = () => {
       formData.append('isActive', values.isActive ? 'true' : 'false');
       if (values.order !== undefined && values.order !== null) formData.append('order', values.order);
       if (imageFile) formData.append('image', imageFile);
+      if (bgFile) formData.append('backgroundImage', bgFile);
+      else if (editing && removeBg) formData.append('removeBackgroundImage', 'true');
 
       const url = editing ? `${hosturl}/admin/banner/${editing._id}` : `${hosturl}/admin/banner`;
       const response = await fetch(url, {
@@ -288,6 +325,31 @@ const BannersPage = () => {
                 alt="Preview"
                 style={{ marginTop: 12, width: '100%', maxHeight: 220, objectFit: 'cover', borderRadius: 8, border: '1px solid #f0f0f0' }}
               />
+            )}
+          </Form.Item>
+
+          <Form.Item
+            label="Background image (optional)"
+            extra="Fills the whole slide behind the text, with a light layer on top so the text stays readable. Leave empty to use the colour theme. About 1920 × 700 px. JPG, PNG, WebP or GIF, up to 10 MB."
+          >
+            <Space>
+              <Upload accept="image/png,image/jpeg,image/webp,image/gif" showUploadList={false} beforeUpload={() => false} onChange={handleBgChange}>
+                <Button icon={<UploadOutlined />}>{bgPreview ? 'Replace background' : 'Upload background'}</Button>
+              </Upload>
+              {bgPreview && <Button danger onClick={handleRemoveBg}>Remove background</Button>}
+            </Space>
+            {bgPreview && (
+              <div style={{ marginTop: 12, position: 'relative', borderRadius: 8, overflow: 'hidden', border: '1px solid #f0f0f0' }}>
+                <img
+                  crossOrigin="anonymous"
+                  src={bgPreview}
+                  alt="Background preview"
+                  style={{ display: 'block', width: '100%', maxHeight: 160, objectFit: 'cover' }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.72)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, color: '#0F1B35' }}>
+                  Preview with the light layer
+                </div>
+              </div>
             )}
           </Form.Item>
 

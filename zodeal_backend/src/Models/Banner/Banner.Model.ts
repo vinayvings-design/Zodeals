@@ -4,6 +4,7 @@ import { BANNER_THEMES, IBannerDocument } from "./Banner.Interface.js";
 const bannerSchema = new Schema<IBannerDocument>(
   {
     image: { type: String, required: true },
+    backgroundImage: { type: String, default: "" },
     badge: { type: String, default: "", maxlength: 60 },
     headline: { type: String, required: true, maxlength: 90 },
     accentText: { type: String, default: "", maxlength: 90 },

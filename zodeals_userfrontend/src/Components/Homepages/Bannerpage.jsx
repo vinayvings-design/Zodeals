@@ -175,6 +175,7 @@ const buildSlideFromBanner = (b) => {
     ctaSecondaryBorder: base.ctaSecondaryBorder,
     badges: [],
     bg: base.bg,
+    bgImg: b.backgroundImage ? `${hosturl}${b.backgroundImage}` : null,
     dotGrid: base.dotGrid,
     blob: base.blob,
     heroImg: `${hosturl}${b.image}`,
@@ -222,7 +223,10 @@ const HeroSlide = ({ slide, navigate }) => {
   return (
   <Box sx={{
     position: 'relative', overflow: 'hidden',
-    background: slide.bg,
+    // Admin background image replaces the gradient; a light layer keeps the dark text readable.
+    background: slide.bgImg
+      ? `linear-gradient(rgba(255,255,255,0.72), rgba(255,255,255,0.72)), url("${slide.bgImg}") center / cover no-repeat`
+      : slide.bg,
     borderBottom: '1px solid rgba(0,0,0,0.06)',
   }}>
     {/* Dot grid */}

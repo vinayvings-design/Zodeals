@@ -84,9 +84,18 @@ const handleControllerError = (error: ErrorResponse, res: Response) => {
  *       401:
  *         description: Unauthorized
  */
+type UploadedFile = { filename: string; mimetype: string };
+const filesFrom = (req: Request) => {
+  const files = req.files as unknown as Record<string, UploadedFile[] | undefined> | undefined;
+  return {
+    file: files?.image?.[0],
+    backgroundFile: files?.backgroundImage?.[0],
+  };
+};
+
 const saveBannerController = async (req: Request, res: Response) => {
   try {
-    const result = await saveBannerService({ file: req.file, body: req.body });
+    const result = await saveBannerService({ ...filesFrom(req), body: req.body });
     return handleSuccessResponse(
       { statusCode: created, result },
       res,
@@ -116,7 +125,7 @@ const saveBannerController = async (req: Request, res: Response) => {
 const updateBannerController = async (req: Request, res: Response) => {
   try {
     const result = await updateBannerService(req.params.id, {
-      file: req.file,
+      ...filesFrom(req),
       body: req.body,
     });
     return handleSuccessResponse(
