@@ -7,13 +7,23 @@ import { hosturl } from './Constant';
 const AppLoader = ({ onFinish }) => {
   const [fadeOut, setFadeOut] = useState(false);
   const [images, setImages] = useState([]);
+  const [bgReady, setBgReady] = useState(false); // category images fetched (or gave up)
+  const [minTime, setMinTime] = useState(false); // shown for at least 2s
 
   useEffect(() => {
-    // Start fade-out after 2s, unmount after 2.5s
-    const fade = setTimeout(() => setFadeOut(true), 2000);
-    const done = setTimeout(() => onFinish?.(), 2500);
-    return () => { clearTimeout(fade); clearTimeout(done); };
-  }, [onFinish]);
+    const t = setTimeout(() => setMinTime(true), 2000);
+    // Never wait more than 4.5s for the images: after that the plain loader is shown.
+    const cap = setTimeout(() => setBgReady(true), 4500);
+    return () => { clearTimeout(t); clearTimeout(cap); };
+  }, []);
+
+  useEffect(() => {
+    if (!minTime || !bgReady) return undefined;
+    // Fade out once the minimum time has passed and the background has had its chance to appear.
+    setFadeOut(true);
+    const done = setTimeout(() => onFinish?.(), 500);
+    return () => clearTimeout(done);
+  }, [minTime, bgReady, onFinish]);
 
   useEffect(() => {
     let cancelled = false;
@@ -21,9 +31,15 @@ const AppLoader = ({ onFinish }) => {
       .then((r) => r.json())
       .then((d) => {
         if (cancelled || !Array.isArray(d?.result)) return;
-        setImages(d.result.filter((c) => c.image).map((c) => ({ id: c._id, src: `${hosturl}${c.image}` })));
+        const list = d.result.filter((c) => c.image).map((c) => ({ id: c._id, src: `${hosturl}${c.image}` }));
+        setImages(list);
+        // Give the images a moment to arrive so they are on screen before the loader fades.
+        let left = list.length;
+        if (!left) { setBgReady(true); return; }
+        const one = () => { left -= 1; if (left <= 0 && !cancelled) setBgReady(true); };
+        list.forEach((c) => { const im = new Image(); im.onload = one; im.onerror = one; im.src = c.src; });
       })
-      .catch(() => {});
+      .catch(() => { if (!cancelled) setBgReady(true); });
     return () => { cancelled = true; };
   }, []);
 
