@@ -17,6 +17,8 @@ import { pinCodeQuery } from "../Queries/Pincode.Query.js";
 import { findVendorByEmailQuery } from "../Queries/Vendor.Query.js";
 import { AgentQuery } from "../Queries/Agent.Query.js";
 import { VendorModel } from "../Models/Vendor/Vendor.Model.js";
+import { StoreModel } from "../Models/Store/Store.Model.js";
+import { CouponModel } from "../Models/Coupon/Coupon.Model.js";
 import { getPlanModeService } from "./Settings.Service.js";
 // Created on first use, not at start-up: if the Razorpay keys are missing the server must
 // still boot (e.g. in Free mode no payment is needed); only creating an order will fail.
@@ -30,6 +32,8 @@ const getRazorpay = (): Razorpay => {
   }
   return razorpayInstance;
 };
+// Free allowance for a vendor in Paid mode: up to this many offers can be published without paying.
+export const FREE_PUBLISH_LIMIT = 10;
 const createOrderService = async ({ amount }: { amount: number }) => {
   try {
     console.log(amount)
@@ -136,6 +140,23 @@ const verifyPaymentCouponService = async (
       // In Free mode (set by the admin) publishing needs no payment for any area type,
       // so the pincodes are worked out here the same way the paid flow does it.
       const freeMode = (await getPlanModeService()) === "free";
+      if (!freeMode) {
+        // Paid mode: publishing without payment is only allowed for the first FREE_PUBLISH_LIMIT
+        // offers, and only while the vendor has not published any before (same rule as the vendor site).
+        const ids: any[] = Array.isArray(couponId) ? couponId : [];
+        const stores = await StoreModel.find({ vendorId: userName }).select("_id");
+        const alreadyPublished = await CouponModel.countDocuments({
+          storeId: { $in: stores.map((st) => st._id) },
+          paid: true,
+          _id: { $nin: ids },
+        });
+        if (ids.length > FREE_PUBLISH_LIMIT || alreadyPublished > 0) {
+          throw error(
+            badRequest,
+            `Free publishing is limited to ${FREE_PUBLISH_LIMIT} offers. Please complete payment to publish.`
+          );
+        }
+      }
       let areaPinCodes: any = pinCode;
       let isPanIndia = false;
       if (freeMode) {

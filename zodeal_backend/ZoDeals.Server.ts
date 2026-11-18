@@ -9,10 +9,14 @@ import path from "path";
 import setupSwagger from "./src/Swagger/Swagger.js";
 import { UserModel } from "./src/Models/User/User.Model.js";
 import { deleteAllusersQuery } from "./src/Queries/User.Query.js";
+import { rateLimit } from "./src/Middleware/RateLimit.js";
+import { clearCacheOnWrite } from "./src/Middleware/Cache.js";
 import { PinCodeModel } from "./src/Models/Pincode/Pincode.Model.js";
 const __filename = fileURLToPath(import.meta.url);
 let __dirname = path.dirname(__filename);
 const app = express();
+// Railway sits behind a proxy: trust it so rate limiting sees each visitor's real IP.
+app.set("trust proxy", 1);
 app.use(
   cors({
     origin: "*",
@@ -26,7 +30,11 @@ app.use(express.json());
 const uploadsBaseDir = path.join(process.cwd(), "uploads");
 console.log("Serving static files from:", uploadsBaseDir);
 
-app.use("/uploads", express.static(uploadsBaseDir));
+app.use("/uploads", express.static(uploadsBaseDir, { maxAge: "7d" }));
+// Throttle API traffic per IP (uploads and the health page are excluded), stricter for sign-in.
+app.use(["/login", "/forgot/password"], rateLimit(20));
+app.use(rateLimit(600));
+app.use(clearCacheOnWrite);
 app.get("/", async (req, res) => {
   res.send("Hi, This is zo deals.");
 });

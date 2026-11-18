@@ -1,3 +1,4 @@
+import { paginate } from "../Middleware/Paginate.js";
 import { Request, Response } from "express";
 import {
   created,
@@ -131,7 +132,7 @@ const getCouponsByStoreIdController = async (req: Request, res: Response) => {
     const pinCode = req.query.pinCode;
     const result = await getCouponsByStoreIdService(req.params.storeId, pinCode as string | undefined);
     return handleSuccessResponse(
-      { statusCode: successCode, result },
+      { statusCode: successCode, result: paginate(result as any[], req, res) },
       res,
       "Coupon fetched successfully."
     );
@@ -147,7 +148,7 @@ const getCouponsByCategoryIdController = async (
     const pinCode = req.query.pinCode;
     const result = await getCouponsByCategoryIdService(req.params.categoryId, pinCode as string | undefined);
     return handleSuccessResponse(
-      { statusCode: successCode, result },
+      { statusCode: successCode, result: paginate(result as any[], req, res) },
       res,
       "Coupon fetched successfully."
     );

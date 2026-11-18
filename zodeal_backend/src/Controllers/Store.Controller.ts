@@ -1,3 +1,4 @@
+import { paginate } from "../Middleware/Paginate.js";
 import { Request, Response } from "express";
 declare module "express" {
   export interface Request {
@@ -77,7 +78,7 @@ const getListOfStoresController = async (req: Request, res: Response) => {
     const pinCode = req.query.pinCode as string | undefined;
     const result = await getListOfStoresService(pinCode);
     return handleSuccessResponse(
-      { statusCode: successCode, result },
+      { statusCode: successCode, result: paginate(result as any[], req, res) },
       res,
       "Stores data fetched successfully."
     );

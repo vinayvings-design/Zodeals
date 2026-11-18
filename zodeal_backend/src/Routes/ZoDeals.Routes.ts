@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import multer from "multer";
+import { cacheResponse } from "../Middleware/Cache.js";
 import {
   forgotPasswordController,
   getDataForAdminDashboardController,
@@ -146,9 +147,9 @@ router.patch(
   updateCategoryController
 );
 router.delete("/admin/category/:id", adminAuth, deleteCategoryController);
-router.get("/category", getCategoryController);
+router.get("/category", cacheResponse(60), getCategoryController);
 //hero banners
-router.get("/banners", getActiveBannersController);
+router.get("/banners", cacheResponse(60), getActiveBannersController);
 router.get("/admin/banners", adminAuth, getAllBannersController);
 router.post(
   "/admin/banner",
@@ -193,7 +194,7 @@ router.patch(
   updateProductController
 );
 router.delete("/admin/product/:id", adminAuth, deleteProductController);
-router.get("/products", getAllProductController);
+router.get("/products", cacheResponse(60), getAllProductController);
 router.get("/product/:id", getProductController);
 
 //vendor
@@ -215,7 +216,7 @@ router.patch(
   dynamicUpload("logo", "StoreImages", false),
   updateStoreByVendorController
 );
-router.get("/stores", getListOfStoresController);
+router.get("/stores", cacheResponse(60), getListOfStoresController);
 const storage = createStorage("CouponImages");
 const upload = multer({ storage });
 router.post(
@@ -247,8 +248,8 @@ router.delete(
   userAuth,
   deleteWishlistCouponController
 );
-router.get("/category/coupons/:categoryId", getCouponsByCategoryIdController);
-router.get("/store/coupons/:storeId", getCouponsByStoreIdController);
+router.get("/category/coupons/:categoryId", cacheResponse(30), getCouponsByCategoryIdController);
+router.get("/store/coupons/:storeId", cacheResponse(30), getCouponsByStoreIdController);
 router.post("/coupons/working", userAuth, saveCouponWorkingController);
 router.get("/coupons/working/:couponId", getCouponWorkingByCouponIdController);
 router.post("/coupon/comment", userAuth, saveCouponCommentController);

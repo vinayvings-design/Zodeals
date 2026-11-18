@@ -29,6 +29,9 @@ const { Option } = Select;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
 
+// Offers a vendor can publish for free in Paid mode (the server enforces the same number).
+const FREE_PUBLISH_LIMIT = 10;
+
 const VendorCouponsAndDeals = () => {
   const [coupons, setCoupons] = useState([]);
   const [paidCoupons, setPaidCoupons] = useState([]);
@@ -219,7 +222,7 @@ const VendorCouponsAndDeals = () => {
       logo: coupon.logo,
       type: coupon.type,
     }));
-    const hasMinimumUnpaidCoupons = coupons.length > 2;
+    const hasMinimumUnpaidCoupons = coupons.length > FREE_PUBLISH_LIMIT; // more than the free allowance: payment required
     const hasAlreadyPaid = paidCoupons.length > 0;
     const isPaid = hasMinimumUnpaidCoupons || hasAlreadyPaid;
     console.log(coupons.length, paidCoupons.length, isPaid)
