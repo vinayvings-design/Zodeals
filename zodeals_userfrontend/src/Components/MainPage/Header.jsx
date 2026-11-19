@@ -12,6 +12,7 @@ import {
   Tag, Smartphone, ChevronRight, LayoutGrid,
 } from 'lucide-react';
 import Logo from '../../assets/images/zodealsLogo.png';
+import LogoTight from '../../assets/images/zodealsLogoTight.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { hosturl } from '../libs/Constant';
 import SearchResults from '../Serachresults/searchResult';
@@ -463,7 +464,9 @@ export default function Header({ showTabs = true }) {
             background: 'linear-gradient(135deg, #0F1B35, #1a3060)',
             borderRadius: '0 20px 0 0',
           }}>
-            <img src={Logo} alt="ZoDeals" height={32} style={{ filter: 'brightness(0) invert(1)' }} />
+            <Box sx={{ backgroundColor: '#fff', borderRadius: '12px', px: 1.75, py: 1.1, display: 'flex', alignItems: 'center' }}>
+              <img src={LogoTight} alt="ZoDeals" width={150} style={{ display: 'block', height: 'auto' }} />
+            </Box>
             <IconButton
               onClick={() => setDrawerOpen(false)}
               size="small"
