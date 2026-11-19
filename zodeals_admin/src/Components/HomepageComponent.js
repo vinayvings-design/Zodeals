@@ -16,6 +16,7 @@ import PictureOutlined from '@ant-design/icons/PictureOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import './Homepagecomponent.css';
 import logo from '../assets/images/zodealsLogo.png';
+import logoMark from '../assets/images/zodealsMark.png';
 
 const { Header, Sider, Content } = Layout;
 
@@ -92,17 +93,17 @@ const HomepageComponent = () => {
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               backgroundColor: '#fff', borderRadius: 12,
-              padding: collapsed ? '4px 2px' : '4px 10px',
+              padding: collapsed ? '6px' : '10px 14px',
               boxShadow: '0 2px 10px rgba(0,0,0,0.18)',
               transition: 'all 0.25s',
             }}>
               <img
-                src={logo}
-                width={collapsed ? 36 : 140}
-                height={42}
-                alt="Zodeals"
-                style={{ cursor: 'pointer', objectFit: 'contain', display: 'block', transition: 'width 0.25s' }}
-              />
+              src={collapsed ? logoMark : logo}
+              width={collapsed ? 34 : 176}
+              height={collapsed ? 34 : 34}
+              alt="Zodeals"
+              style={{ cursor: 'pointer', objectFit: 'contain', display: 'block' }}
+            />
             </div>
           </Link>
         </div>
