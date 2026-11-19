@@ -22,7 +22,7 @@ export default function CouponCard({ item, onPress, width, style }) {
         <TouchableOpacity onPress={() => toggleWishlist(item._id)} style={[s.heart, liked && { borderColor: C.danger }]} hitSlop={8}>
           <Feather name="heart" size={14} color={liked ? C.danger : C.faint} />
         </TouchableOpacity>
-        {item.logo ? <Image source={{ uri: imgUrl(item.logo) }} style={s.logo} resizeMode="cover" /> : <Feather name="tag" size={32} color={C.faint} />}
+        {item.logo ? <Image source={{ uri: imgUrl(item.logo) }} style={s.logo} resizeMode="contain" /> : <Feather name="tag" size={32} color={C.faint} />}
       </View>
       <View style={{ padding: 10, flex: 1 }}>
         <Text style={s.title} numberOfLines={2}>{item.title}</Text>

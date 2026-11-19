@@ -6,14 +6,14 @@ import { imgUrl } from '../api';
 export default function StoreTile({ store, onPress, width, count }) {
   return (
     <TouchableOpacity activeOpacity={0.85} onPress={() => onPress(store)} style={[s.tile, width ? { width } : null]}>
-      {store.logo ? <Image source={{ uri: imgUrl(store.logo) }} style={s.logo} resizeMode="cover" /> : <Text style={s.name}>{store.name}</Text>}
+      {store.logo ? <Image source={{ uri: imgUrl(store.logo) }} style={s.logo} resizeMode="contain" /> : <Text style={s.name}>{store.name}</Text>}
       {count != null ? <View style={s.count}><Text style={s.countTxt}>{count} deals</Text></View> : null}
     </TouchableOpacity>
   );
 }
 const s = StyleSheet.create({
   tile: { height: 104, backgroundColor: '#fff', borderRadius: 14, borderWidth: 1.5, borderColor: '#F3F4F6', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', ...shadow },
-  logo: { width: '100%', height: '100%' },
+  logo: { width: '88%', height: '88%' },
   name: { fontFamily: F.bold, fontSize: 13, color: C.text, textAlign: 'center' },
   count: { position: 'absolute', bottom: 5, backgroundColor: C.tint, borderRadius: 8, paddingHorizontal: 6, paddingVertical: 1 },
   countTxt: { fontFamily: F.semi, fontSize: 9.5, color: C.primary },
