@@ -506,13 +506,15 @@ const VendorCouponsAndDeals = () => {
   const filteredPaidCoupons = filterCoupons(paidCoupons);
 
   return (
-    <div style={{ padding: '24px', maxWidth: '1400px', margin: '0 auto' }}>
+    <div style={{ padding: 'clamp(12px, 3vw, 24px)', maxWidth: '1400px', margin: '0 auto' }}>
       <div style={{
         display: 'flex',
+        flexWrap: 'wrap',
+        gap: '12px',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: '24px',
-        padding: '16px 24px',
+        padding: '16px clamp(14px, 4vw, 24px)',
         background: '#fff',
         borderRadius: '12px',
         boxShadow: '0 1px 2px 0 rgba(0,0,0,0.03)'
@@ -521,7 +523,7 @@ const VendorCouponsAndDeals = () => {
           My Coupons & Deals ({coupons.length + paidCoupons.length})
         </Title>
 
-        <div style={{ display: 'flex', gap: '12px' }}>
+        <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
           <Button
             type="primary"
             icon={<PlusOutlined />}
@@ -702,12 +704,12 @@ const VendorCouponsAndDeals = () => {
       >
         <Form form={form} layout="vertical" onFinish={handleEdit}>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item name="title" label="Title" rules={[{ required: true }]}>
                 <Input placeholder="Enter coupon title" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item name="type" label="Type" rules={[{ required: true }]}>
                 <Select placeholder="Select type">
                   <Option value="Coupon">Coupon</Option>
@@ -739,7 +741,7 @@ const VendorCouponsAndDeals = () => {
           </Form.Item>
 
           <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item name="discountType" label="Discount Type" rules={[{ required: true }]}>
                 <Select placeholder="Select discount type">
                   <Option value="Flat">Flat</Option>
@@ -748,7 +750,7 @@ const VendorCouponsAndDeals = () => {
                 </Select>
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item name="discountValue" label="Discount Value" rules={[{ required: true }]}>
                 <Input type="number" placeholder="Enter discount value" />
               </Form.Item>
@@ -756,7 +758,7 @@ const VendorCouponsAndDeals = () => {
           </Row>
 
           <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item name="validFrom" label="Valid From" rules={[{ required: true }]}>
                 <DatePicker
                   style={{ width: '100%' }}
@@ -764,7 +766,7 @@ const VendorCouponsAndDeals = () => {
                 />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} sm={12}>
               <Form.Item name="validTill" label="Valid Till" rules={[{ required: true }]}>
                 <DatePicker
                   style={{ width: '100%' }}

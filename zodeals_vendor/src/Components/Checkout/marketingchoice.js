@@ -24,7 +24,7 @@ const MarketingChoicePage = () => {
       <Text type="secondary">Choose your preferred marketing method</Text>
 
       <Row gutter={16} style={{ marginTop: 30 }} justify="center">
-        <Col span={10}>
+        <Col xs={24} md={10}>
           <Card
             hoverable
             onClick={() => handleSelect('online')}
@@ -43,7 +43,7 @@ const MarketingChoicePage = () => {
             </Space>
           </Card>
         </Col>
-        <Col span={10}>
+        <Col xs={24} md={10}>
           <Card
             hoverable
             onClick={() => handleSelect('offline')}

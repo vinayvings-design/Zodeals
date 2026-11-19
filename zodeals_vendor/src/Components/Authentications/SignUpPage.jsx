@@ -105,7 +105,7 @@ const onFinish = async (values) => {
         >
           <Form name="signup" layout="vertical" onFinish={onFinish}   form={form}>
             <Row gutter={16}>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   label={<label style={{ color: "white" }}>Full Name:</label>}
                   name="fullname"
@@ -115,7 +115,7 @@ const onFinish = async (values) => {
                 </Form.Item>
               </Col>
 
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   label={<label style={{ color: "white" }}>Business Name:</label>}
                   name="businessname"
@@ -127,7 +127,7 @@ const onFinish = async (values) => {
             </Row>
 
             <Row gutter={16}>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   label={<label style={{ color: "white" }}>Email address:</label>}
                   name="email"
@@ -137,7 +137,7 @@ const onFinish = async (values) => {
                 </Form.Item>
               </Col>
 
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   label={<label style={{ color: "white" }}>Phone Number:</label>}
                   name="phonenumber" 

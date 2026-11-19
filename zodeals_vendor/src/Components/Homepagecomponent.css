@@ -150,3 +150,25 @@ body {
   .custom-menu .ant-menu-item a { display: flex; justify-content: center; }
   .sidebar-header { justify-content: center; }
 }
+
+
+/* ─── Phone layout ───────────────────────── */
+.menu-toggle {
+  width: 36px; height: 36px; border-radius: 10px; border: 1px solid #E8ECF4;
+  background: #fff; color: #0F1B35; font-size: 16px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sidebar-backdrop { position: fixed; inset: 0; background: rgba(15,27,53,0.45); z-index: 999; }
+@media (max-width: 768px) {
+  .sidebar.sidebar-mobile { position: fixed !important; left: 0; top: 0; bottom: 0; height: 100vh; z-index: 1000; overflow: auto; }
+  .sidebar.sidebar-mobile.ant-layout-sider-collapsed { flex: 0 0 0 !important; max-width: 0 !important; min-width: 0 !important; width: 0 !important; }
+  .header { padding: 0 14px; }
+  /* Date pickers: stack the two calendars and keep them inside the screen */
+  .ant-picker-dropdown { max-width: calc(100vw - 16px); }
+  .ant-picker-range-wrapper .ant-picker-panels { flex-direction: column; }
+  .ant-picker-range-wrapper .ant-picker-panel-container { max-width: calc(100vw - 16px); overflow-x: auto; }
+  .ant-picker-range { width: 100%; }
+}
+@media (max-width: 576px) {
+  .ant-modal { max-width: calc(100vw - 24px); margin: 12px auto; }
+}

@@ -5,6 +5,7 @@ import DashboardOutlined from '@ant-design/icons/DashboardOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined';
 import WalletOutlined from '@ant-design/icons/WalletOutlined';
+import MenuOutlined from '@ant-design/icons/MenuOutlined';
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import CustomerServiceOutlined from '@ant-design/icons/CustomerServiceOutlined';
 import './Homepagecomponent.css';
@@ -24,7 +25,7 @@ const PATH_KEY_MAP = {
 };
 
 const HomepageComponent = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(window.innerWidth <= 768);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
@@ -68,13 +69,17 @@ const HomepageComponent = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      {/* Phone: the menu is hidden and slides over the page from the header's menu button */}
+      {isMobileView && !collapsed && (
+        <div className="sidebar-backdrop" onClick={() => setCollapsed(true)} />
+      )}
       <Sider
-        className={`sidebar ${collapsed ? 'collapsed' : ''}`}
+        className={`sidebar ${collapsed ? 'collapsed' : ''} ${isMobileView ? 'sidebar-mobile' : ''}`}
         width={240}
-        collapsedWidth={60}
-        collapsible={!isMobileView}
+        collapsedWidth={isMobileView ? 0 : 60}
+        collapsible
+        trigger={isMobileView ? null : undefined}
         collapsed={collapsed}
-        breakpoint="md"
         onCollapse={(c) => setCollapsed(c)}
       >
         {/* Logo */}
@@ -103,7 +108,7 @@ const HomepageComponent = () => {
             className="custom-menu"
           >
             {menuItems.map(({ key, icon, path, label }) => (
-              <Menu.Item key={key} icon={icon}>
+              <Menu.Item key={key} icon={icon} onClick={() => isMobileView && setCollapsed(true)}>
                 <Link to={path}>{!collapsed && label}</Link>
               </Menu.Item>
             ))}
@@ -123,7 +128,17 @@ const HomepageComponent = () => {
         {/* Header */}
         <Header className="header">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+              {isMobileView && (
+                <button
+                  type="button"
+                  aria-label="Open menu"
+                  className="menu-toggle"
+                  onClick={() => setCollapsed(false)}
+                >
+                  <MenuOutlined />
+                </button>
+              )}
               <span style={{
                 fontFamily: 'Inter, sans-serif', fontSize: 15, fontWeight: 700,
                 color: '#0F1B35', letterSpacing: '-0.01em',
