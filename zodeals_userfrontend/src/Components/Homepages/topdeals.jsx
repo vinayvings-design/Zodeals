@@ -202,7 +202,8 @@ const TopDeals = () => {
   const handleOpenDialog = (coupon) => {
     if (useDummy) { window.location.href = '/alldeals'; return; }
     const token = localStorage.getItem('token');
-    if (!token) { setOpenSignInDialog(true); return; }
+    // Pan-India offers can be opened without signing in.
+    if (!token && !coupon?.isPanIndia) { setOpenSignInDialog(true); return; }
     setSelectedCoupon(coupon); setOpenDialog(true);
   };
 

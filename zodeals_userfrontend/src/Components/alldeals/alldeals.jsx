@@ -191,7 +191,7 @@ const TopDeals = () => {
                       variant="contained"
                       onClick={() => {
                         const token = localStorage.getItem('token');
-                        if (!token) {
+                        if (!token && !deal?.isPanIndia) {
                           setOpenSignInDialog(true);
                         } else {
                           handleOpenDialog(deal); // <-- Open dialog with selected deal

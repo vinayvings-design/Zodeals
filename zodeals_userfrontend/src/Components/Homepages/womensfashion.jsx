@@ -183,7 +183,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
                   <Button
                     onClick={() => {
                       const token = localStorage.getItem('token');
-                      if (!token) {
+                      if (!token && !coupon?.isPanIndia) {
                         setOpenSignInDialog(true);
                       } else {
                         handleOpenDialog(coupon);
@@ -212,7 +212,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
                   fullWidth
                   onClick={() => {
                     const token = localStorage.getItem('token');
-                    if (!token) {
+                    if (!token && !coupon?.isPanIndia) {
                       setOpenSignInDialog(true);
                     } else {
                       handleOpenDialog(coupon);

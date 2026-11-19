@@ -185,7 +185,7 @@ const CouponCard = ({
                 <Button
                   onClick={() => {
                     const token = localStorage.getItem('token');
-                    if (!token) {
+                    if (!token && !coupon?.isPanIndia) {
                       setOpenSignInDialog(true);
                     } else {
                       handleOpenDialog(coupon);
@@ -214,7 +214,7 @@ const CouponCard = ({
               fullWidth
               onClick={() => {
                 const token = localStorage.getItem('token');
-                if (!token) {
+                if (!token && !coupon?.isPanIndia) {
                   setOpenSignInDialog(true);
                 } else {
                   handleOpenDialog(coupon);

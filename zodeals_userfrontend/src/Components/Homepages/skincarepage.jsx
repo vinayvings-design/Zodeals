@@ -181,7 +181,7 @@ import { uniqueById } from '../libs/uniqueById';
                   <Button
                     onClick={() => {
                       const token = localStorage.getItem('token');
-                      if (!token) {
+                      if (!token && !coupon?.isPanIndia) {
                         setOpenSignInDialog(true);
                       } else {
                         handleOpenDialog(coupon);
@@ -210,7 +210,7 @@ import { uniqueById } from '../libs/uniqueById';
                   fullWidth
                   onClick={() => {
                     const token = localStorage.getItem('token');
-                    if (!token) {
+                    if (!token && !coupon?.isPanIndia) {
                       setOpenSignInDialog(true);
                     } else {
                       handleOpenDialog(coupon);

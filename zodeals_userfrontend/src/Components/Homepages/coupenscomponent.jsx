@@ -28,7 +28,8 @@ const CouponCard = ({ coupon, wishlist, toggleWishlist, handleOpenDialog, setOpe
 
   const handleReveal = () => {
     const token = localStorage.getItem('token');
-    if (!token) setOpenSignInDialog(true);
+    // Pan-India offers can be opened without signing in.
+    if (!token && !coupon?.isPanIndia) setOpenSignInDialog(true);
     else handleOpenDialog(coupon);
   };
 

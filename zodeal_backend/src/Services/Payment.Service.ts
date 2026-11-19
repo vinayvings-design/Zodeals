@@ -133,6 +133,9 @@ const verifyPaymentCouponService = async (
   }: any
 ) => {
   try {
+    if (!tag) {
+      throw error(badRequest, "Merchant source is required to publish.");
+    }
     const vendor = await findVendorByEmailQuery(userName);
     userName = vendor?._id;
     let payment;

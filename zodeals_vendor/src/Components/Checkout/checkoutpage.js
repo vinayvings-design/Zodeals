@@ -258,6 +258,10 @@ const CheckoutPage = () => {
   };
 
   const handleCompletePayment = async () => {
+    if (!merchantSourceType) {
+      message.error('Please select a merchant source. It is required to publish.');
+      return;
+    }
     if (!validateMerchantSelection()) {
       message.error('Please complete the merchant selection correctly.');
       return;
@@ -536,8 +540,11 @@ const CheckoutPage = () => {
         <Col xs={24} lg={10}>
           <Card title="Merchant Source Selection" style={{ marginBottom: 24 }}>
             <div style={{ marginBottom: 12 }}>
-              <Text strong>Select Merchant Source</Text>
+              <Text strong>
+                Select Merchant Source <span style={{ color: '#ff4d4f' }}>*</span>
+              </Text>
               <Select
+                status={!merchantSourceType ? 'error' : undefined}
                 style={{ width: '100%', marginTop: 8 }}
                 placeholder="Choose source"
                 onChange={(val) => {
@@ -554,6 +561,11 @@ const CheckoutPage = () => {
                   </Option>
                 ))}
               </Select>
+              {!merchantSourceType && (
+                <Text type="danger" style={{ display: 'block', marginTop: 6, fontSize: 12 }}>
+                  Merchant source is required to publish.
+                </Text>
+              )}
             </div>
             {/* State selection when needed */}
             {(merchantSourceType === 'Full state' ||

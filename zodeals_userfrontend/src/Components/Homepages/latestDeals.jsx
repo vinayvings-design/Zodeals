@@ -178,7 +178,8 @@ export default function LatestDeals() {
 
   const handleDealClick = (deal) => {
     const token = localStorage.getItem('token');
-    if (!token) { setOpenSignInDialog(true); return; }
+    // Pan-India offers can be opened without signing in.
+    if (!token && !deal?.isPanIndia) { setOpenSignInDialog(true); return; }
     setSelectedDeal(deal); setOpenCouponDialog(true);
   };
 
