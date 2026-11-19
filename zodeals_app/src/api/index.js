@@ -26,15 +26,17 @@ export async function getDeals({ pinCode, storeId, type } = {}) {
   if (!data?.result) throw new Error(data?.displayMessage || 'Failed to load deals');
   return { matched: arr(data.result.matchedDeals), panIndia: arr(data.result.panIndiaDeals) };
 }
+// The API can list the same offer in both the matched and pan-India lists: keep each once.
+const uniq = (list) => { const seen = new Set(); return list.filter((x) => { const id = x && x._id; if (!id) return true; if (seen.has(id)) return false; seen.add(id); return true; }); };
 export async function getLatestDeals(pinCode) {
   const { data } = await http.get('/home/last/deals', { params: pin(pinCode) ? { pinCode: pin(pinCode) } : {} });
   if (!data?.result) throw new Error(data?.displayMessage || 'Failed to load deals');
-  return [...arr(data.result.matchedDeals), ...arr(data.result.panIndiaDeals)];
+  return uniq([...arr(data.result.matchedDeals), ...arr(data.result.panIndiaDeals)]);
 }
 export async function getHomeCoupons(pinCode) {
   const { data } = await http.get('/home/coupons', { params: pin(pinCode) ? { pinCode: pin(pinCode) } : {} });
   if (!data?.result) throw new Error(data?.displayMessage || 'Failed to load coupons');
-  return [...arr(data.result.matchedCoupons), ...arr(data.result.panIndiaCoupons)];
+  return uniq([...arr(data.result.matchedCoupons), ...arr(data.result.panIndiaCoupons)]);
 }
 export async function getBanners() {
   const { data } = await http.get('/banners', { timeout: 6000 });
