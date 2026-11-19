@@ -287,7 +287,7 @@ const VendorCouponsAndDeals = () => {
                   crossOrigin="anonymous"
                   alt="Coupon Logo"
                   src={`${hosturl}${item.logo}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', padding: 8, boxSizing: 'border-box' }}
                 />
               ) : (
                 <div style={{
