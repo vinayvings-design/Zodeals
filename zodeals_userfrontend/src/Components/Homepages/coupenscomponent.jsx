@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { uniqueById } from '../libs/uniqueById';
 import {
   Box, Typography, Container, CircularProgress,
   Dialog, DialogContent, Chip, IconButton,
@@ -245,7 +246,7 @@ export default function CouponsSection() {
         if (d.statusCode !== 200) throw new Error(d.displayMessage || 'Failed');
         const matched = Array.isArray(d.result?.matchedCoupons) ? d.result.matchedCoupons : [];
         const panIndia = Array.isArray(d.result?.panIndiaCoupons) ? d.result.panIndiaCoupons : [];
-        setCoupons([...matched, ...panIndia]);
+        setCoupons(uniqueById(matched, panIndia));
       } catch (e) { setError(e.message); }
       finally { setLoading(false); }
     };

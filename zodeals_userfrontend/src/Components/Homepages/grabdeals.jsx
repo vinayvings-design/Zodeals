@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { uniqueById } from '../libs/uniqueById';
 import Slider from 'react-slick';
 import {
   Box, Typography, CircularProgress, useTheme, useMediaQuery, Container,
@@ -49,7 +50,7 @@ const DealsCarousel = () => {
         if (d.statusCode !== 200 || !d.result) throw new Error(d.displayMessage || 'Failed');
         const matched = Array.isArray(d.result.matchedDeals) ? d.result.matchedDeals : [];
         const panIndia = Array.isArray(d.result.panIndiaDeals) ? d.result.panIndiaDeals : [];
-        setDeals([...matched, ...panIndia]);
+        setDeals(uniqueById(matched, panIndia));
       } catch (err) { setError(err.message); }
       finally { setLoading(false); }
     };

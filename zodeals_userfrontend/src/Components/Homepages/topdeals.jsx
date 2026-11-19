@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { uniqueById } from '../libs/uniqueById';
 import {
   Box, Typography, Container, CircularProgress,
   Dialog, DialogContent, IconButton,
@@ -166,7 +167,7 @@ const TopDeals = () => {
         if (d.statusCode !== 200) throw new Error(d.displayMessage);
         const m = Array.isArray(d.result?.matchedDeals) ? d.result.matchedDeals : [];
         const p = Array.isArray(d.result?.panIndiaDeals) ? d.result.panIndiaDeals : [];
-        const all = [...m, ...p];
+        const all = uniqueById(m, p);
         if (all.length > 0) { setDeals(all); setUseDummy(false); }
         else { setUseDummy(true); }
       } catch { setUseDummy(true); }

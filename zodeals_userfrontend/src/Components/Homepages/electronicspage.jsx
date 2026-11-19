@@ -1,6 +1,7 @@
   // Mens Fashion.jsx
 
   import React, { useEffect, useState } from "react";
+import { uniqueById } from '../libs/uniqueById';
   import axios from "axios";
   import {
     Box,
@@ -331,7 +332,7 @@
       const matchedCoupons = Array.isArray(data.result.matched) ? data.result.matched : [];
       const panIndiaCoupons = Array.isArray(data.result.panIndia) ? data.result.panIndia : [];
 
-      setCoupons([...matchedCoupons, ...panIndiaCoupons]);
+      setCoupons(uniqueById(matchedCoupons, panIndiaCoupons));
     } catch (err) {
       setError(err.message || "Failed to load coupons");
     } finally {
