@@ -478,7 +478,7 @@ const CheckoutPage = () => {
                     justifyContent: 'space-between',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', flex: 1, gap: 16 }}>
 
                     {coupon.logo ? (
                       <Image
@@ -487,7 +487,7 @@ const CheckoutPage = () => {
                         alt={coupon.title}
                         width={80}
                         height={80}
-                        style={{ borderRadius: '8px', marginRight: '16px' }}
+                        style={{ borderRadius: '8px', objectFit: 'cover', flexShrink: 0 }}
                         preview={false}
                       />
                     ) : (
@@ -496,7 +496,7 @@ const CheckoutPage = () => {
                           width: 80,
                           height: 80,
                           borderRadius: '8px',
-                          marginRight: '16px',
+                          flexShrink: 0,
                           background: '#f0f0f0',
                           display: 'flex',
                           alignItems: 'center',
